@@ -31,14 +31,15 @@ test('record demo', async () => {
    await page.locator('[id="s_2_1_7_0_Ctrl"]').click();
    await page.locator('[id="1_Quote_Name"]').press('Control+s');
    await page.locator('[id="1_s_2_l_Quote_Number"]').click();
-   await page.pause();
+   //await page.pause();
+   await page.locator('[placeholder="Customer Code"]').click();
    await page.locator('[placeholder="Customer Code"]').fill('0000002810');
    await page.locator('[placeholder="Customer Code"]').press('Control+s');
    await page.locator('[name="s_4_1_18_0"]').click();
    await page.locator('[id="1_Product"]').fill('QC000001');
    await page.locator('[id="1_Product"]').press('Control+s');
    await page.locator('[name="s_3_1_24_0"]').click();
-   await page.pause();
+   //await page.pause();
    
    //Pop up for cash flag validation
    const elementExists =   await page.getByText('If you are using the Cash only Customer code, Customer Receiver is a required fi').isVisible();
