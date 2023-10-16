@@ -249,6 +249,8 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
   await page.locator('[aria-label="見積有効期限"]').press('Alt+Enter');
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
+  await page.getByPlaceholder('見積状況').press('Alt+Enter');
+
   console.log('Quote Approved');
   await page.pause();
 
