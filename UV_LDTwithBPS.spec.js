@@ -123,7 +123,7 @@ test('record demo 1', async () => {
   await page.getByRole('button', { name: 'Pick Account List Applet:Go' }).click();
   
   await page.locator('[id="1_s_1_l_Expected_Delivery_Date"]').click();
-  await page.getByRole('textbox', { name: 'Expected Delivery Date Date Field' }).fill('2023/10/15');
+  await page.getByRole('textbox', { name: 'Expected Delivery Date Date Field' }).fill('2023/10/25');
   await page.locator('#s_1_l_scroll [id="\\31 "]').getByRole('gridcell', { name: 'Calculator Field' }).first().click();
   await page.getByRole('textbox', { name: 'Expected Model Year Calculator Field' }).fill('2022');
   await page.locator('[id="\\31 _s_1_l_MF_Sales_Price"]').click();
@@ -546,9 +546,13 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageBB.getByLabel('UV Body Building Order List Applet:Query').click();
   await pageBB.getByPlaceholder('<Case Sensitive>').fill(bodyPO);
   await pageBB.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageBB.getByRole('gridcell', { name: 'Other' }).click();
+  await pageBB.pause();
+  // await pageBB.getByRole('gridcell', { name: 'Other' }).nth(0).click();
+  await pageBB.locator('[name="Body_Building_Type"]').click();
+  // await pageBB.locator('[aria-roledescription="PO#"]').click();
+  await pageBB.locator('[name="Order Number"]').nth(0).click();
   // await page.getByRole('link', { name: 'F000012446' }).click();
-  await pageBB.locator('[name="Order Number"]').click();
+  // await pageBB.locator('[name="Order Number"]').click();
   await pageBB.locator('[id="\\31 _s_1_l_Body_Building_Name_PO_"]').click();
   await pageBB.getByLabel('AdditionalBody', { exact: true }).fill('ABCD');
   await pageBB.getByLabel('Body Building Order Form Applet:Generate Approvals').click();
@@ -598,6 +602,37 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
 
   //Body PO End===================================================================
+
+  //Parts PO==============
+  await page.getByLabel('Purchase Order List Applet:Query').click();
+  await page.getByRole('gridcell', { name: 'Combobox Field' }).nth(1).click();
+  await page.getByPlaceholder('<Case Sensitive>').fill('Parts Internal Order');
+  await page.getByPlaceholder('<Case Sensitive>').press('Enter');
+  var partsPO = await page.locator('[name="Order Number"]').textContent();
+  await page.locator('[aria-roledescription="Purchase Order #"]'),click();
+  await page.locator('[name="Order Number"]').click();
+  await page.locator('[data-display="Shipment Request"]').click();
+  await pageBB.bringToFront();
+  await pageQuote.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView');
+  await pageQuote.getByLabel('Orders List Applet:Query').click();
+  await pageQuote.getByRole('textbox', { name: 'Order # Link' }).fill('M000012662');
+  await pageQuote.getByRole('textbox', { name: 'Order # Link' }).press('Enter');
+  await pageQuote.getByText('Pending').click();
+  // await pageQuote.getByRole('link', { name: 'M000012662' }).click();
+  await pageQuote.locator('[aria-roledescription="Order #"]').click();
+  await pageQuote.locator('[name="Order Number"]').click();
+  await pageQuote.getByLabel('Line Items List Applet:Recalculate').click();
+  await pageQuote.getByLabel('Line Items List Applet:Fulfill All').click();
+  await pageQuote.locator('#ui-id-243').click();
+  await pageQuote.getByLabel('Shipments List Applet:Shipped').click();
+  await pageQuote.getByPlaceholder('Status', { exact: true }).click();
+  // await pageQuote.getByPlaceholder('Status', { exact: true }).press('Alt+l');
+  await pageQuote.getByPlaceholder('Status', { exact: true }).press('Alt+Enter');
+
+  await page.bringToFront();
+  await page.reload('domcontentloaded');
+
+  //=======================Parts PO end
 
     await page.getByLabel('Sales Order Form Applet:Auto Invoice').click();
     // await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Invoice+Line+Item+Details+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=FS+Invoice+Entry+Applet+w/Total+(new)&SWERowId0=1-1G4J6L&SWEApplet1=FS+Invoice+Line+Items+List+Applet&SWERowId1=1-1G4J6O');
