@@ -3,6 +3,8 @@ import { Console } from 'console';
 const { chromium } = require('@playwright/test');
 const fs = require('fs');
 
+//initializing the tests
+
 test('record demo 1', async () => {
   test.setTimeout(120000000);
 
