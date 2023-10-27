@@ -21,8 +21,10 @@ test('record demo 1', async () => {
     //console.log(generateString(4));
 
     const context = await browser.newContext();
-    const page = await context.newPage();
+    const context1 = await browser.newContext();
 
+    const page = await context.newPage();
+    const pageApp1 = await context1.newPage();
 
 
 
@@ -34,6 +36,18 @@ test('record demo 1', async () => {
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByLabel('Password').fill('Snakamura@1');
     await page.getByRole('button', { name: 'Log on' }).click();
+
+
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+
+    await pageApp1.getByLabel('User ID').click( );
+    await pageApp1.getByLabel('User ID').fill('D8FDFO22');
+    await pageApp1.getByRole('button', { name: 'Next' }).click();
+    await pageApp1.getByLabel('Password').fill('Snakamura@1');
+    await pageApp1.getByRole('button', { name: 'Log on' }).click();
+
+
+    await page.bringToFront();
     await page.getByRole('link', { name: '取引先' }).click();
     await page.getByRole('button', { name: '取引先 リストアプレット:新規' }).click();
 
@@ -90,6 +104,20 @@ test('record demo 1', async () => {
     await page.getByRole('button', { name: 'サービスリクエスト リストアプレット:承認依頼' }).click();
     await page.reload();
     await page.waitForTimeout(3000);
+
+    await pageApp1.bringToFront();
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp1.waitForLoadState('domcontentloaded');
+    await pageApp1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+    await pageApp1.getByRole('gridcell', { name: 'リンク' }).click();
+    await pageApp1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
+    await pageApp1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+    //await pageApp1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+    await pageApp1.locator('[id="1_s_1_l_Action"]').click();
+    await pageApp1.locator('[id="1_Action"]').fill('承認');
+    await pageApp1.locator('[id="1_Action"]').press('Control+s');
+    await pageApp1.waitForLoadState('networkidle');
+    await pageApp1.waitForTimeout(5000);
     await page.close();
 
 
