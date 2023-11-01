@@ -46,7 +46,7 @@ test('record demo 1', async () => {
 
     //login process starting
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-    await page.pause();
+    // await page.pause();
     await page.getByLabel('User ID').click();
     await page.getByLabel('User ID').fill('D8FOFD22');
     await page.getByRole('button', { name: 'Next' }).click();
@@ -60,21 +60,21 @@ test('record demo 1', async () => {
     await pageappvr.getByRole('button', { name: 'Next' }).click();
     await pageappvr.getByLabel('Password').fill('Snakamura@1');
     await pageappvr.getByRole('button', { name: 'Log on' }).click();
-    await pageappvr.pause();
+    // await pageappvr.pause();
 
     //login process starting
     await myPage.bringToFront();
     await myPage.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
     // await myPage.pause();
     await myPage.getByLabel('User ID').click();
-    await myPage.getByLabel('User ID').fill('D8FDFO25');
+    await myPage.getByLabel('User ID').fill('D8FDFO22');
     await myPage.getByRole('button', { name: 'Next' }).click();
     await myPage.getByLabel('Password').fill('Snakamura@1');
     await myPage.getByRole('button', { name: 'Log on' }).click();
-    await myPage.pause();
+    // await myPage.pause();
 
     await myPage1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-    await myPage1.pause();
+    // await myPage1.pause();
     await myPage1.getByLabel('User ID').click();
     await myPage1.getByLabel('User ID').fill('D8FFOR19');
     await myPage1.getByRole('button', { name: 'Next' }).click();
@@ -90,7 +90,7 @@ test('record demo 1', async () => {
     await pageQuote.getByRole('button', { name: 'Log on' }).click();
 
     await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-    await pageActivity.pause();
+    // await pageActivity.pause();
     await pageActivity.getByLabel('User ID').click();
     await pageActivity.getByLabel('User ID').fill('D8FDFO24');
     await pageActivity.getByRole('button', { name: 'Next' }).click();
@@ -98,7 +98,7 @@ test('record demo 1', async () => {
     await pageActivity.getByRole('button', { name: 'Log on' }).click();
 
     await pageBB.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-    await pageBB.pause();
+    // await pageBB.pause();
     await pageBB.getByLabel('User ID').click();
     await pageBB.getByLabel('User ID').fill('D8FDPF17');
     await pageBB.getByRole('button', { name: 'Next' }).click();
@@ -122,8 +122,13 @@ test('record demo 1', async () => {
   await page.getByLabel('Starting with').fill('0000001341');
   await page.getByRole('button', { name: 'Pick Account List Applet:Go' }).click();
   
-  await page.locator('[id="1_s_1_l_Expected_Delivery_Date"]').click();
-  await page.getByRole('textbox', { name: 'Expected Delivery Date Date Field' }).fill('2023/10/25');
+  // await page.locator('[id="1_s_1_l_Expected_Delivery_Date"]').click();
+  // await page.getByRole('textbox', { name: 'Expected Delivery Date Date Field' }).fill('2023/10/30');
+  await page.locator('[id="\\31 _s_1_l_Expected_Delivery_Date"]').click();
+  await page.getByRole('textbox', { name: 'Expected Delivery Date Date Field' }).click();
+  await page.locator('#s_1_2_22_0_icon').click();
+  await page.getByRole('button', { name: 'Now' }).click();
+  await page.getByRole('button', { name: 'Done' }).click();
   await page.locator('#s_1_l_scroll [id="\\31 "]').getByRole('gridcell', { name: 'Calculator Field' }).first().click();
   await page.getByRole('textbox', { name: 'Expected Model Year Calculator Field' }).fill('2022');
   await page.locator('[id="\\31 _s_1_l_MF_Sales_Price"]').click();
@@ -146,12 +151,23 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByLabel('Opportunity Form Applet:Create Quote').click();
   await page.locator('[name="Quote Number"]').click();
   
+  // await page.getByRole('cell', { name: 'Expected Order Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
+  // await page.getByLabel('October2023').press('Enter');
+  // await page.getByRole('cell', { name: 'Expected Sales Posting Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
+  // await page.getByLabel('October2023').press('Enter');
+  // await page.getByRole('cell', { name: 'Requested Registration Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
+  // await page.getByLabel('October2023').press('Enter');
+  await page.getByPlaceholder('Expected Order Date').click();
   await page.getByRole('cell', { name: 'Expected Order Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
-  await page.getByLabel('October2023').press('Enter');
+  await page.getByRole('button', { name: 'Now' }).click();
+  await page.getByRole('button', { name: 'Done' }).click();
+  await page.getByPlaceholder('Expected Sales Posting Date').click();
   await page.getByRole('cell', { name: 'Expected Sales Posting Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
-  await page.getByLabel('October2023').press('Enter');
+  await page.getByRole('button', { name: 'Now' }).click();
+  await page.getByRole('button', { name: 'Done' }).click();
   await page.getByRole('cell', { name: 'Requested Registration Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
-  await page.getByLabel('October2023').press('Enter');
+  await page.getByRole('button', { name: 'Now' }).click();
+  await page.getByRole('button', { name: 'Done' }).click();
   await page.getByPlaceholder('Delivery Destination').click();
   await page.getByPlaceholder('Delivery Destination').fill('Osaka');
   await page.getByRole('cell', { name: 'Sales Price Press F2 for Calculator Field' }).getByPlaceholder('Sales Price').click();
@@ -162,7 +178,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByRole('cell', { name: 'Sales Price Press F2 for Calculator Field' }).getByPlaceholder('Sales Price').press('Control+s');
 
   
-  await page.pause();
+  // await page.pause();
   await page.locator('[aria-label="Registration Classification"]').dblclick();
   await page.locator('[aria-label="Registration Classification"]').fill('Registered');
   await page.locator('[aria-label="Usage Type"]').fill('Private');
@@ -171,15 +187,15 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByLabel('Pick Location List Applet:OK').click();
   await page.getByPlaceholder('Registration Location').press('Control+s');
   await page.getByLabel('UV Quotes Form Applet:Generate Approvals').click();
-  await page.pause();
+  // await page.pause();
   
   await page.getByRole('link', { name: 'Approval History' }).click();
   
-    await page.locator('[aria-label="MD Classification"]').click();
-    await page.locator('[aria-label="MD Classification"]').press('Control+Alt+k');
+  await page.getByPlaceholder('MD Classification').click();
+  await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
     var rowid3 = await page.locator('[aria-label="Row #"]').textContent();
   // await page.getByLabel('Row #').press('Control+c');
-  await page.pause();
+  // await page.pause();
 
     //for reject and revise
   await pageappvr.bringToFront();
@@ -196,7 +212,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
   await page.bringToFront();
   await page.reload('domcontentloaded');
-  await page.pause();
+  // await page.pause();
 
   //click on revise
   await page.getByLabel('UV Quotes Form Applet:Revise').click();
@@ -262,7 +278,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.bringToFront();
   await page.reload('domcontentloaded');
   await page.getByLabel('Related Quote List Applet:Update Customer Quote').click();
-  await page.pause();
+  // await page.pause();
   
   // await page.getByRole('link', { name: 'Activities' }).click();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Quote+Activities+View')
@@ -274,7 +290,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByLabel('Job Card Type', { exact: true }).press('Control+s');
   await page.locator('[aria-roledescription="Activity #"]').click();
   var myAct = await page.locator('[name="Activity_UID"]').inputValue();
-  await page.pause();
+  // await page.pause();
   // console.log(myAct);
   await pageActivity.bringToFront();
 
@@ -327,8 +343,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByLabel('UV Quotes Form Applet:Generate Approvals').click();
   await page.getByRole('link', { name: 'Approval History' }).click();
   
-  await page.locator('[aria-label="MD Classification"]').click();
-  await page.locator('[aria-label="MD Classification"]').press('Alt+Control+k');
+  await page.getByPlaceholder('MD Classification').click();
+  await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
   var rowid11=await page.locator('[aria-label="Row #"]').textContent();
     // await page.bringToFront();
   
@@ -347,7 +363,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
+    // await page.pause();
 
     await myPage.bringToFront();
     await myPage.getByRole('link', { name: 'Inbox' }).nth(0).click();
@@ -364,7 +380,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
+    // await page.pause();
     //3rd level appr
     
 
@@ -374,7 +390,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
   await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid11);
   await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr.pause();
+  // await pageappvr.pause();
   await pageappvr.locator('[aria-roledescription="Action"]').click();
   await pageappvr.locator('[name="Action"]').fill('Approved');
   await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
@@ -383,7 +399,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
+    // await page.pause();
 
     //myPage1
     await myPage1.bringToFront();
@@ -401,7 +417,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
+    // await page.pause();
     
 
   //   await page.locator('tr:nth-child(44) > td:nth-child(6)').click();
@@ -449,23 +465,26 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
 
     await page.getByLabel('UV Quotes Form Applet:Create Order').click();
+    // await page.getByRole('cell', { name: 'Last Contract Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
+    // await page.getByLabel('October2023').press('Enter');
     await page.getByRole('cell', { name: 'Last Contract Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
-    await page.getByLabel('October2023').press('Enter');
+    await page.getByRole('button', { name: 'Now' }).click();
+    await page.getByRole('button', { name: 'Done' }).click();
     await page.getByLabel('Sales Flag').check();
     await page.getByLabel('Sales Flag').press('Control+s');
     await page.getByLabel('Sales Order Form Applet:Generate Approvals').click();
     await page.getByRole('link', { name: 'Approval History' }).click();
     await page.getByRole('link', { name: 'Approval History' }).click();
-    await page.pause();
+    // await page.pause();
     
     //1st approver
-    await page.locator('[aria-label="MD Classification"]').click();
-    await page.locator('[aria-label="MD Classification"]').press('Control+Alt+k');
+    await page.getByPlaceholder('MD Classification').click();
+    await page.getByPlaceholder('MD Classification').press('Alt+Control+k'); 
     var rowid5 = await page.locator('[aria-label="Row #"]').textContent();
 
-    await page.pause();
+    // await page.pause();
   await pageappvr.bringToFront();
-  await pageappvr.pause();
+  // await pageappvr.pause();
   await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
   await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
   await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid5);
@@ -478,13 +497,14 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
+    // await page.pause();
 
     //2nd approver
     await page.locator('tr:nth-child(27) > td:nth-child(7)').click();
     await page.getByText('Pending for Approval').click();
     await page.locator('[aria-label="Ownership Change Completed Date"]').click();
-    await page.locator('[aria-label="MD Classification"]').press('Control+Alt+k');
+    await page.getByPlaceholder('MD Classification').click();
+    await page.getByPlaceholder('MD Classification').press('Alt+Control+k'); 
     var rowid6 = await page.locator('[aria-label="Row #"]').textContent();
 
     await myPage.bringToFront();
@@ -502,7 +522,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
+    // await page.pause();
 
     //PO mapping and Invoice
 
@@ -534,12 +554,12 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
 
   //Body PO process
-  await page.pause();
+  // await page.pause();
   await page.getByLabel('Purchase Order List Applet:Query').click();
   await page.getByRole('gridcell', { name: 'Combobox Field' }).nth(1).click();
   await page.getByPlaceholder('<Case Sensitive>').fill('UV Body Building Order');
   await page.getByPlaceholder('<Case Sensitive>').press('Enter');
-  var bodyPO = await page.locator('[name="Order_Number"]').textContent();
+  var bodyPO = await page.locator('[name="Order Number"]').textContent();
   await pageBB.bringToFront();
 
   await pageBB.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Body+Building+Order+View');
@@ -573,10 +593,23 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
   await pageappvr.waitForLoadState('networkidle');
 
+  await pageappvr.getByRole('link', { name: 'Inbox' }).nth(0).click();
+  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
+  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr.pause();
+  
+  await pageappvr.locator('[aria-roledescription="Action"]').click();
+  await pageappvr.locator('[name="Action"]').fill('Approved');
+  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  await pageappvr.waitForLoadState('networkidle');
+
   await pageBB.bringToFront();
   await pageBB.reload('domcontentloaded');
   // await pageappvr.bringToFront();
-  await pageappvr.pause();
+  // await pageappvr.pause();
   await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
   await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
   await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
@@ -590,9 +623,14 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageBB.bringToFront();
   await pageBB.reload('domcontentloaded');
 
+  await pageBB.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+All+Purchase+Order+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+UV+Purchase+Order+List+Applet&SWERowId0=1-1KWDKQ');
+  await pageBB.getByRole('link', { name: 'UV Body Building Order' }).click();
+  // await pageBB.getByPlaceholder('Purchase Order Body Building Order status').click();
+  // await pageBB.getByPlaceholder('Purchase Order Body Building Order status').fill('Acceptance Verification Done');
+
   await pageBB.getByPlaceholder('Purchase Order Body Building Order status').click();
-  await pageBB.locator('#s_2_1_158_0_icon').click();
-  await pageBB.locator('#ui-id-102').click();
+  await pageBB.locator('[name="s_2_1_158_0"]').click();
+  await pageBB.locator('[name="s_2_1_158_0"]').fill('Acceptance Verification Done');
   await pageBB.getByPlaceholder('Purchase Order Body Building Order status').press('Control+s');
   await pageBB.reload('domcontentloaded');
   
@@ -609,13 +647,13 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByPlaceholder('<Case Sensitive>').fill('Parts Internal Order');
   await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   var partsPO = await page.locator('[name="Order Number"]').textContent();
-  await page.locator('[aria-roledescription="Purchase Order #"]'),click();
-  await page.locator('[name="Order Number"]').click();
+  await page.locator('[aria-roledescription="Purchase Order #"]').click();
+  // await page.locator('[name="Order Number"]').click();
   await page.locator('[data-display="Shipment Request"]').click();
   await pageBB.bringToFront();
   await pageQuote.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView');
   await pageQuote.getByLabel('Orders List Applet:Query').click();
-  await pageQuote.getByRole('textbox', { name: 'Order # Link' }).fill('M000012662');
+  await pageQuote.getByRole('textbox', { name: 'Order # Link' }).fill(partsPO);
   await pageQuote.getByRole('textbox', { name: 'Order # Link' }).press('Enter');
   await pageQuote.getByText('Pending').click();
   // await pageQuote.getByRole('link', { name: 'M000012662' }).click();
@@ -623,7 +661,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageQuote.locator('[name="Order Number"]').click();
   await pageQuote.getByLabel('Line Items List Applet:Recalculate').click();
   await pageQuote.getByLabel('Line Items List Applet:Fulfill All').click();
-  await pageQuote.locator('#ui-id-243').click();
+  // await pageQuote.locator('#ui-id-243').click();
   await pageQuote.getByLabel('Shipments List Applet:Shipped').click();
   await pageQuote.getByPlaceholder('Status', { exact: true }).click();
   // await pageQuote.getByPlaceholder('Status', { exact: true }).press('Alt+l');
@@ -636,19 +674,22 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.getByLabel('Sales Order Form Applet:Auto Invoice').click();
     // await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Invoice+Line+Item+Details+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=FS+Invoice+Entry+Applet+w/Total+(new)&SWERowId0=1-1G4J6L&SWEApplet1=FS+Invoice+Line+Items+List+Applet&SWERowId1=1-1G4J6O');
-    await page.locator('[id="\\35 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
-    await page.getByLabel('Amount', { exact: true }).fill('¥01000');
-    await page.getByLabel('Amount', { exact: true }).press('Control+s');
-    await page.locator('[id="\\34 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
-    await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
-    await page.locator('[id="\\33 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
-    await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
-    await page.getByLabel('Details in Line Items').locator('[id="\\32 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
-    await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
-    await page.getByLabel('Details in Line Items').getByRole('gridcell', { name: 'Currency Calculator Field', exact: true }).click();
-    await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
+    // await page.locator('[id="\\35 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
+    // await page.getByLabel('Amount', { exact: true }).fill('¥01000');
+    // await page.getByLabel('Amount', { exact: true }).press('Control+s');
+    // await page.locator('[id="\\34 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
+    // await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
+    // await page.locator('[id="\\33 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
+    // await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
+    // await page.getByLabel('Details in Line Items').locator('[id="\\32 "]').getByRole('gridcell', { name: 'Currency Calculator Field' }).click();
+    // await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
+    // await page.getByLabel('Details in Line Items').getByRole('gridcell', { name: 'Currency Calculator Field', exact: true }).click();
+    // await page.getByRole('textbox', { name: 'Amount Currency Calculator Field' }).fill('¥01000');
+    // await page.getByRole('cell', { name: 'Expense Payment Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
+    // await page.getByLabel('October2023').press('Enter');
     await page.getByRole('cell', { name: 'Expense Payment Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
-    await page.getByLabel('October2023').press('Enter');
+    await page.getByRole('button', { name: 'Now' }).click();
+    await page.getByRole('button', { name: 'Done' }).click();
     // await page.locator('#s_2_1_35_0_icon').click();
     // await page.locator('#ui-id-198').click();
     await page.locator('[aria-label="Expense Payment Method"]').fill('AR Bank Transfer');
@@ -663,7 +704,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.locator('[aria-label="Payment Term Type"]').press('Control+Alt+k');
     var rowid8 = await page.locator('[aria-label="Row #"]').textContent();
      console.log(rowid8);
-    await page.pause();
+    // await page.pause();
     await pageappvr.bringToFront();
     await pageappvr.reload('domcontentloaded');
     
@@ -684,10 +725,10 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.getByRole('link', { name: 'Invoice Details' }).click();
     await page.locator('[aria-label="Order #"]').click();
     var order = await page.locator('[aria-label="Order #"]').inputValue();
-    await page.pause();
+    // await page.pause();
 
     // await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Sales+Order+Line+Items+Detail+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+UV+Sales+Order+Form+Applet&SWERowId0=1-1G4JP6&SWEApplet1=MF+UV+Order+Entry+-+Line+Item+List+Applet+(Sales)&SWERowId1=1-1G4JPH');
-    await goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView');
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView');
     await page.getByLabel('Sales Orders List Applet:Query').click();
     await page.getByPlaceholder('<Case Sensitive>').fill(order);
     await page.getByPlaceholder('<Case Sensitive>').press('Enter');
@@ -737,12 +778,15 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.locator('[data-display="Request"]').click();
     await page.locator('[data-display="Complete"]').click();
     
-    await page.pause();
-    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView');
+    // await page.pause();
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+My+Orders+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+UV+Sales+Order+List+Applet&SWERowId0=1-1KU2YM');
     await page.getByLabel('Sales Orders List Applet:Query').click();
     await page.getByPlaceholder('<Case Sensitive>').fill(order);
     await page.getByPlaceholder('<Case Sensitive>').press('Enter');
     await page.locator('[name="Order Number"]').click();
+    await page.getByRole('link', { name: 'Purchase Order' }).click();
+    await page.getByLabel('Purchase Order List Applet:Map').click();
+    await page.getByLabel('Purchase Orders List Applet:OK').click();
     //delivery
     await page.getByRole('link', { name: 'Delivery Request' }).click();
     await page.getByLabel('Delivery Request List Applet:Create Delivery Request').click();
@@ -750,11 +794,12 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.locator('[name="MF Request Number"]').nth(0).click();
     // await page.locator('#s_1_1_49_0_icon').click();
     // await page.locator('#ui-id-603').click();
-    await page.pause();
+    // await page.pause();
     await page.locator('[aria-label="Status"]').dblclick();
     await page.locator('[aria-label="Status"]').fill('Pending Delivery');
     await page.getByRole('cell', { name: 'Delivery Completed Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
-    await page.getByLabel('October2023').press('Enter');
+    await page.getByRole('button', { name: 'Now' }).click();
+    await page.getByRole('button', { name: 'Done' }).click();
     // await page.locator('#s_1_1_49_0_icon').click();
     // await page.locator('#ui-id-607').click();
     await page.locator('[aria-label="Status"]').dblclick();

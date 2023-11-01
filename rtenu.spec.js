@@ -42,7 +42,7 @@ function generateString(length) {
     // await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(4000);
     await page.waitForLoadState();
-    await page.pause();
+    // await page.pause();
 
     //login for approver *****************
     await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu',{ waitUntil: 'networkidle' });
@@ -53,7 +53,7 @@ function generateString(length) {
     //await pageappvr.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(4000);
     await page.waitForLoadState();
-    await page.pause();
+    // await page.pause();
 
     // Login with Another Approver
 
@@ -65,10 +65,10 @@ function generateString(length) {
     //await pageAppvr.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(4000);
     await page.waitForLoadState();
-    await page.pause();
+    // await page.pause();
 
 
-     await page.pause();
+    //  await page.pause();
     //Assessment Request process starting ************
     await page.getByRole('link', { name: 'Assessment Request' }).click();
     await page.getByRole('button', { name: 'Assessment Request List Applet:New' }).click();
@@ -105,7 +105,12 @@ function generateString(length) {
     // await page.getByLabel('Add Vehicles', { exact: true }).getByLabel('Press F2 for Date Field').click();
   // await page.getByLabel('September2023').press('Enter');
   await page.getByLabel('Add Vehicles', { exact: true }).getByLabel('Press F2 for Date Field').click();
-  await page.getByLabel('October2023').press('Enter');
+  // await page.getByLabel('October2023').press('Enter');
+  await page.getByPlaceholder('First Registration Date').click();
+  await page.getByLabel('Add Vehicles', { exact: true }).getByLabel('Press F2 for Date Field').click();
+  await page.getByRole('button', { name: 'Now' }).click();
+  await page.getByRole('button', { name: 'Done' }).click();
+
   await page.getByRole('row', { name: 'Model Code Required Model Code Press F2 for Selection Field High Floor Specification High Floor Specification ' }).getByLabel('Press F2 for Selection Field').click();
   await page.getByLabel('Pick Product List Applet:OK').click();
   await page.getByLabel('Add Vehicles List Applet:OK').click();
@@ -158,6 +163,28 @@ function generateString(length) {
 
     //approver process start
 
+
+    await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await pageappvr.bringToFront();
+    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+    await pageappvr.locator('[id="1_Name"]').fill(rowid);
+    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+    await pageappvr.locator('[id="1_Action"]').fill('Approved');
+    await pageappvr.locator('[id="1_Action"]').press('Control+s');
+    await pageappvr.waitForLoadState('networkidle');
+
+    await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await pageappvr.bringToFront();
+    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+    await pageappvr.locator('[id="1_Name"]').fill(rowid);
+    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+    await pageappvr.locator('[id="1_Action"]').fill('Approved');
+    await pageappvr.locator('[id="1_Action"]').press('Control+s');
+    await pageappvr.waitForLoadState('networkidle');
 
     await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
     await pageappvr.bringToFront();
@@ -239,6 +266,17 @@ function generateString(length) {
      await pageAppvr.locator('[id="1_Action"]').fill('Approved');
      await pageAppvr.locator('[id="1_Action"]').press('Control+s');
      await pageAppvr.waitForLoadState('networkidle');
+
+     await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+     await pageappvr.bringToFront();
+     await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+     await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+     await pageappvr.locator('[id="1_Name"]').fill(rowid1);
+     await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+     await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+     await pageappvr.locator('[id="1_Action"]').fill('Approved');
+     await pageappvr.locator('[id="1_Action"]').press('Control+s');
+     await pageappvr.waitForLoadState('networkidle');
  
  // End
      
@@ -315,7 +353,7 @@ function generateString(length) {
     await page.getByRole('link', { name: 'Vehicles' }).click();
     // await page.locator('[aria-label="UV Inventory List Applet:Query"]').click();
     await page.getByRole('link', { name: 'UV Inventory' }).click();
-    await page.pause();
+    // await page.pause();
 
   
 
@@ -333,7 +371,7 @@ function generateString(length) {
     await page.getByRole('textbox', { name: 'Direct Resales Suggest Price Calculator Field' }).press('Control+s');
     await page.getByRole('button', { name: 'Temporary Resale Price List Applet:Generate Approvals' }).click();
     await page.getByText('Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1').click();
-  await page.getByRole('region').filter({ hasText: 'Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1Create Temporary Resale ' }).press('Alt+Control+k');
+    await page.getByRole('region').filter({ hasText: 'Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1Create Temporary Resale ' }).press('Alt+Control+k');
     // await page.locator('#\31 _s_3_l_MF_Status').click()
     // await page.locator('[id="1_MF_Dealer_Resale_Price"]').press('Control+Alt+k');
     var rowid4 = await page.locator('[aria-label="Row #"]').textContent();
@@ -381,7 +419,7 @@ function generateString(length) {
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
+    // await page.pause();
     console.log('Assesment Completed With Assesment No. ' + yuv);
     await page.close();
     await pageappvr.close();
