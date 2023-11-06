@@ -33,7 +33,6 @@ await page.waitForLoadState()
     //New Expense Order Created
     await page.locator('[id="s_1_1_22_0_Ctrl"]').click();
     await page.waitForLoadState("domcontentloaded");
-
     //Adding expense order
     await page.locator('[id="1_s_1_l_MF_Internal_Expense_Type"]').click();
 
@@ -130,6 +129,7 @@ await page.waitForLoadState()
 
     //back to 56 and check status should be changed
     await page.bringToFront();
+    await page.reload();
     await page.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Expense)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Branch+List+Applet+(Expense)&SWERowId0="+rowid
     );
@@ -184,12 +184,14 @@ await page.waitForLoadState()
     await page.reload();
 
     //Search for PO
+    await page.reload();
+
     await page.locator('[aria-label="Shipments List Applet:Query"]').click();
 
     //Paste PO Number
     await page.locator('[id="1_s_3_l_MF_Order_Number"]').click();
 
-    const PONumber = JSON.parse(JSON.stringify(require("../../PONUMBER.json")));
+    const PONumber = JSON.parse(JSON.stringify(require("../PONUMBER.json")));
 
     await page.locator('[id="1_MF_Order_Number"]').fill(PONumber.ORD_N);
     await page.locator('[id="s_3_1_6_0_Ctrl"]').click();
@@ -205,7 +207,7 @@ await page.waitForLoadState()
     //Search for Expense Order
     await page.locator('[id="s_1_1_21_0_Ctrl"]').click();
 
-    const ExpNum = JSON.parse(JSON.stringify(require("../../Expense.json")));
+    const ExpNum = JSON.parse(JSON.stringify(require("../Expense.json")));
 
     //Paste Order number
     await page.locator('[id="1_Order_Number"]').fill(ExpNum.Exp_Num);

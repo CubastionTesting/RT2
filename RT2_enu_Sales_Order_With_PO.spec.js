@@ -123,7 +123,6 @@ test("Sales Order with PO", async ({browser}) => {
   
     // //Add Part
     // await page023.locator('input[role="textbox"]').fill("##1111180126");
-    // await page023.pause()
   
     // Press s with modifiers
     await page023.locator('input[role="textbox"]').press("Control+s");
@@ -148,7 +147,6 @@ test("Sales Order with PO", async ({browser}) => {
       .locator('[aria-label="Quote Form Applet:Accepted"]')
       .click();
     await page023.waitForLoadState("load");
-  await page023.pause();
     //Sales order generated
     await page023.waitForLoadState("networkidle");
   
@@ -210,7 +208,7 @@ test("Sales Order with PO", async ({browser}) => {
   
     //Paste PO Number
     await page023.locator('[id="1_s_3_l_MF_Order_Number"]').click();
-    const Purchase = JSON.parse(JSON.stringify(require("../../PurchaseOrderNUMBER.json")));
+    const Purchase = JSON.parse(JSON.stringify(require("../PurchaseOrderNUMBER.json")));
   
     await page023.locator('[id="1_MF_Order_Number"]').fill(Purchase.Purchase_Order);
     await page023.locator('[id="s_3_1_6_0_Ctrl"]').click();
@@ -225,8 +223,7 @@ test("Sales Order with PO", async ({browser}) => {
     //Search for Sales Order
     await page023.locator('[id="s_1_1_21_0_Ctrl"]').click();
   
-    const SalesNum = JSON.parse(JSON.stringify(require("../../Sales.json")));
-    await page023.pause()
+    const SalesNum = JSON.parse(JSON.stringify(require("../Sales.json")));
   
     //Paste Order number 
     await page023.locator('[id="1_Order_Number"]').fill(SalesNum.SORD_N);

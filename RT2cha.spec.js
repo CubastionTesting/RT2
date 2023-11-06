@@ -37,8 +37,6 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
   await page.waitForTimeout(3000);
- // await page.pause();
-
 
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
@@ -65,8 +63,6 @@ test('record demo', async () => {
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
   await page.locator('[name="SR Number"]').nth(0).click();
-  await page.pause();
-  //await page.pause();
   await page.getByPlaceholder('取引先コード').click();
 
   await page.getByPlaceholder('取引先コード').fill('0000002810');
@@ -94,8 +90,6 @@ test('record demo', async () => {
   await page.getByRole('button', { name: 'ピック労働コード リストアプレット:OK' }).click();
 
   await page.getByRole('gridcell', { name: '計算機フィールド' }).first().click();
-  //await page.pause();
-
   await page.locator('[aria-roledescription="数量"]').click();
   await page.locator('[name="Recommended_Quantity"]').fill('1');
 
@@ -103,7 +97,6 @@ test('record demo', async () => {
   await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
   await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
 
-  //await page.pause();
   await page.getByRole('link', { name: 'パーツ' }).click();
   await page.getByRole('button', { name: 'パーツ リストアプレット:新規' }).click();
   await page.locator('[id="1_s_2_l_Product_Name"]').click();
@@ -121,9 +114,6 @@ test('record demo', async () => {
 
   await page.goBack();
   await page.waitForTimeout(3000);
-  
- // await page.pause();
-
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
   await page.locator('[name="Name"]').nth(0).click();
@@ -168,9 +158,6 @@ test('record demo', async () => {
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click();
 
-  //await page.pause();
-
-
 
   //Part Staff Process
   const Part1 = await context1.newPage();
@@ -189,7 +176,6 @@ test('record demo', async () => {
   await Part1.locator('[aria-roledescription="Status"]').click();
   
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
-  //await pa1ge.pause();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
   await Part1.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();

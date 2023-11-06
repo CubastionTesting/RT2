@@ -12,7 +12,6 @@ test("Sales Order without PO", async ({ browser }) => {
     await page023.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?"
     );
-    await page023.pause()
     const Loginuser023 = new FusoLogin(page023);
     await Loginuser023.loginFDP("D8FORF24", "Snakamura@1");
     await page023.waitForLoadState("domcontentloaded");
@@ -164,7 +163,6 @@ test("Sales Order without PO", async ({ browser }) => {
     await page023.waitForLoadState("domcontentloaded");
     await page023.waitForTimeout(3000);
   
-    await page023.pause();
     /// /// ///Order Sheet Print Button
     await page023.locator('[aria-label="Sales Order Form Applet:Order Sheet Print"]').click();
   
@@ -247,6 +245,7 @@ test("Sales Order without PO", async ({ browser }) => {
   
     //Generate approval
     await page023.locator('[aria-label="Order Form Applet:Generate Approvals"]').click();
+    await page023.reload()
   
     //go to  approval
     pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });

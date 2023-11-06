@@ -18,7 +18,6 @@ test('record demo', async () => {
    await page.click('#next-btn');
    await page.locator('[id="password"]').fill('Snakamura@1');
    await page.locator('[id="loginSubmitButton"]').click();
-   await page.pause();
    await page.waitForLoadState();
    await page.waitForTimeout(3000);
    
@@ -52,7 +51,6 @@ test('record demo', async () => {
   await page.getByRole('textbox', { name: 'Hinmoku Code Selection Field' }).press('Control+s');
   await page.getByRole('button', { name: 'LPP Registration Form Applet:Register' }).click();
 
-  await page.pause();
   await page.getByRole('button', { name: 'Local Procurement List Applet:Add Register Product' }).click();
   //await page.getByRole('[aria-label="Pick Product List Applet:OK"]').click();
   await page.getByRole('button', { name: 'Pick Product List Applet:OK' }).click();

@@ -20,7 +20,6 @@ test.describe.serial("Siebel Page Test", () => {
 await page023.waitForTimeout(2000)
     //PO link
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(PO)");
-    await page023.pause()
     //New PO added
     await page023.locator('[aria-label="Purchase Order List Applet:New"]').click();
 
@@ -50,7 +49,6 @@ await page023.waitForTimeout(2000)
 
     //Generate Approval
     await page023.locator('[aria-label="Purchase Order Form Applet:Generate Approval"]').click();
-    await page023.pause()
 
     //Order PO
     await page023.locator('[aria-label="Purchase Order Form Applet:Ordered"]').click();

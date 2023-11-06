@@ -28,7 +28,7 @@ test('record demo', async () => {
   await page.click('#loginSubmitButton');
   await page.waitForLoadState();
   await page.waitForTimeout(3000);
-
+await page.pause()
   const context2 = await browser.newContext();
   const pageApp1 = await context2.newPage();
 
@@ -88,7 +88,6 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
   await page.waitForTimeout(3000);
- // await page.pause();
 
 
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
@@ -124,9 +123,7 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
   await page.locator('[class="drilldown"]').first().click();
-  await page.pause();
   
-  //await page.pause();
   await page.getByPlaceholder('取引先コード').click();
 
   await page.getByPlaceholder('取引先コード').fill('0000002810');
@@ -154,8 +151,6 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
   await page.getByRole('button', { name: 'ピック労働コード リストアプレット:OK' }).click();
 
   await page.getByRole('gridcell', { name: '計算機フィールド' }).first().click();
-  //await page.pause();
-
   await page.locator('[aria-roledescription="数量"]').click();
   await page.locator('[name="Recommended_Quantity"]').fill('1');
 
@@ -163,7 +158,6 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
   await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
   await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
 
-  //await page.pause();
   await page.getByRole('link', { name: 'パーツ' }).click();
   await page.getByRole('button', { name: 'パーツ リストアプレット:新規' }).click();
   await page.locator('[id="1_s_2_l_Product_Name"]').click();
@@ -182,8 +176,6 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
   await page.goBack();
   await page.waitForTimeout(3000);
   
- // await page.pause();
-
 //Quotation process start
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
@@ -195,7 +187,6 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
 
   //await page.getByPlaceholder('見積状況').click();
   //await page.getByPlaceholder('見積状況').press('Ctrl+Alt+k');
-  await page.pause();
   await page.locator('[aria-label="見積有効期限"]').click();
   await page.locator('[aria-label="見積有効期限"]').press('Control+Alt+k');
   var quotid = await page.locator('[aria-label="ロウ番号"]').textContent();
@@ -249,10 +240,10 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
   await page.locator('[aria-label="見積有効期限"]').press('Alt+Enter');
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
+  await page.waitForTimeout(3000)
   await page.getByPlaceholder('見積状況').press('Alt+Enter');
 
   console.log('Quote Approved');
-  await page.pause();
 
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
@@ -279,19 +270,12 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
   await page.locator('#s_2_1_119_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
-  await page.pause();
-
-
 
   await page.locator('#s_2_1_68_0_icon').click();
   await page.getByPlaceholder('工事完了予定日時').press('Control+s');
   await page.locator('[class="drilldown"]').first().click();
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click();
-
-  //await page.pause();
-
-
 
   //Part Staff Process
   const Part1 = await context1.newPage();
@@ -310,7 +294,6 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
   await Part1.locator('[aria-roledescription="Status"]').click();
   
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
-  //await pa1ge.pause();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
   await Part1.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();
@@ -342,8 +325,6 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
-  await page.pause();
-
   await page.getByPlaceholder('JC作成者').click();
   await page.getByPlaceholder('JC作成者').click();
   await page.getByPlaceholder('JC作成者').press('Alt+Control+k'); 
@@ -391,7 +372,6 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
    await pageApp5.locator('[id="1_Action"]').fill('Approved');
    await pageApp5.locator('[id="1_Action"]').press('Control+s');
 
-//   await page.pause();
 //   await page.getByRole('link', { name:"s_3_1_364_0" }).click();
 //   await page.getByRole('button', { name: '整備履歴 リストアプレット:ジョブカードをコピーする' }).click();
 //   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Job+Card+Detail+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Job+Card+Detail+Applet&SWERowId0=1-1I4JKP&SWEApplet1=MF+Job+Card+Work+Orders+List+Applet&SWERowId1=1-1I4JL0');
@@ -413,8 +393,6 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
 //   await page.goBack();
 //   await page.waitForTimeout(3000);
   
-//  // await page.pause();
-
 
 //   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
 //   await page.locator('[name="Name"]').nth(0).click();
@@ -466,8 +444,6 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
 
 //   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click();
 
-//   //await page.pause();
-
 
 
 //   //Part Staff Process
@@ -487,7 +463,6 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
 //   await Part.locator('[aria-roledescription="Status"]').click();
   
 //   await Part.getByRole('button', { name: 'Orders List Applet:Go' }).click();
-//   //await page.pause();
 //   await Part.locator('[name="Order Number"]').click();
 //   await Part.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
 //   await Part.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();
@@ -516,5 +491,4 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
 //   await page.getByPlaceholder('JC状況').fill('引渡完了');
 //   await page.getByPlaceholder('JC状況').press('Control+s');
 //   await page.getByRole('button', { name: 'ジョブカード フォームアプレット:承認依頼' }).click();
-//     await page.pause();
 })

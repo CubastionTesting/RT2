@@ -310,7 +310,6 @@ test.describe.serial("Siebel Page Test", () => {
       
         //drilldown to order number
         await page.locator('[class="drilldown"]').click();
-await page.pause()
       /// ///Making reservation 
           await page.locator('[id="1_s_4_l_MF_Parts_Status"]').first().click();
           await page.locator('[id="1_MF_Parts_Status"]').fill("Reservation Request");
