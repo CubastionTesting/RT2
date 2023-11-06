@@ -779,7 +779,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.locator('[data-display="Complete"]').click();
     
     // await page.pause();
-    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+My+Orders+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+UV+Sales+Order+List+Applet&SWERowId0=1-1KU2YM');
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+My+Orders+List+View&');
     await page.getByLabel('Sales Orders List Applet:Query').click();
     await page.getByPlaceholder('<Case Sensitive>').fill(order);
     await page.getByPlaceholder('<Case Sensitive>').press('Enter');
