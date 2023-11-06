@@ -139,12 +139,4 @@ test('record demo 1', async () => {
     await page.reload('domcontentloaded');
     await page.close();
 
-
-
-
-
-
 })
-
-
-
