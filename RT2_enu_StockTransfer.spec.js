@@ -81,6 +81,8 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     await page027.locator('[id="1_Order_Number"]').press('Tab');
     await page027.locator('[class="drilldown"]').click();
   //open order, fulfill all  
+    //await page027.pause()
+    await page023.waitForTimeout(3000);
     await page027.locator('[id="s_2_1_15_0_Ctrl"]').click();
     //status update
     await page027.locator('[placeholder="Status"]').click();
@@ -89,7 +91,9 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     //shipped
     await page027.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(PO)");
     await page027.locator('[aria-label="Shipments List Applet:Shipped"]').click();
-    await page023.pause();
+    //await page023.pause();
+    await page023.waitForTimeout(3000);
+
     //back to 23 user
 
     /// ///Click Print button
@@ -99,6 +103,11 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     //Receiving
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Stock+Transfer+Shipment+List+View+-+My+Branch+Pending");
     //Search for PO
+    await page023.waitForTimeout(3000);
+    await page023.reload();
+    //await page023.waitForLoadState("domcontentloaded");
+   // await page023.waitForTimeout(3000);
+
     await page023.locator('[aria-label="Shipments List Applet:Query"]').click();
     // Copy PO number
     await page023.locator('[id="1_s_1_l_MF_Order_Number"]').click();
@@ -106,19 +115,23 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     await page023.locator('[id="1_MF_Order_Number"]').press('Enter');
     //Click on receive
     await page023.locator('[aria-label="Shipments List Applet:Receive"]').click();
-
+    await page023.waitForTimeout(3000);
     
     //Return Order
        //search order
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(PO)");
+    await page023.waitForLoadState("domcontentloaded");
     await page023.locator('[aria-label="Purchase Order List Applet:Query"]').click();
     await page023.locator('[aria-labelledby="s_2_l_altLink"]').click();
     await page023.locator('[id="1_Order_Number"]').fill(wnum);
     //open order
     await page023.locator('[aria-label="Purchase Order List Applet:Go"]').click();
     await page023.locator('[id="1_Order_Number"]').press('Tab');
+   // await page023.waitForTimeout(3000);
+    //await page023.pause()
     await page023.locator('[class="drilldown"]').click();
     //Return reason
+    await page023.waitForTimeout(3000);
     await page023.locator('[id="1_s_2_l_MF_Return_Reason"]').click();
     await page023.locator('[id="1_MF_Return_Reason"]').fill("Broken parts");
     //return qty
