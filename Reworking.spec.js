@@ -28,7 +28,7 @@ test('record demo', async () => {
   await page.click('#loginSubmitButton');
   await page.waitForLoadState();
   await page.waitForTimeout(3000);
-await page.pause()
+//await page.pause()
   const context2 = await browser.newContext();
   const pageApp1 = await context2.newPage();
 
