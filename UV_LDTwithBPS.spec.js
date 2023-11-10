@@ -206,8 +206,12 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByRole('link', { name: 'Approval History' }).click();
   
   // await page.getByPlaceholder('MD Classification').click();
-  await page.locator('[aria-label="MD Classification"]').click();
+  await page.waitForTimeout(3000);
+  
+  await page.getByPlaceholder('MD Classification').click();
+  await page.waitForTimeout(3000);
   await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
+  await page.waitForTimeout(3000);
     var rowid3 = await page.locator('[aria-label="Row #"]').textContent();
   // await page.getByLabel('Row #').press('Control+c');
   // await page.pause();
@@ -357,9 +361,13 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
   await page.getByLabel('UV Quotes Form Applet:Generate Approvals').click();
   await page.getByRole('link', { name: 'Approval History' }).click();
+
+  await page.waitForTimeout(3000);
   
   await page.getByPlaceholder('MD Classification').click();
+  await page.waitForTimeout(3000);
   await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
+  await page.waitForTimeout(3000);
   var rowid11=await page.locator('[aria-label="Row #"]').textContent();
     // await page.bringToFront();
   
@@ -498,8 +506,12 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     
     //1st approver
     // await page.getByPlaceholder('MD Classification').click();
-    await page.locator('[aria-label="MD Classification"]').click();
-    await page.getByPlaceholder('MD Classification').press('Alt+Control+k'); 
+    await page.waitForTimeout(3000);
+  
+    await page.getByPlaceholder('MD Classification').click();
+    await page.waitForTimeout(3000);
+    await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
+    await page.waitForTimeout(3000);
     var rowid5 = await page.locator('[aria-label="Row #"]').textContent();
 
     // await page.pause();
@@ -523,8 +535,12 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.locator('tr:nth-child(27) > td:nth-child(7)').click();
     await page.getByText('Pending for Approval').click();
     await page.locator('[aria-label="Ownership Change Completed Date"]').click();
+    await page.waitForTimeout(3000);
+  
     await page.getByPlaceholder('MD Classification').click();
-    await page.getByPlaceholder('MD Classification').press('Alt+Control+k'); 
+    await page.waitForTimeout(3000);
+    await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
+    await page.waitForTimeout(3000);
     var rowid6 = await page.locator('[aria-label="Row #"]').textContent();
 
     await myPage.bringToFront();
@@ -864,8 +880,12 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.getByRole('link', { name: 'Approval History' }).click();
     await page.getByText('Pending for Approval').click();
     // await page.getByPlaceholder('MD Classification').click();
-    await page.locator('[aria-label="MD Classification"]').click();
-    await page.locator('[aria-label="MD Classification"]').press('Control+Alt+k');
+    await page.waitForTimeout(3000);
+  
+    await page.getByPlaceholder('MD Classification').click();
+    await page.waitForTimeout(3000);
+    await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
+    await page.waitForTimeout(3000);
     var rowid10 = await page.locator('[aria-label="Row #"]').textContent();
 
     await pageappvr.bringToFront();
