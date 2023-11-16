@@ -102,7 +102,7 @@ test('record demo 1', async () => {
     await page.locator('#s_2_1_6_0_icon').click();
   await page.getByRole('button', { name: 'Insurance Company Code(10 Digit) List Applet:OK' }).click();
  //   await page.locator('#ui-id-150').click();
-    await page.getByRole('button', { name: 'Insurance Company Code(10 Digit) List Applet:OK' }).click();
+    // await page.getByRole('button', { name: 'Insurance Company Code(10 Digit) List Applet:OK' }).click();
     await page.getByRole('button', { name: 'Insurance PPR Approval Form:Generate Approval' }).click();
     
     //await page.pause();
@@ -139,12 +139,4 @@ test('record demo 1', async () => {
     await page.reload('domcontentloaded');
     await page.close();
 
-
-
-
-
-
 })
-
-
-
