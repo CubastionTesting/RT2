@@ -126,7 +126,6 @@ test('record demo 1', async () => {
     await page.getByRole('combobox', { name: '検索' }).fill('コメント');
     await page.getByRole('button', { name: '添付書類 リストアプレット:添付確定' }).click();
     await page.getByRole('button', { name: '送信' }).click();
-    await page.pause()
 
     await page.getByRole('link', { name: 'サービスリクエスト' }).click();
     await page.getByRole('button', { name: 'サービスリクエスト リストアプレット:承認依頼' }).click();
@@ -155,7 +154,6 @@ test('record demo 1', async () => {
     await pageApp1.waitForTimeout(5000);
 
     await page.reload();
-await pageApp2.pause()
     await pageApp2.bringToFront();
     await pageApp2.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp2.waitForLoadState('domcontentloaded');
@@ -171,7 +169,6 @@ await pageApp2.pause()
     await pageApp2.waitForTimeout(5000);
 
     await page.reload();
-await pageApp3.pause()
     await pageApp3.bringToFront();
     await pageApp3.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp3.waitForLoadState('domcontentloaded');
@@ -187,7 +184,6 @@ await pageApp3.pause()
     await pageApp3.waitForTimeout(5000);
 
     await page.reload();
-    await pageApp4.pause
     await pageApp4.bringToFront();
     await pageApp4.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp4.waitForLoadState('domcontentloaded');
@@ -202,5 +198,6 @@ await pageApp3.pause()
     await pageApp4.waitForLoadState('networkidle');
     await pageApp4.waitForTimeout(5000);
     await page.reload();
+
 
 })
