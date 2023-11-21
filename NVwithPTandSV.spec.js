@@ -138,12 +138,12 @@ test('record demo 1', async () => {
 
 
 
-//   await page.pause();
+//   await page.waitForTimeout(5000);
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Opportunity+List+View');
   await page.getByRole('button', { name: '商談 リストアプレット:新規' }).click();
   // await page.getByRole('row', { name: '商談名 リンク 選択フィールド コンボボックスフィールド 複数選択フィールド 日付フィールド 進行中' }).getByRole('gridcell', { name: '選択フィールド' }).first().click();
 
-  // await page.pause();
+  await page.waitForTimeout(5000);
 
   // await page.locator('[id="\\37 _s_1_l_Account"]').click();
   await page.locator('[aria-roledescription="商談先名"]').nth(0).click();
@@ -182,14 +182,14 @@ test('record demo 1', async () => {
   await page.getByRole('textbox', { name: ' Generic Trailer & Forklift 正価 計算機フィールド' }).press('Control+s');
   //   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').fill('45');
   //   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').click();
-//   await page.pause();
+//   await page.waitForTimeout(5000);
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').fill('45000');
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').press('Control+s');
 
   await page.locator('[aria-label="販売価格"]').fill('45000');
   await page.locator('#s_2_1_96_0_icon').click();
   await page.getByRole('button', { name: '場所を選択 リストアプレット:OK' }).click();
-  // await page.pause();
+  //await page.waitForTimeout(5000);
   await page.getByPlaceholder('販売価格', { exact: true }).click();
   await page.getByPlaceholder('販売価格', { exact: true }).fill('45000');
   await page.getByPlaceholder('販売価格', { exact: true }).press('Control+s');
@@ -221,7 +221,7 @@ test('record demo 1', async () => {
   await page.locator('[id="1_s_1_l_Name"]').click();
   const quotationRequestID = await page.locator('[id="1_Name"]').inputValue();
   console.log('QuotationRequestID : ' + quotationRequestID);
-//   await page.pause();
+//   await page.waitForTimeout(5000);
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Quote+Activities+View');
   await page.waitForTimeout(3000);
   await page.getByRole('button', { name: '活動 リストアプレット:新規' }).click();
@@ -239,7 +239,7 @@ test('record demo 1', async () => {
   console.log('Activity: ' + activityID);
 
   await part.bringToFront();
-  // await part.pause();
+  // await page.waitForTimeout(5000);
   await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+All+FDP+Quotes+View');
   await part.getByRole('button', { name: '見積 リストアプレット:クエリー' }).click();
   await part.getByRole('textbox', { name: '見積番号 リンク' }).click();
@@ -265,7 +265,7 @@ test('record demo 1', async () => {
 
   // await part.getByRole('button', { name: '見積り フォームアプレット:回答' }).click();
 
-  //  await part.pause();
+  //  await page.waitForTimeout(5000);
 
   await page.bringToFront();
   await page.reload();
@@ -278,7 +278,8 @@ test('record demo 1', async () => {
 
 
   await pageActivity.bringToFront();
-  await pageActivity.pause();
+  await pageActivity.waitForTimeout(5000);
+  //await pageActivity.waitForTimeout(5000);
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Internal+Work+Request+Branch+View');
   await pageActivity.getByRole('button', { name: '内部作業要求 リストアプレット:クエリー' }).click();
   await pageActivity.getByPlaceholder('<大文字と小文字を区別する>').fill(activityID);
@@ -304,7 +305,7 @@ test('record demo 1', async () => {
   await pageActivity.locator('[class="drilldown"]').first().click();
   await pageActivity.getByRole('button', { name: '見積り フォームアプレット:更新見積もり' }).click();
 
-  //  await pageActivity.pause();
+  //  await pageActivity.waitForTimeout(5000);
   //A001221949
 
 
@@ -312,22 +313,65 @@ test('record demo 1', async () => {
   await page.reload();
   await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).filter({ hasText: '進行中' }).click();
   await page.getByRole('button', { name: '関連する見積り リストアプレット:顧客見積更新' }).click();
+  //await page.waitForTimeout(5000);
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').click();
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').fill('10000');
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').press('Control+s');
+  //
+
+  //new code
+
+
+  await page.getByRole('link', { name: '税・諸費用' }).click();
+  await page.getByLabel('税・諸費用 (税・諸費用 内)').locator('[id="\\31 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('修正金額', { exact: true }).fill('28991');
+  await page.getByLabel('税・諸費用 (税・諸費用 内)').locator('[id="\\32 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('修正金額', { exact: true }).fill('¥023773');
+  await page.getByLabel('税・諸費用 (税・諸費用 内)').locator('[id="\\33 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('修正金額', { exact: true }).fill('¥012442');
+  await page.getByLabel('税・諸費用 (税・諸費用 内)').locator('[id="\\34 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.locator('[id="\\36 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('リサイクル 料金', { exact: true }).fill('124221');
+  await page.getByLabel('税・諸費用 (税・諸費用 内)').locator('[id="\\33 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('修正金額', { exact: true }).fill('0');
+  await page.getByLabel('税・諸費用 (税・諸費用 内)').locator('[id="\\32 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('修正金額', { exact: true }).fill('0');
+  await page.getByRole('cell', { name: '', exact: true }).locator('span').click();
+  await page.locator('[id="\\36 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('自動車税（種別割）', { exact: true }).fill('¥01355');
+  await page.locator('[id="\\37 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('自動車重量税', { exact: true }).fill('¥056889');
+  await page.locator('[id="\\38 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('修正金額', { exact: true }).fill('1233');
+  await page.locator('[id="\\39 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByLabel('修正金額', { exact: true }).fill('¥01500');
+  await page.locator('[id="\\31 0"]').getByRole('gridcell', { name: '計算機フィールド' }).click();
+  await page.getByRole('link', { name: '明細' }).click();
+
+ 
+  //end new code
   await page.getByRole('button', { name: '見積り フォームアプレット:承認依頼' }).click();
   await page.getByPlaceholder('見積名').click();
   await page.getByPlaceholder('見積名').press('Alt+Control+k');
   var rowid = await page.locator('[aria-label="ロウ番号"]').textContent();
   console.log('My sale Quote ID is :-> ' + rowid);
 
-  await approver1.pause();
+  //await approver1.waitForTimeout(5000);
   //approver process start
 
   await approver1.bringToFront();
 
   await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
   await approver1.waitForLoadState('domcontentloaded');
+  await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  await approver1.getByRole('gridcell', { name: 'リンク' }).click();
+  await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
+  await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  await approver1.locator('[id="1_s_1_l_Action"]').click();
+  await approver1.locator('[id="1_Action"]').fill('承認');
+  await approver1.locator('[id="1_Action"]').press('Control+s');
+//Approval by me
   await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
   await approver1.getByRole('gridcell', { name: 'リンク' }).click();
   await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
@@ -374,7 +418,7 @@ test('record demo 1', async () => {
 
   //approver process start
 
-  // await approverX.pause();
+  // await approverX.waitForTimeout(5000);
   await approverX.bringToFront();
 
   await approverX.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
@@ -435,7 +479,7 @@ test('record demo 1', async () => {
   //approver process start
 
   //  await approverY.bringToFront();
-  //  await approverY.pause();
+  //  await approverY.waitForTimeout(5000);
 
   //  await approverY.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
   //  await approverY.waitForLoadState('domcontentloaded');
@@ -455,7 +499,7 @@ test('record demo 1', async () => {
 
   await page.bringToFront()
   await page.reload();
-  // await page.pause();
+  // await page.waitForTimeout(5000);
 
   // A001222069
   // await page.getByRole('button', { name: '見積り フォームアプレット:自動オーダー' }).click();
@@ -483,7 +527,7 @@ test('record demo 1', async () => {
   //approver process start
 
   await approver1.bringToFront();
-  // await approver1.pause();
+  // await approver1.waitForTimeout(5000);
   await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
   await approver1.waitForLoadState('domcontentloaded');
   await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
@@ -503,7 +547,7 @@ test('record demo 1', async () => {
   //approver process start
 
   //   await approver2.bringToFront();
-  //   await approver2.pause();
+  //   await approver2.waitForTimeout(5000);
 
   //   await approver2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
   //   await approver2.waitForLoadState('domcontentloaded');
@@ -526,7 +570,7 @@ test('record demo 1', async () => {
   //approver process start
 
   await approverX.bringToFront();
-  // await approverX.pause();
+  // await approverX.waitForTimeout(5000);
 
   await approverX.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
   await approverX.waitForLoadState('domcontentloaded');
@@ -564,6 +608,7 @@ test('record demo 1', async () => {
   await page.getByRole('button', { name: '購入オーダー リストアプレット:クエリー' }).click();
   // await page.keyboard.press('Tab');
 
+
   await page.locator('[aria-roledescription="タイプ"]').click();
   await page.locator('[id="1_Order_Type"]').fill('Trailer & Forklift');
   await page.locator('[id="1_Order_Type"]').press('Enter');
@@ -571,38 +616,39 @@ test('record demo 1', async () => {
   // await page.getByPlaceholder('<大文字と小文字を区別する>').fill('Trailer & Forklift');
   // await page.getByPlaceholder('<大文字と小文字を区別する>').click();
   // await page.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-//   await page.pause();
+//   await page.waitForTimeout(5000);
   // await page.locator('[class="drilldown"]').first().click();
 
   // await page.locator('//*[@id="1_s_1_l_Order_Number"]/a').textContent();
   
-  await page.keyboard.press('Shift+Tab');
-  await page.locator('[aria-roledescription="発注番号"]').nth(0).click();
+  // await page.keyboard.press('Shift+Tab');
+  // await page.locator('[aria-roledescription="発注番号"]').nth(0).click();
   const bbo = await page.locator('[name="Order Number"]').textContent();
   // await page.keyboard.press('Tab');
-  await page.locator('[aria-roledescription="タイプ"]').nth(0).click();
-  await page.reload();
+  //await page.locator('[aria-roledescription="タイプ"]').nth(0).click();
   // await page.keyboard.press('Tab');
   // await page.getByPlaceholder('<大文字と小文字を区別する>').click();
   console.log('Body Building Order : ' + bbo);
   
-    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Order+Entry+-+My+Orders+View+(Sales)');
-  await page.locator('[data-display="クエリー"]').nth(0).click();
-  await page.locator('[aria-roledescription="オーダー番号"]').click();
-  await page.locator('[placeholder="<大文字と小文字を区別する>"]').nth(0).fill(salesOrder);
-  await page.locator('[placeholder="<大文字と小文字を区別する>"]').nth(0).press('Enter');
-  // await page.getByRole('link', { name :"購入オーダー 選択済み" }).click();
-  // await page.locator('[title="Sales Order"]').nth(1).click();
-  await page.getByText('Sales Order', { exact: true }).click();
-  await page.locator('[class="drilldown"]').nth(0).click();
-  await page.getByRole('link', { name: '購入オーダー' }).click();
-  await page.waitForTimeout(4000);
-  await page.getByRole('button', { name: '購入オーダー リストアプレット:クエリー' }).click();
+  //   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Order+Entry+-+My+Orders+View+(Sales)');
+  // await page.reload();
+  //   await page.locator('[data-display="クエリー"]').nth(0).click();
+  // await page.locator('[aria-roledescription="オーダー番号"]').click();
+  // await page.locator('[placeholder="<大文字と小文字を区別する>"]').nth(0).fill(salesOrder);
+  // await page.locator('[placeholder="<大文字と小文字を区別する>"]').nth(0).press('Enter');
+  // // await page.getByRole('link', { name :"購入オーダー 選択済み" }).click();
+  // // await page.locator('[title="Sales Order"]').nth(1).click();
+  // await page.getByText('Sales Order', { exact: true }).click();
+  // await page.locator('[class="drilldown"]').nth(0).click();
+  // await page.getByRole('link', { name: '購入オーダー' }).click();
+  // await page.waitForTimeout(4000);
+  // await page.getByRole('button', { name: '購入オーダー リストアプレット:クエリー' }).click();
   // await page.keyboard.press('Tab');
 
   // await page.getByPlaceholder('<大文字と小文字を区別する>').fill('Parts Internal Order');
   // await page.getByPlaceholder('<大文字と小文字を区別する>').click();
   // await page.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  await page.getByRole('button', { name: '購入オーダー リストアプレット:クエリー' }).click();
   await page.locator('[aria-roledescription="タイプ"]').click();
   await page.locator('[id="1_Order_Type"]').fill('Parts Internal Order');
   await page.locator('[id="1_Order_Type"]').press('Enter');
@@ -611,7 +657,7 @@ test('record demo 1', async () => {
   const partInternalOrder = await page.locator('[placeholder="オーダー番号"]').inputValue();
   console.log('Part Internal Order ID : ' + partInternalOrder);
 
-//   await part.pause();
+//   await page.waitForTimeout(5000);
   await part.bringToFront();
   await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+FDP+Orders+View+(Internal)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+List+Applet+(Internal)');
   await part.waitForTimeout(3000);
@@ -622,7 +668,7 @@ test('record demo 1', async () => {
 
   await part.getByRole('gridcell', { name: '日付タイムゾーンフィールド' }).click();
   await part.locator('[class="drilldown"]').first().click();
-//   await part.pause();
+//   await page.waitForTimeout(5000);
   await part.getByRole('button', { name: '明細項目 リストアプレット:新規' }).click();
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).fill('##00020');
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).press('Enter');
@@ -645,7 +691,7 @@ test('record demo 1', async () => {
   await page.reload();
   await page.getByRole('button', { name: '明細項目 リストアプレット:出荷依頼' }).click();
 
-  // await part.pause();
+  // await page.waitForTimeout(5000);
   await part.bringToFront();
   await part.locator('[aria-roledescription="部品問合せ"]').click();
   await part.locator('[aria-label="明細項目 リストアプレット:再計算"]').click();
@@ -659,7 +705,7 @@ test('record demo 1', async () => {
   // await part.locator('[placeholder="親オーダー番号"]').press('Enter');
   // await part.locator('[name="Order Number"]').click();
 
-// await part.pause();
+// await page.waitForTimeout(5000);
   // await part.getByRole('link', { name: '購入オーダー', exact: true }).click();
   // await part.getByRole('link', { name: '明細項目' }).click();
   // await part.getByRole('button', { name: '明細項目 リストアプレット:再計算' }).click();
@@ -670,7 +716,7 @@ test('record demo 1', async () => {
   // await part.locator('[aria-label="Purchase Order Selected"]').click();
   // await part.waitForTimeout(4000);
   // await part.locator('[aria-label="オーダー フォームアプレット:発注"]').click();
-  // await part.pause();
+  // await page.waitForTimeout(5000);
 
 
 
@@ -695,7 +741,7 @@ test('record demo 1', async () => {
 
 //------
   // await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+FDP+Orders+View+(Internal)');
-  // await part.pause();
+  // await page.waitForTimeout(5000);
   // await part.locator('[aria-label="オーダー リストアプレット:クエリー"]').click();
   // await part.locator('[aria-roledescription="オーダー番号"]').click();
   // await part.locator('[placeholder="<大文字と小文字を区別する>"]').nth(0).fill(partInternalOrder);
@@ -705,17 +751,17 @@ test('record demo 1', async () => {
   // await part.locator('[placeholder="<大文字と小文字を区別する>"]').nth(0).press('Enter');
   // await part.locator('[title="処理済"]').click();
   // await part.locator('[name="Order Number"]').click();
-  // await part.pause();
+  // await page.waitForTimeout(5000);
   // await page.getByRole('link', { name: '出荷', exact: true }).click();
   await part.getByRole('link', { name: '出荷', exact: true }).click();
   // await part.getByRole('link', { name: '出荷' }).click();
   await part.locator('[aria-label="出荷 選択済み"]').click();
   await part.locator('[data-display="出荷済"]').click();
-  //await part.pause();
-  //await pageActivity.pause();
+  //await page.waitForTimeout(5000);
+  //await pageActivity.waitForTimeout(5000);
 
 
-//   await myVecPage.pause();
+await myVecPage.waitForTimeout(5000);
   await myVecPage.bringToFront();
   await myVecPage.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Chassis+Order+View');
   await myVecPage.waitForTimeout(6000);
@@ -753,7 +799,7 @@ test('record demo 1', async () => {
   await myVecPage.getByRole('button', { name: '架装発注-ヘッダー フォームアプレット:承認依頼' }).click();
   await myVecPage.getByPlaceholder('発注番号').click();
 
-  // await myVecPage.pause();
+  // await myVecPage.waitForTimeout(5000);
 
 
   await myVecPage.locator('[aria-label="発注番号"]').press('Control+Alt+k');
@@ -821,8 +867,8 @@ test('record demo 1', async () => {
 
   //  await myVecPage.bringToFront();
   //  await myVecPage.reload();
-  //await myVecPage.pause();
-//   await page.pause();
+  //await myVecPage.waitForTimeout(5000);
+//   await page.waitForTimeout(5000);
   await page.bringToFront();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+All+Sales+Order+across+HQ+List+View');
   await page.getByRole('button', { name: '販売オーダー リストアプレット:クエリー' }).click();
@@ -851,7 +897,7 @@ test('record demo 1', async () => {
 
 
   await pageActivity.bringToFront();
-//   await pageActivity.pause();
+//   await pageActivity.waitForTimeout(5000);
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Internal+Work+Request+Branch+View');
   await pageActivity.getByRole('button', { name: '内部作業要求 リストアプレット:クエリー' }).click();
   await pageActivity.getByPlaceholder('<大文字と小文字を区別する>').fill(myNaughtyActivity);
@@ -909,7 +955,7 @@ test('record demo 1', async () => {
   await pageActivity.getByRole('button', { name: '現在' }).click();
   await pageActivity.getByRole('button', { name: '完了' }).click();
   await pageActivity.getByPlaceholder('受領日(納車)日').press('Control+s');
-  // await pageActivity.pause();
+  // await pageActivity.waitForTimeout(5000);
   await pageActivity.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: '見積' }).click();
 
   await pageActivity.getByPlaceholder('JC状況').click();
@@ -959,24 +1005,24 @@ test('record demo 1', async () => {
   await pageActivity.getByRole('button', { name: 'ジョブカード フォームアプレット:承認依頼' }).click();
 
   // Check the Status {Must be Closed!}
-  // await pageActivity.pause();
+  // await pageActivity.waitForTimeout(5000);
 
   await page.bringToFront();
-  await page.pause();
+  //await page.waitForTimeout(5000);
   await page.getByRole('button', { name: '販売オーダー フォームアプレット:自動請求' }).click();
-  await page.locator('[id="1_s_3_l_Amount"]').click();
-  await page.locator('[id="1_Amount"]').fill('420');
-  await page.locator('[id="2_s_3_l_Amount"]').click();
-  await page.locator('[id="2_Amount"]').fill('61');
-  await page.locator('[id="3_s_3_l_Amount"]').click();
-  await page.locator('[id="3_Amount"]').fill('62');
-  await page.locator('[id="4_s_3_l_Amount"]').click();
-  await page.locator('[id="4_Amount"]').fill('63');
-  await page.locator('[id="5_s_3_l_Amount"]').click();
-  await page.locator('[id="5_Amount"]').fill('64');
-  await page.locator('[id="6_s_3_l_Amount"]').click();
-  await page.locator('[id="6_Amount"]').fill('65');
-  // await page.locator('[id="7_s_3_l_Amount"]').click();
+  //await page.locator('[id="1_s_3_l_Amount"]').click();
+  //await page.locator('[id="1_Amount"]').fill('420');
+  //await page.locator('[id="2_s_3_l_Amount"]').click();
+  //await page.locator('[id="2_Amount"]').fill('61');
+  //await page.locator('[id="3_s_3_l_Amount"]').click();
+  //await page.locator('[id="3_Amount"]').fill('62');
+  //await page.locator('[id="4_s_3_l_Amount"]').click();
+  //await page.locator('[id="4_Amount"]').fill('63');
+  //await page.locator('[id="5_s_3_l_Amount"]').click();
+  //await page.locator('[id="5_Amount"]').fill('64');
+  //await page.locator('[id="6_s_3_l_Amount"]').click();
+  //await page.locator('[id="6_Amount"]').fill('65');
+  //// await page.locator('[id="7_s_3_l_Amount"]').click();
   // await page.locator('[id="7_Amount"]').fill('66');
   await page.locator('#s_2_1_41_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
@@ -1047,7 +1093,7 @@ test('record demo 1', async () => {
   await myVecPage.getByLabel('売上', { exact: true }).press('Tab');
 //   await myVecPage.locator('input[name="Serial Number"]').click();
   await myVecPage.locator('[class="drilldown"]').first().click();
-  await myVecPage.pause();
+  //await myVecPage.waitForTimeout(5000);
 //   await myVecPage.locator('[aria-label="クラス"]').fill('Forklift');
 //   await myVecPage.locator('[aria-label="クラス"]').press('Control+s');
 //   await myVecPage.locator('[aria-label="登録No.-陸事名_地域名"]').fill('富士山');
@@ -1078,7 +1124,7 @@ await myVecPage.getByRole('button', { name: '場所を選択 リストアプレ�
 await myVecPage.locator('input[name="s_2_1_34_0"]').click();
 await myVecPage.locator('input[name="s_2_1_34_0"]').fill('123');
 await myVecPage.getByRole('link', { name: '車両リスト' }).click();
-
+await myVecPage.locator('[class="drilldown"]').click();
   await myVecPage.locator('[aria-label="登録No.-ｶﾅ"]').fill('345678');
   await myVecPage.locator('[aria-label="登録No.-ｶﾅ"]').press('Control+s');
 //   await myVecPage.locator('[aria-roledescription="車台番号"]').click();
@@ -1129,7 +1175,7 @@ await myVecPage.getByRole('link', { name: '車両リスト' }).click();
   // await page.getByRole('textbox', { name: '登録No.-ｶﾅ' }).fill('ABCD');
   // await page.getByRole('textbox', { name: '登録No.-連番' }).click();
   // await page.getByRole('textbox', { name: '登録No.-連番' }).fill('ABCD');
-  // await page.pause();
+  // await page.waitForTimeout(5000);
 
  await page.bringToFront();
   await page.goBack('domcontentloaded');
@@ -1172,6 +1218,6 @@ await myVecPage.getByRole('link', { name: '車両リスト' }).click();
 
   await page.bringToFront();
   // await page.reload();
-  // await page.pause();
+  // await page.waitForTimeout(5000);
 
 })
