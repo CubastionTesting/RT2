@@ -313,7 +313,6 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   // console.log(myAct);
   await pageActivity.bringToFront();
 
-
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Service+Actual+Expense+Items+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Actual+Expense+Items+List+Applet&SWERowId0=1-AP8FW');
   await pageActivity.getByRole('link', { name: 'Internal Work Request' }).click();
   await pageActivity.getByLabel('Internal Work Request List Applet:Query').click();
@@ -329,6 +328,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[id="\\31 _s_1_l_MF_Labor_Code"]').click();
   await pageActivity.locator('#s_1_2_64_0_icon').click();
   await pageActivity.getByLabel('Pick Labor Code List Applet:OK').click();
+  await pageActivity.pause();
   await pageActivity.getByText('0', { exact: true }).click();
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).fill('1');
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).press('Control+s');
@@ -558,6 +558,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
+    await page.pause();
     // await page.pause();
 
     //PO mapping and Invoice
@@ -609,8 +610,10 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageBB.locator('[name="Order Number"]').nth(0).click();
   // await page.getByRole('link', { name: 'F000012446' }).click();
   // await pageBB.locator('[name="Order Number"]').click();
-  await pageBB.locator('[id="\\31 _s_1_l_Body_Building_Name_PO_"]').click();
-  await pageBB.getByLabel('AdditionalBody', { exact: true }).fill('ABCD');
+  await pageBB.locator('[id="1_s_1_l_Body_Building_Name_PO_"]').click();
+  await pageBB.locator('[name="Body_Building_Name_PO_"]').click();
+  //await pageBB.getByLabel('AdditionalBody', { exact: true }).fill('ABCD');
+  await pageBB.locator('[name="Body_Building_Name_PO_"]').fill('ABCD');
   await pageBB.getByLabel('Body Building Order Form Applet:Generate Approvals').click();
   await pageBB.getByRole('link', { name: 'Approvals' }).click();
   await pageBB.getByPlaceholder('Requested Registration Date').click();
@@ -708,10 +711,105 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   // await pageQuote.getByPlaceholder('Status', { exact: true }).press('Alt+l');
   await pageQuote.getByPlaceholder('Status', { exact: true }).press('Alt+Enter');
 
-  await page.bringToFront();
-  await page.reload('domcontentloaded');
+  await pageActivity.bringToFront();
+  await pageActivity.reload('domcontentloaded');
 
   //=======================Parts PO end
+
+ await pageActivity.pause();
+  //========================Service PO Starts
+  //await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Service+Actual+Expense+Items+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Actual+Expense+Items+List+Applet');
+  await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Internal+Work+Request+View&SWERF=1&SWEHo=&SWEBU=1');
+  await pageActivity.getByLabel('Internal Work Request List Applet:Query').click();
+  //await pageActivity.getByRole('gridcell', { name: 'Selection Field', exact: true }).click();
+  await pageActivity.locator('[name="Activity_UID"]').click();
+  //await pageActivity.getByPlaceholder('<Case Sensitive>').fill(myAct);
+  await pageActivity.locator('[name="Activity_UID"]').fill(myAct);
+  await pageActivity.getByPlaceholder('<Case Sensitive>').press('Enter');
+  await pageActivity.getByTitle('Visibility').selectOption('My Branch Internal Work Request');
+  const JC= await pageActivity.locator('[aria-roledescription="Job Card #"]').textContent();
+  console.log(JC)
+  await pageActivity.pause()
+  await pageActivity.getByLabel('Internal Work Request List Applet:Query').click();
+  await pageActivity.locator('[aria-roledescription="Job Card #"]').click();
+  await pageActivity.locator('[id="1_SR_Number"]').fill(JC);
+  await pageActivity.getByPlaceholder('<Case Sensitive>').press('Enter');
+  await pageActivity.getByText('Request for Reservation').click();
+
+  await pageActivity.getByLabel('Internal Work Request List Applet:Update Job Card').click();
+  //await pageActivity.getByRole('link', { name: 'Quotes', exact: true }).click();
+  await page.locator('[class="drilldown"]').nth(1).click();
+  //await pageActivity.locator('[name="Name"]').click();
+  await pageActivity.waitforTimeout(2000)
+ const jCURL = await pageActivity.url();
+
+
+  await pageActivity.locator('#s_2_1_234_0_icon').click();
+  await pageActivity.locator('[data-display="Query"]').click();
+  await pageActivity.locator('[name="Last_Name"]').click();
+  await pageActivity.locator('[name="Last_Name"]').press('Enter');
+  await pageActivity.locator('[data-display="OK"]').click();
+  await pageActivity.locator('[aria-label="Quotation Status"]').click();
+  await pageActivity.locator('[aria-label="Quotation Status"]').fill('Customer Approved');
+  await pageActivity.locator('[aria-label="Quotation Status"]').press('Control+s');
+
+
+await pageActivity.goto(jCURL)
+  await pageActivity.getByPlaceholder('Planned Pickup Start Date/Time').click();
+  await pageActivity.getByPlaceholder('Planned Pickup Start Date/Time').fill(' ');
+  await pageActivity.getByPlaceholder('Planned Pickup Start Date/Time').press('Enter');
+  await pageActivity.getByPlaceholder('Planned Delivery Date/Time').click();
+  await pageActivity.getByPlaceholder('Planned Delivery Date/Time').fill(' ');
+  await pageActivity.getByPlaceholder('Planned Delivery Date/Time').press('Enter');
+  await pageActivity.getByPlaceholder('Planned Courtesy Vehicle Date').click();
+  await pageActivity.getByPlaceholder('Planned Courtesy Vehicle Date').fill(' ');
+  await pageActivity.getByPlaceholder('Planned Courtesy Vehicle Date').press('Enter');
+  await pageActivity.getByPlaceholder('Planned Work Completion Date/Time').click();
+  await pageActivity.getByPlaceholder('Planned Work Start Date').click();
+  await pageActivity.getByPlaceholder('Planned Work Start Date').fill(' ');
+  await pageActivity.getByPlaceholder('Planned Work Start Date').press('Enter');
+  await pageActivity.getByPlaceholder('Planned Delivery Start Date/Tim').click();
+  await pageActivity.getByPlaceholder('Planned Delivery Start Date/Tim').fill(' ');
+  await pageActivity.getByPlaceholder('Planned Delivery Start Date/Tim').press('Enter');
+  await pageActivity.getByPlaceholder('Planned Arrival Date/Time').click();
+  await pageActivity.getByPlaceholder('Planned Arrival Date/Time').fill(' ');
+  await pageActivity.getByPlaceholder('Planned Arrival Date/Time').press('Enter');
+  await pageActivity.getByPlaceholder('Arrival Date/Time', { exact: true }).click();
+  await pageActivity.getByPlaceholder('Arrival Date/Time', { exact: true }).fill(' ');
+  await pageActivity.getByPlaceholder('Arrival Date/Time', { exact: true }).press('Enter');
+  await pageActivity.getByPlaceholder('Arrival Date/Time', { exact: true }).click();
+  await pageActivity.getByPlaceholder('Arrival Date/Time', { exact: true }).press('Alt+Enter');
+  await pageActivity.getByRole('link', { name: 'Work Order', exact: true }).click();
+  await pageActivity.locator('[name="Activity UID"]').click();
+  await pageActivity.getByLabel('Work Order Form Applet:Start').click();
+  await pageActivity.waitforTimeout(2000);
+  await pageActivity.getByLabel('Work Order Form Applet:Stop').click();
+  await pageActivity.waitforTimeout(2000);
+  await pageActivity.getByLabel('Work Order Form Applet:Set Acceptance Inspection').click();
+  await pageActivity.waitforTimeout(2000);
+  await pageActivity.goto(jCURL)
+  await pageActivity.getByPlaceholder('Delivery date/time', { exact: true }).fill(' ');
+  await pageActivity.getByPlaceholder('Delivery date/time', { exact: true }).click();
+  await pageActivity.getByPlaceholder('Delivery date/time', { exact: true }).press('Enter');
+
+
+  //changing the JC status from maintainenance completed to Delivery completed
+  await pageActivity.getByPlaceholder('JC Status').click();
+  await pageActivity.getByPlaceholder('JC Status').fill('Delivery Completed');
+  
+  await pageActivity.getByRole('cell', { name: 'Prospect Account Name Press F2 for Selection Field' }).getByLabel('Press F2 for Selection Field').click();
+  await pageActivity.getByLabel('Pick Account List Applet:Pick').click();
+  
+  await pageActivity.getByPlaceholder('Location code').click();
+  await pageActivity.getByPlaceholder('Location code').press('Alt+Enter');
+  await pageActivity.getByLabel('Job Card Form Applet:Generate Approval').click();
+
+  // ---------------------
+ 
+
+  //========================Service PO ends
+  await page.bringToFront();
+  await page.reload('domcontentloaded');
   await page.waitForTimeout(3000);
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+All+Orders+View', {waitUntil : 'networkidle'});
   await page.waitForTimeout(4000);
@@ -849,6 +947,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.locator('[id="1_s_1_l_Status"]').click();
     await page.locator('[name="Order Number"]').click();
     await page.getByRole('link', { name: 'Purchase Order' }).click();
+    await page.pause();
     await page.getByLabel('Purchase Order List Applet:Map').click();
     await page.getByLabel('Purchase Orders List Applet:OK').click();
     //delivery
