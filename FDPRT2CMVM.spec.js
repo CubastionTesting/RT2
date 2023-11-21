@@ -282,7 +282,6 @@ test('both', async () => {
     await page.getByRole('link', { name: '取引先' }).click();
     await page.getByRole('button', { name: '取引先 リストアプレット:新規' }).click();
     await page.locator('[id="1_s_1_l_Name"]').click();
-await page.pause();
     await page.getByRole('gridcell', { name: '顧客名 リンク' }).click();
     await page.getByRole('textbox', { name: '顧客名 リンク' }).fill('ラヴィ');
     await page.locator('[id="\\31 _s_1_l_MF_Company_Name_KANA"]').click();
@@ -503,7 +502,6 @@ test.only('receivable', async () => {
     await page.getByRole('link', { name: '取引先' }).click();
     await page.getByRole('button', { name: '取引先 リストアプレット:新規' }).click();
     await page.locator('[id="1_s_1_l_Name"]').click();
-await page.pause();
     await page.getByRole('gridcell', { name: '顧客名 リンク' }).click();
     await page.getByRole('textbox', { name: '顧客名 リンク' }).fill('ラヴィ');
     await page.locator('[id="\\31 _s_1_l_MF_Company_Name_KANA"]').click();
