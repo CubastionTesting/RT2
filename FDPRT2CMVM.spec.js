@@ -125,7 +125,9 @@ test('payable', async () => {
     await page.getByRole('combobox', { name: '検索' }).click();
     await page.getByRole('combobox', { name: '検索' }).fill('コメント');
     await page.getByRole('button', { name: '添付書類 リストアプレット:添付確定' }).click();
+    await page.pause();
     await page.getByRole('button', { name: '送信' }).click();
+
 
     await page.getByRole('link', { name: 'サービスリクエスト' }).click();
     await page.getByRole('button', { name: 'サービスリクエスト リストアプレット:承認依頼' }).click();
@@ -139,7 +141,8 @@ test('payable', async () => {
     console.log(rowid);
     await page.locator('[aria-label="ロウ番号"]').press("Control+c");
 
-    await pageApp1.bringToFront();
+    await pageApp1.pause();
+        await pageApp1.bringToFront();
     await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp1.waitForLoadState('domcontentloaded');
     await pageApp1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
@@ -559,6 +562,8 @@ test.only('receivable', async () => {
     // await page.getByPlaceholder('支払条件（休日フラグ）').fill('休日時前日');
     // await page.getByRole('button', { name: '次へ' }).click();
 
+    await page.pause();
+
     await page.getByRole('combobox', { name: '検索' }).click();
     await page.getByRole('combobox', { name: '検索' }).fill('コメント');
     await page.getByRole('button', { name: '添付書類 リストアプレット:添付確定' }).click();
@@ -575,10 +580,10 @@ test.only('receivable', async () => {
     await page.locator('[id="s_1_1_3_0_Ctrl"]').click();
 
     //copy row id
-    await page.locator('[id="1_s_1_l_SR_Number"]').press("Control+Alt+k");
-    var Rrowid = await page.locator('[aria-label="ロウ番号"]').textContent();
+    var Rrowid = await page.locator('[id="1_s_1_l_MF_SR_Id"]').textContent();
     console.log(Rrowid);
-    await page.locator('[aria-label="ロウ番号"]').press("Control+c");
+
+    await pageApp1.pause();
 
     await pageApp1.bringToFront();
     await pageApp1.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
