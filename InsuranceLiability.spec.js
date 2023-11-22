@@ -29,7 +29,6 @@ test('record demo 1', async () => {
  await pageappvr.locator('[id="password"]').fill('Snakamura@1');
  await pageappvr.locator('[id="loginSubmitButton"]').click();
  await pageappvr.waitForLoadState('domcontentloaded');
- await pageappvr.pause();
  await page.bringToFront();
 
 
@@ -71,7 +70,6 @@ test('record demo 1', async () => {
     await page.locator('[id="1_s_2_l_MF_Insurance_Company_Name"]').click();
     await page.locator('[id="1_MF_Insurance_Company_Name"]').fill('09');
     await page.keyboard.press('Enter');
-    await page.pause();
 
     await page.getByRole('gridcell', { name: '09' }).click();
     await page.getByLabel('Pick Insurance Company List Applet:OK').click();
@@ -85,7 +83,6 @@ test('record demo 1', async () => {
     await page.getByPlaceholder('Insurance Period').fill('2');
     await page.getByPlaceholder('Insurance Period').press('Control+s');
     await page.getByPlaceholder('Insurance Start Date').click();
-    await page.pause();
     await page.getByRole('cell', { name: 'Insurance Start Date Press F2 for Date Field' }).getByLabel('Press F2 for Date Field').click();
   await page.getByRole('link', { name: '1', exact: true }).click();
   await page.getByLabel('Quote List Applet:Calculate Liability Insurance Premium').click();
@@ -102,7 +99,6 @@ test('record demo 1', async () => {
   await page.getByRole('cell', { name: 'Agency Name Press F2 for Selection Field' }).getByLabel('Press F2 for Selection Field').click();
   await page.getByLabel('Pick Insurance Agency List Applet:OK').click();
   await page.getByLabel('Orders List Applet:Create SpreadSheet').click();
-  await page.pause();
   await page.locator('[aria-label="Bank Transfer Fee"]').click();
   await page.locator('[aria-label="Bank Transfer Fee"]').fill('2000');
   await page.getByPlaceholder('Bank Transfer Fee').press('Control+s');
