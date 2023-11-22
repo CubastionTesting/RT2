@@ -33,13 +33,6 @@ test('record demo 1', async () => {
  await page.bringToFront();
 
 
- // ***************
-    // await page.pause();
-    // await page.click('[aria-label="First Level View Bar"]');
-    // await page.keyboard.press('i');
-    // await page.keyboard.press('Enter');
-
-    // await page.click('[aria-label="Insurance Opportunities List Applet:New"]');
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Insurance+Opportunity+List+View');
     await page.locator('[name="s_vis_div"]').click();
     await page.keyboard.press('m');
@@ -48,11 +41,8 @@ test('record demo 1', async () => {
     await page.locator('[name="s_2_1_5_0"]').click();
     const insOpp = await page.locator('[name="MF_Opportunity_Name"]').inputValue();
     console.log('Insurance Opportunity' + insOpp);
-    //await page.locator('[id="1_MF_Insurance_Accuracy"]').click();
     await page.locator('[id="1_s_2_l_MF_Insurance_Accuracy"]').click();
     await page.locator('[id="1_MF_Insurance_Accuracy"]').fill('A');
-   // await page.keyboard.press('A');
-    //await page.keyboard.press('Enter');
     await page.locator('[id="1_s_2_l_MF_Insurance_Opportunity_Type"]').click();
     await page.locator('[id="1_MF_Insurance_Opportunity_Type"]').fill('New');
     await page.keyboard.press('Enter');
@@ -85,7 +75,6 @@ test('record demo 1', async () => {
 
     await page.getByRole('gridcell', { name: '09' }).click();
     await page.getByLabel('Pick Insurance Company List Applet:OK').click();
-    //await page.getByRole('link', { name: 'MF Quote Number' }).click();
     await page.locator('[name="MF Quote Number"]').click();
     await page.locator('#s_2_1_12_0_icon').click();
     await page.locator('#ui-id-272').click();
@@ -96,36 +85,24 @@ test('record demo 1', async () => {
     await page.getByPlaceholder('Insurance Period').fill('2');
     await page.getByPlaceholder('Insurance Period').press('Control+s');
     await page.getByPlaceholder('Insurance Start Date').click();
-    //await page.getByRole('cell', { name: 'Insurance Start Date Press F2 for Date Field' }).getByLabel('Press F2 for Date Field').click();
-    //await page.getByRole('link', { name: '1', exact: true }).click();
-    //await page.getByRole('cell', { name: 'Insurance End Date Press F2 for Date Field' }).getByLabel('Press F2 for Date Field').click();
-    //await page.pause();
-    //await page.getByLabel('Quote List Applet:Calculate Liability Insurance Premium').click();
     await page.pause();
     await page.getByRole('cell', { name: 'Insurance Start Date Press F2 for Date Field' }).getByLabel('Press F2 for Date Field').click();
   await page.getByRole('link', { name: '1', exact: true }).click();
   await page.getByLabel('Quote List Applet:Calculate Liability Insurance Premium').click();
   await page.getByLabel('Quote List Applet:Create Order').click();
   await page.locator('[id="\\31 _s_2_l_MF_Insurance_Liability_Policy_Number"]').click();
-  //await page.getByLabel('Q000015720', { exact: true }).fill('PolicyTest2023');
-    //await page.getByLabel('Q000015720', { exact: true }).press('Enter');
-
-    await page.locator('[id="1_s_2_l_MF_Insurance_Liability_Policy_Number"]').click();
+  await page.locator('[id="1_s_2_l_MF_Insurance_Liability_Policy_Number"]').click();
     await page.locator('[id="1_MF_Insurance_Liability_Policy_Number"]').fill('PolicyTest22');
     await page.keyboard.press('Control+s');
-    await page.pause();
 
 
   await page.locator('#s_1_1_11_0_icon').click();
   await page.locator('#ui-id-363').click();
   await page.getByTitle('Visibility').selectOption('My Branch');
-  await page.getByLabel('Orders List Applet:Create SpreadSheet').click();
-  await page.getByRole('button', { name: 'OK' }).click();
   await page.getByRole('cell', { name: 'Agency Name Press F2 for Selection Field' }).getByLabel('Press F2 for Selection Field').click();
   await page.getByLabel('Pick Insurance Agency List Applet:OK').click();
   await page.getByLabel('Orders List Applet:Create SpreadSheet').click();
   await page.pause();
-  //await page.getByRole('cell', { name: 'Bank Transfer Fee Press F2 for Calculator Field' }).getByLabel('Press F2 for Calculator Field').click();
   await page.locator('[aria-label="Bank Transfer Fee"]').click();
   await page.locator('[aria-label="Bank Transfer Fee"]').fill('2000');
   await page.getByPlaceholder('Bank Transfer Fee').press('Control+s');
@@ -141,38 +118,19 @@ test('record demo 1', async () => {
 
 
   await page.getByLabel('Liability Spreadsheet Form Applet:Generate Approvals').click();
-    await page.locator('[class="drilldown"]').click();
-  //await page.getByRole('link', { name: '1-96592897' }).click();
+  await page.locator('[class="drilldown"]').click();
+  
+  await page.locator('[name="s_1_1_10_0"]').press("Control+Alt+k");
+  var SRrowid = await page.locator('[aria-label="Row #"]').textContent();
+  console.log(SRrowid);
+  await page.locator('[aria-label="Row #"]').press("Control+c");
 
-  await page.pause();
-  await page.getByRole('link', { name: 'Approval History' }).click();
-  //await page.getByLabel('Site Map').locator('span').first().click();
-  //await page.locator('#sitemapFilterInput').click();
-  //await page.locator('#sitemapFilterInput').fill('inbox');
-  await page.pause();
-  await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=UInbox+Item+Task+List+Applet&SWERowId0=1-1LIDE4&SWEApplet1=MF+Approval+Entity+Values+List+Applet&SWERowId1=1-1LIDEH')
-  //await page.getByRole('link', { name: 'Inbox', exact: true }).click();
-  await page.locator('#s_2_l_scroll [id="\\31 "]').getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await page.locator('#s_2_2_24_0_icon').click();
-   await page.keyboard.press('a');
-   await page.keyboard.press("Enter"); 
-
-
-  //await page.locator('#ui-id-558').click();
-  await page.getByLabel('Action', { exact: true }).press('Control+s');
-  await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Insurance+Liability+Spreadsheet+Order+Detail+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Insurance+Liability+Spreadsheet+Form+Applet&SWERowId0=1-1LIBK1&SWEApplet1=MF+Insurance+Liability+Spreadsheet+Order+List+Applet&SWERowId1=1-1LIBK4');
-
-    
-    
-    
-    
-    
-    
-    // approver process end***********
-
-
-    //await page.bringToFront();
-    //await page.reload('domcontentloaded');
-    //await page.close();
-
+  await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View')
+  await page.locator('[id="s_2_1_10_0_Ctrl"]').click();
+  await page.locator('[id="1_s_2_l_Name"]').click();
+  await page.locator('[id="1_Name"]').fill(SRrowid);
+  await page.locator('[id="1_Name"]').press('Enter');
+  await page.locator('[id="1_s_2_l_Action"]').click();
+  await page.locator('[id="1_Action"]').fill("Approved");
+  await page.locator('[id="1_Action"]').press('Enter');
 })
