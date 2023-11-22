@@ -262,6 +262,7 @@ test("Sales Order without PO", async ({ browser }) => {
     await pageF23.locator('[id="1_s_2_l_Action"]').press('Control+s');
 
     //update status
+    await page023.waitForTimeout(2000);
     await page023.locator('[placeholder="Status"]').press('Alt+Enter');
 
     /// /// ///Print button 
