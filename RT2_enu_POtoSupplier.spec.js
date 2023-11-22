@@ -17,7 +17,7 @@ test.describe.serial("Siebel Page Test", () => {
     const Loginuser023 = new FusoLogin(page023);
     await Loginuser023.loginFDP("D8FFOR24", "Snakamura@1");
     await page023.waitForLoadState("domcontentloaded");
-await page023.waitForTimeout(2000)
+await page023.waitForTimeout(2000);
     //PO link
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(PO)");
     //New PO added
@@ -27,7 +27,7 @@ await page023.waitForTimeout(2000)
     await page023.locator('[id="1_s_2_l_MF_Parts_PO_Reference"]').click();
     await page023.locator('[id="1_MF_Parts_PO_Reference"]').fill('PO to Supplier');
     await page023.locator('[id="1_MF_Parts_PO_Reference"]').press('Enter');
-    
+
     //Open PO
     await page023.locator('[class="drilldown"]').first().click();
     //Copy PO number
@@ -111,9 +111,13 @@ await page023.waitForTimeout(2000)
     await pagePF23.locator('[id="1_Action"]').fill("Approved");
     await pagePF23.locator('[id="1_Action"]').press('Control+s');
     //order PO
-    await page023.locator('[placeholder="Status"]').press('Alt+Enter');
+    await page023.waitForTimeout(2000);
+    await page023.locator('[name="s_1_1_72_0"]').click();
+    await page023.locator('[name="s_1_1_72_0"]').press('Alt+Enter');
+    await page023.waitForTimeout(2000);
+    await page023.pause();
     await page023.locator('[aria-label="Orders Form Applet:Ordered"]').click();
-
+    //await page0
     ///Print Button
     await page023.locator('[aria-label="Orders Form Applet:Print"]').click();
     console.log("Print button clicked of po return order")
