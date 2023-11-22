@@ -83,7 +83,6 @@ test('record demo', async () => {
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=eAuto+All+Vehicle+View');
   await page.waitForLoadState();
   await page.waitForTimeout(3000);
-
   await page.getByRole('button', { name: '車両 リストアプレット:クエリー' }).click();
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
@@ -237,18 +236,22 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
 
 
   //Approver process ends you damn
+  await page.waitForTimeout(3000)
   await page.locator('[aria-label="見積有効期限"]').press('Alt+Enter');
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
   await page.waitForTimeout(3000)
   await page.getByPlaceholder('見積状況').press('Alt+Enter');
-
+  
   console.log('Quote Approved');
 
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
+
+
   await page.getByPlaceholder('引取開始予定日時').click();
+
   await page.locator('#s_2_1_153_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
