@@ -720,13 +720,16 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   //========================Service PO Starts
   //await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Service+Actual+Expense+Items+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Actual+Expense+Items+List+Applet');
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Internal+Work+Request+View&SWERF=1&SWEHo=&SWEBU=1');
+  await pageActivity.waitForTimeout(3000)
   await pageActivity.getByLabel('Internal Work Request List Applet:Query').click();
   //await pageActivity.getByRole('gridcell', { name: 'Selection Field', exact: true }).click();
   await pageActivity.locator('[name="Activity_UID"]').click();
   //await pageActivity.getByPlaceholder('<Case Sensitive>').fill(myAct);
   await pageActivity.locator('[name="Activity_UID"]').fill(myAct);
   await pageActivity.getByPlaceholder('<Case Sensitive>').press('Enter');
+  await pageActivity.waitForTimeout(2000)
   await pageActivity.getByTitle('Visibility').selectOption('My Branch Internal Work Request');
+  await pageActivity.waitForTimeout(2000)
   const JC= await pageActivity.locator('[aria-roledescription="Job Card #"]').textContent();
   console.log(JC)
   await pageActivity.pause()
@@ -734,9 +737,10 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[aria-roledescription="Job Card #"]').click();
   await pageActivity.locator('[id="1_SR_Number"]').fill(JC);
   await pageActivity.getByPlaceholder('<Case Sensitive>').press('Enter');
+  await pageActivity.waitForTimeout(2000)
   await pageActivity.getByText('Request for Reservation').click();
-
   await pageActivity.getByLabel('Internal Work Request List Applet:Update Job Card').click();
+  await pageActivity.waitForTimeout(2000)
   //await pageActivity.getByRole('link', { name: 'Quotes', exact: true }).click();
   await pageActivity.locator('[name="SR Number"]').nth(1).click();
   //await pageActivity.locator('[name="Name"]').click();
@@ -753,6 +757,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[class="drilldown"]').click();
   await pageActivity.locator('[placeholder="Approved person of customer"]').click()
   await pageActivity.locator('[placeholder="Approved person of customer"]').fill('san');
+  await pageActivity.waitForTimeout(2000)
   await pageActivity.locator('[placeholder="Approved person of customer"]').press('Control+s')
 
   //await pageActivity.locator('[name="Last_Name"]').click();
@@ -761,9 +766,11 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[aria-label="Quotation Status"]').click();
   await pageActivity.locator('[aria-label="Quotation Status"]').fill('Customer Approved');
   await pageActivity.locator('[aria-label="Quotation Status"]').press('Control+s');
+  await pageActivity.waitForTimeout(2000)
 
 
 await pageActivity.goto(jCURL)
+await pageActivity.waitForTimeout(3000)
   await pageActivity.getByPlaceholder('Planned Pickup Start Date/Time').click();
   await pageActivity.getByPlaceholder('Planned Pickup Start Date/Time').fill(' ');
   await pageActivity.getByPlaceholder('Planned Pickup Start Date/Time').press('Enter');
@@ -814,8 +821,10 @@ await pageActivity.goto(jCURL)
   
   await pageActivity.getByPlaceholder('Location code').click();
   await pageActivity.getByPlaceholder('Location code').press('Control+s');
-  await pageActivity.reload();
+  await  pageActivity.waitForTimeout(2000)
+  await pageActivity.reload('domcontentloaded');
   await pageActivity.getByLabel('Job Card Form Applet:Generate Approval').click();
+  await pageActivity.waitForTimeout(2000)
 
   // ---------------------
  
