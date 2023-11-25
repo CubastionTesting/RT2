@@ -10,7 +10,7 @@ test('record demo 1', async () => {
 
 
   const browser = await chromium.launch({
-    headless: true
+    headless: false
   });
   const characters = '0123456789';
 
