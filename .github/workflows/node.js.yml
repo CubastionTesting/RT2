@@ -28,7 +28,7 @@ jobs:
       - name: Install Playwright
         run: npx playwright install
       - name: Running tests
-        run: npx playwright test FieldFix --headless=true
+        run: npx playwright test NVwithPTandSV
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v3
