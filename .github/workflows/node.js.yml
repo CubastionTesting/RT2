@@ -4,8 +4,10 @@
 name: Node.js CI
 
 on:
+  push:
+    branches: ["main"]
   schedule:
-    - cron: '25 8 * * *'
+    - cron: "25 8 * * *"
 
 jobs:
   build:
@@ -16,20 +18,20 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright
-      run: npx playwright install
-    - name: Running tests
-      run: npx playwright test FieldFix
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: playwright-report
-        path: playwright-report
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright
+        run: npx playwright install
+      - name: Running tests
+        run: npx playwright test FieldFix
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: .github
