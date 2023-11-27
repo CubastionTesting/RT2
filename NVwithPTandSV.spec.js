@@ -808,6 +808,8 @@ await myVecPage.waitForTimeout(5000);
 
   await approver3.bringToFront();
 
+  //await approver3.pause();
+
   await approver3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
   await approver3.waitForLoadState('domcontentloaded');
   await approver3.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
@@ -818,9 +820,13 @@ await myVecPage.waitForTimeout(5000);
   await approver3.locator('[id="1_Action"]').fill('承認');
   await approver3.locator('[id="1_Action"]').press('Control+s');
   await approver3.waitForLoadState('networkidle');
+  
 
+  //await myVecPage.pause();
   await myVecPage.bringToFront();
+  await myVecPage.waitForTimeout(2000)
   await myVecPage.locator('[aria-label="発注番号"]').press('Alt+Enter')
+  await myVecPage.waitForTimeout(2000)
   
   await myVecPage.getByRole('link', { name: '架装発注-検収依頼' }).click();
   await myVecPage.getByRole('button', { name: '架装発注-検収依頼 リストアプレット:新規' }).click();
@@ -871,15 +877,17 @@ await myVecPage.waitForTimeout(5000);
 //   await page.waitForTimeout(5000);
   await page.bringToFront();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+All+Sales+Order+across+HQ+List+View');
+  await page.waitForTimeout(2000)
   await page.getByRole('button', { name: '販売オーダー リストアプレット:クエリー' }).click();
 
-
+  //await page.pause()
   await page.getByRole('textbox', { name: 'オーダー番号 リンク' }).click();
   await page.getByRole('textbox', { name: 'オーダー番号 リンク' }).fill(salesOrder);
   await page.getByRole('textbox', { name: 'オーダー番号 リンク' }).click();
   await page.getByRole('textbox', { name: 'オーダー番号 リンク' }).press('Enter');
   await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).filter({ hasText: 'Sales Order' }).click();
   await page.locator('[class="drilldown"]').first().click();
+  await page.waitForTimeout(2000)
   await page.getByRole('link', { name: '明細項目' }).click();
   await page.waitForTimeout(4000);
   await page.getByRole('link', { name: 'パーツ & 内部作業' }).click();
@@ -887,16 +895,19 @@ await myVecPage.waitForTimeout(5000);
   await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).filter({ hasText: '工賃' }).click();
   await page.getByRole('button', { name: '部品・社内作業 リストアプレット:活動を作成' }).click();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Sales+Order+Activities+View');
+  await page.waitForTimeout(2000)
   await page.getByText('作成中').click();
   await page.getByRole('combobox', { name: '状況 コンボボックスフィールド' }).fill('予約要求');
   await page.getByRole('combobox', { name: '状況 コンボボックスフィールド' }).click();
   await page.getByRole('combobox', { name: '状況 コンボボックスフィールド' }).press('Control+s');
+  await page.waitForTimeout(2000)
   await page.locator('[id="1_s_2_l_Activity_UID"]').click();
   const myNaughtyActivity = await page.locator('[id="1_Activity_UID"]').inputValue();
   console.log('Activity :' + myNaughtyActivity);
 
 
   await pageActivity.bringToFront();
+  //await pageActivity.pause()
 //   await pageActivity.waitForTimeout(5000);
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Internal+Work+Request+Branch+View');
   await pageActivity.getByRole('button', { name: '内部作業要求 リストアプレット:クエリー' }).click();
