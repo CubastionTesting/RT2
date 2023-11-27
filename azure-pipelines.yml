@@ -12,15 +12,12 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '14.x'
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
+    npm install && npx playwright install
   displayName: 'npm install and build'
-- script: |
-    npx playwright install
-  displayName: 'installing playwright browsers now..'
 - script: |
     npx playwright test NVwithPTandSV
   displayName: 'Running Test file for NV with Parts and Service'
