@@ -145,6 +145,8 @@ test('record demo 1', async () => {
 
   await page.waitForTimeout(5000);
 
+  console.log("All windows opened successfully");
+
   // await page.locator('[id="\\37 _s_1_l_Account"]').click();
   await page.locator('[aria-roledescription="商談先名"]').nth(0).click();
   await page.locator('#s_1_2_79_0_icon').click();
@@ -655,7 +657,7 @@ test('record demo 1', async () => {
 
   await page.locator('[class="drilldown"]').first().click();
   const partInternalOrder = await page.locator('[placeholder="オーダー番号"]').inputValue();
-  console.log('Part Internal Order ID : ' + partInternalOrder);
+  console.log('Part Internal Order ID : ' + partInternalOrder); 
 
 //   await page.waitForTimeout(5000);
   await part.bringToFront();
@@ -794,7 +796,7 @@ await myVecPage.waitForTimeout(5000);
   // await myVecPage.getByRole('gridcell', { name: '架装単価 通貨計算機フィールド' }).click();
   await myVecPage.locator('[aria-roledescription="架装単価"]').click();
   await myVecPage.locator('[id="1_s_2_l_Item_Price"]').click();
-  await myVecPage.getByRole('textbox', { name: '架装単価 通貨計算機フィールド' }).fill('4567');
+  await myVecPage.getByRole('textbox', { name: '架装単価 通貨計算機フィールド' }).fill('45F67');
   await myVecPage.getByRole('textbox', { name: '架装単価 通貨計算機フィールド' }).press('Control+s');
   await myVecPage.getByRole('button', { name: '架装発注-ヘッダー フォームアプレット:承認依頼' }).click();
   await myVecPage.getByPlaceholder('発注番号').click();
@@ -818,6 +820,8 @@ await myVecPage.waitForTimeout(5000);
   await approver3.locator('[id="1_Action"]').fill('承認');
   await approver3.locator('[id="1_Action"]').press('Control+s');
   await approver3.waitForLoadState('networkidle');
+
+  console.log("Approved the PO -- Line 822")
 
   await myVecPage.bringToFront();
   await myVecPage.locator('[aria-label="発注番号"]').press('Alt+Enter')
@@ -873,6 +877,7 @@ await myVecPage.waitForTimeout(5000);
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+All+Sales+Order+across+HQ+List+View');
   await page.getByRole('button', { name: '販売オーダー リストアプレット:クエリー' }).click();
 
+  console.log('Executed till line 878');
 
   await page.getByRole('textbox', { name: 'オーダー番号 リンク' }).click();
   await page.getByRole('textbox', { name: 'オーダー番号 リンク' }).fill(salesOrder);
