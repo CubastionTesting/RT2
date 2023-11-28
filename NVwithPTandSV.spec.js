@@ -10,7 +10,7 @@ test('record demo 1', async () => {
 
 
   const browser = await chromium.launch({
-    headless: true
+    headless: false
   });
   const characters = '0123456789';
 
@@ -137,8 +137,8 @@ test('record demo 1', async () => {
 
 
 
-
 //   await page.waitForTimeout(5000);
+  console.log("All windows logged in successfully");
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Opportunity+List+View');
   await page.getByRole('button', { name: '商談 リストアプレット:新規' }).click();
   // await page.getByRole('row', { name: '商談名 リンク 選択フィールド コンボボックスフィールド 複数選択フィールド 日付フィールド 進行中' }).getByRole('gridcell', { name: '選択フィールド' }).first().click();
@@ -201,6 +201,7 @@ test('record demo 1', async () => {
   await page.getByPlaceholder('用途区分').click();
   await page.getByPlaceholder('用途区分').fill('自家用');
   await page.getByRole('button', { name: '税・諸費用 リストアプレット:税・諸費用追加' }).click();
+  await page.waitForTimeout(4000);
   await page.goBack();
   await page.waitForTimeout(4000);
 
@@ -240,6 +241,8 @@ test('record demo 1', async () => {
 
   await part.bringToFront();
   // await page.waitForTimeout(5000);
+  console.log('Part Process started');
+
   await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+All+FDP+Quotes+View');
   await part.getByRole('button', { name: '見積 リストアプレット:クエリー' }).click();
   await part.getByRole('textbox', { name: '見積番号 リンク' }).click();
@@ -276,7 +279,7 @@ test('record demo 1', async () => {
 
   await page.getByRole('button', { name: '関連する見積り リストアプレット:顧客見積更新' }).click();
 
-
+  console.log('Service Process started');
   await pageActivity.bringToFront();
   await pageActivity.waitForTimeout(5000);
   //await pageActivity.waitForTimeout(5000);
@@ -345,6 +348,7 @@ test('record demo 1', async () => {
   await page.getByLabel('修正金額', { exact: true }).fill('1233');
   await page.locator('[id="\\39 "]').getByRole('gridcell', { name: '計算機フィールド' }).click();
   await page.getByLabel('修正金額', { exact: true }).fill('¥01500');
+  console.log('Tax and Expenses added');
   await page.locator('[id="\\31 0"]').getByRole('gridcell', { name: '計算機フィールド' }).click();
   await page.getByRole('link', { name: '明細' }).click();
 
@@ -496,7 +500,7 @@ test('record demo 1', async () => {
 
   // approving process completed ************
 
-
+  console.log('NV Quote Approved');
   await page.bringToFront()
   await page.reload();
   // await page.waitForTimeout(5000);
@@ -505,6 +509,7 @@ test('record demo 1', async () => {
   // await page.getByRole('button', { name: '見積り フォームアプレット:自動オーダー' }).click();
   // const salesOrder = await page.locator('[name="s_1_1_106_0"]').textContent();
   // console.log('Sales Order : ' + salesOrder);
+  console.log('Auto order started');
   await page.getByRole('button', { name: '見積り フォームアプレット:自動オーダー' }).click();
   const fullText = await page.locator('[name="s_1_1_106_0"]').textContent();
   const salesOrder = fullText.split(': ')[1].trim();
@@ -583,7 +588,7 @@ test('record demo 1', async () => {
   await approverX.locator('[id="1_Action"]').fill('承認');
   await approverX.locator('[id="1_Action"]').press('Control+s');
   await approverX.waitForLoadState('networkidle');
-
+  console.log('Sales order approved');
 
   // approving process completed ************
 
@@ -759,7 +764,7 @@ test('record demo 1', async () => {
   await part.locator('[data-display="出荷済"]').click();
   //await page.waitForTimeout(5000);
   //await pageActivity.waitForTimeout(5000);
-
+  console.log('Part Process completed');
 
 await myVecPage.waitForTimeout(5000);
   await myVecPage.bringToFront();
@@ -1014,10 +1019,10 @@ await myVecPage.waitForTimeout(5000);
   await pageActivity.waitForTimeout(4000);
   await pageActivity.locator('[name="s_2_1_253_0"]').press('Alt+Enter');
   await pageActivity.getByRole('button', { name: 'ジョブカード フォームアプレット:承認依頼' }).click();
-
+  console.log('Service Process completed');
   // Check the Status {Must be Closed!}
   // await pageActivity.waitForTimeout(5000);
-
+  console.log('Invoice Process started');
   await page.bringToFront();
   //await page.waitForTimeout(5000);
   await page.getByRole('button', { name: '販売オーダー フォームアプレット:自動請求' }).click();
@@ -1065,7 +1070,7 @@ await myVecPage.waitForTimeout(5000);
   await approver1.waitForLoadState('networkidle');
 
   // approving process completed ************
-
+  console.log('Invoice Process completed');
   await page.bringToFront();
   await page.reload();
   await page.waitForTimeout(6000);
@@ -1081,6 +1086,7 @@ await myVecPage.waitForTimeout(5000);
   await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).filter({ hasText: 'Sales Order' }).click();
   await page.locator('[class="drilldown"]').first().click();
   await page.waitForTimeout(5000);
+  console.log('Registration and delivery process started');
   await page.getByRole('link', { name: '登録/配達' }).click();
   await page.getByRole('button', { name: '登録と配達依頼 リストアプレット:登録依頼作成' }).click();
   await page.getByRole('link', { name: '登録依頼' }).click();
@@ -1205,6 +1211,7 @@ await myVecPage.locator('[class="drilldown"]').click();
   await page.getByRole('button', { name: '登録配達依頼 フォームアプレット:依頼' }).click();
   await page.getByRole('button', { name: '登録配達依頼 フォームアプレット:完了' }).click();
   await page.getByRole('link', { name: '登録/配達:' }).click();
+  console.log('Registration and delivery process completed');
   await page.getByRole('button', { name: '販売オーダー フォームアプレット:承認依頼' }).click();
   await page.locator('input[name="s_1_1_119_0"]').click();
   await page.locator('input[name="s_1_1_119_0"]').press('Alt+Control+k');
@@ -1226,7 +1233,7 @@ await myVecPage.locator('[class="drilldown"]').click();
   await approver1.locator('[id="1_Action"]').fill('承認');
   await approver1.locator('[id="1_Action"]').press('Control+s');
   await approver1.waitForLoadState('networkidle');
-
+  console.log('Sales Order Process completed');
   await page.bringToFront();
   // await page.reload();
   // await page.waitForTimeout(5000);
