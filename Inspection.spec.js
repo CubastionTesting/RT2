@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(12000000);
   const browser = await chromium.launch({
 
-    headless: false
+    headless: true
 
   });
   const context = await browser.newContext();
@@ -68,12 +68,11 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
 
   await page.locator('[id="\\31 _s_1_l_INS_Product"]').click();
   await page.locator('[id="1_INS_Product"]').click();
-  await page.pause();
+  //await page.pause();
   await page.locator('[id="1_INS_Product"]').fill('41: その他サービス費');
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
   await page.locator('[class="drilldown"]').first().click();
-  await page.pause();
   await page.getByPlaceholder('取引先コード').click();
 
   await page.getByPlaceholder('取引先コード').fill('0000002810');
@@ -112,7 +111,6 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
 
   //await page.pause();
   await page.getByRole('link', { name: 'パーツ' }).click();
-  await page.reload()
   await page.getByRole('button', { name: 'パーツ リストアプレット:新規' }).click();
   await page.locator('[id="1_s_2_l_Product_Name"]').click();
   await page.locator('[name="Product_Name"]').fill('QC000002');
@@ -231,7 +229,6 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
-  await page.pause();
 
   await page.locator('[aria-label="印刷状況"]').click();
   await page.locator('[aria-label="印刷状況"]').press('Control+Alt+k');
