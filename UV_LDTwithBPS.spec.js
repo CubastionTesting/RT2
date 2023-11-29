@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { ADDRGETNETWORKPARAMS } from 'dns';
+// import { ADDRGETNETWORKPARAMS } from 'dns';
 const { chromium } = require('@playwright/test');
 const fs = require('fs');
 
 test('record demo 1', async () => {
   test.setTimeout(900000);
     const browser = await chromium.launch({
-        headless: true
+        headless: false
     });
     const characters = '0123456789';
 
@@ -109,7 +109,7 @@ test('record demo 1', async () => {
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Opportunity');
     await page.pause();
     // await page.locator('div').filter({ hasText: 'File Auto Application Call List [Alt+I] Call Report [Alt+P] Create Bookmark... S' }).nth(3).click();
-  console.log("line 111 paar ho chuki hai");
+  console.log("creating opportunity");
     await page.getByLabel('Opportunities List Applet:New').click();
   await page.locator('[id="\\31 _s_1_l_MF_Sales_Type"]').click();
   await page.locator('#s_1_2_26_0_icon').click();
@@ -147,12 +147,15 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
   await page.locator('[name="Opportunity #"]').nth(0).click();
   
+  console.log("drilldown to opportunity");
+
   await page.locator('[aria-label="Vehicle Search List Applet:New"]').click();
-  console.log("line 151 paar ho chuki hai");
   await page.locator('[aria-label="Vehicle Search List Applet:OK"]').click();
   await page.getByLabel('Opportunity Form Applet:Create Quote').click();
   await page.locator('[name="Quote Number"]').click();
   
+  console.log("quote created");
+
   // await page.getByRole('cell', { name: 'Expected Order Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
   // await page.getByLabel('October2023').press('Enter');
   // await page.getByRole('cell', { name: 'Expected Sales Posting Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
@@ -197,19 +200,21 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByPlaceholder('Usage Type').fill('Pri');
   await page.getByPlaceholder('Usage Type').press('Enter');
 
-  console.log("line 200 paar ho chuki hai");
-
   await page.getByPlaceholder('Registration Classification').click();
   await page.getByPlaceholder('Registration Classification').fill('Registered');
   await page.getByPlaceholder('Registration Classification').press('Enter');
   await page.getByPlaceholder('Registration Classification').press('Control+s');
+
+  //copy quote
+  var rposu=await page.locator('[id="s_2_1_42_0"]').textContent()
+  var retposu=rposu.substr(15);
+  console.log('sales quote',retposu);
 
   await page.getByLabel('UV Quotes Form Applet:Generate Approvals').click();
   // await page.pause();
   
   await page.getByRole('link', { name: 'Approval History' }).click();
   
-  console.log("line 207 paar ho chuki hai");
   // await page.getByPlaceholder('MD Classification').click();
   await page.waitForTimeout(3000);
   
@@ -242,8 +247,13 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByLabel('UV Quotes Form Applet:Revise').click();
   //Add body after revision on quote
   
+  console.log("quote revised and adding body after revise");
+
   await page.getByRole('link', { name: 'Body' }).click();
   await page.getByLabel('New', { exact: true }).click();
+
+  console.log("adding part");
+
   await page.getByLabel('Create Sub Quote').click();
   await page.getByRole('link', { name: 'Sub Quote' }).click();
   await page.getByRole('grid', { name: 'Related Quote', exact: true }).locator('div').click();
@@ -251,7 +261,6 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 //   await page.getByLabel('UV Quotes Form Applet:Generate Approvals').click();
 //   await page.getByRole('button', { name: 'OK' }).click();
 
-console.log("line 254 paar ho chuki hai");
   await page.locator('[id="\\31 _s_1_l_MF_BB_Name"]').click();
   await page.locator('#s_1_2_38_0_icon').click();
   await page.locator('#s_6_1_101_0_icon').click();
@@ -270,9 +279,11 @@ console.log("line 254 paar ho chuki hai");
   await page.getByRole('combobox', { name: 'Status Combobox Field' }).fill('Estimated');
   await page.getByRole('combobox', { name: 'Status Combobox Field' }).press('Enter');
   await page.getByLabel('Related Quote List Applet:Update Customer Quote').click();
+  console.log("parts added");
 
   //--------------------------
-  // add parts after revision
+  console.log("adding 2nd part");
+
   await page.getByLabel('Related Quote List Applet:New').click();
   await page.getByText('In Progress').click();
   await page.getByRole('combobox', { name: 'Status Combobox Field' }).fill('Request for Quotation');
@@ -299,7 +310,7 @@ console.log("line 254 paar ho chuki hai");
   await pageQuote.getByLabel('Parts #', { exact: true }).press('Control+S');
   await pageQuote.getByLabel('Quote Form Applet:Estimated').click();
 
-  console.log("line 302 paar ho chuki hai");
+  console.log("added 2nd part");
 
   // ---------------------
 
@@ -311,6 +322,9 @@ console.log("line 254 paar ho chuki hai");
   // await page.getByRole('link', { name: 'Activities' }).click();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Quote+Activities+View')
   await page.getByLabel('Activities List Applet:Create Activity').click();
+
+  console.log("start adding service");
+
   await page.getByTitle('Open', { exact: true }).click();
   await page.locator('[name="Status"]').fill('Request for Quotation');
   await page.getByLabel('', { exact: true }).nth(4).click();
@@ -325,6 +339,7 @@ console.log("line 254 paar ho chuki hai");
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Service+Actual+Expense+Items+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Actual+Expense+Items+List+Applet&SWERowId0=1-AP8FW');
   await pageActivity.getByRole('link', { name: 'Internal Work Request' }).click();
   await pageActivity.getByLabel('Internal Work Request List Applet:Query').click();
+  console.log("adding labor in services");
   await pageActivity.getByPlaceholder('<Case Sensitive>').fill(myAct);
   await pageActivity.getByPlaceholder('<Case Sensitive>').press('Enter');
   await pageActivity.getByTitle('Visibility').selectOption('My Branch Internal Work Request');
@@ -334,6 +349,8 @@ console.log("line 254 paar ho chuki hai");
   // await page.getByRole('link', { name: '1-1K49U4' }).click();
   await pageActivity.locator('[name="Activity UID"]').click();
   await pageActivity.getByLabel('Labor List Applet:New').click();
+  console.log("adding lubrication in services");
+
   await pageActivity.locator('[id="\\31 _s_1_l_MF_Labor_Code"]').click();
   await pageActivity.locator('#s_1_2_64_0_icon').click();
   await pageActivity.getByLabel('Pick Labor Code List Applet:OK').click();
@@ -352,9 +369,6 @@ console.log("line 254 paar ho chuki hai");
   await pageActivity.locator('[name="Name"]').click();
   await pageActivity.getByLabel('Quote Form Applet:Update Sale Quote').click();
   await pageActivity.pause();
-
-  console.log("line 356 paar ho chuki hai");
-
   // ---------------------
 
   await page.bringToFront();
@@ -367,8 +381,11 @@ console.log("line 254 paar ho chuki hai");
   await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   // await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   await page.getByLabel('Related Quote List Applet:Update Customer Quote').click();
+  console.log("services added");
 
   await page.reload('domcontentloaded');
+
+  console.log("generate approval of quote");
 
   await page.getByLabel('UV Quotes Form Applet:Generate Approvals').click();
   await page.getByRole('link', { name: 'Approval History' }).click();
@@ -398,9 +415,6 @@ console.log("line 254 paar ho chuki hai");
     await page.bringToFront();
     await page.reload('domcontentloaded');
     // await page.pause();
-
-    console.log("line 402 paar ho chuki hai");
-
     await myPage.bringToFront();
     await myPage.getByRole('link', { name: 'Inbox' }).nth(0).click();
   await myPage.getByLabel('Inbox Items List Applet:Query').click();
@@ -453,7 +467,6 @@ console.log("line 254 paar ho chuki hai");
 
     await page.bringToFront();
 
-    console.log("line 456 paar ho chuki hai");
     await page.reload('domcontentloaded');
     // await page.pause();
     
@@ -505,6 +518,8 @@ console.log("line 254 paar ho chuki hai");
     await page.getByLabel('UV Quotes Form Applet:Create Order').click();
     // await page.getByRole('cell', { name: 'Last Contract Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
     // await page.getByLabel('October2023').press('Enter');
+    console.log("uv sales order created");
+
     await page.getByRole('cell', { name: 'Last Contract Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
     await page.getByRole('button', { name: 'Now' }).click();
     await page.getByRole('button', { name: 'Done' }).click();
@@ -544,7 +559,6 @@ console.log("line 254 paar ho chuki hai");
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    console.log("line 547 paar ho chuki hai");
     // await page.pause();
 
     //2nd approver
@@ -574,10 +588,9 @@ console.log("line 254 paar ho chuki hai");
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
-    await page.pause();
-    // await page.pause();
-
+    console.log("sales order approved");
     //PO mapping and Invoice
+    console.log("PO mapping and Invoice");
 
     await page.getByRole('link', { name: 'Purchase Order' }).click();
     await page.getByLabel('Purchase Order List Applet:Map').click();
@@ -596,14 +609,16 @@ console.log("line 254 paar ho chuki hai");
   await page.getByPlaceholder('<Case Sensitive>').fill('Parts');
   await page.getByPlaceholder('<Case Sensitive>').press('Enter');
 
-  console.log("line 599 paar ho chuki hai");
   // await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   await page.getByLabel('Parts Internal Line Items List Applet:Create Purchase Order').click();
   await page.getByLabel('Parts Internal Line Items List Applet:Query').click();
+
+  console.log("po created");
   await page.getByRole('gridcell', { name: 'Combobox Field' }).click();
   await page.getByPlaceholder('<Case Sensitive>').fill('Labor');
   // await page.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await page.getByPlaceholder('<Case Sensitive>').press('Enter');
+  await page.locator('[aria-labelledby="s_3_l_altpick"]').press('Enter');
+
   await page.getByLabel('Parts Internal Line Items List Applet:Create Activity').click();
   await page.getByRole('link', { name: 'Purchase Order' }).click();
 
@@ -619,6 +634,8 @@ console.log("line 254 paar ho chuki hai");
 
   await pageBB.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Body+Building+Order+View');
   await pageBB.getByLabel('UV Body Building Order List Applet:Query').click();
+
+  console.log("body building order created");
   await pageBB.getByPlaceholder('<Case Sensitive>').fill(bodyPO);
   await pageBB.getByPlaceholder('<Case Sensitive>').press('Enter');
   await pageBB.pause();
@@ -655,7 +672,6 @@ console.log("line 254 paar ho chuki hai");
   await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
   await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
   await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  console.log("line 658 paar ho chuki hai");
   // await pageappvr.pause();
   
   await pageappvr.locator('[aria-roledescription="Action"]').click();
@@ -681,6 +697,8 @@ console.log("line 254 paar ho chuki hai");
   await pageBB.bringToFront();
   await pageBB.reload('domcontentloaded');
 
+  console.log("bbo completed");
+
   await pageBB.waitForTimeout(3000);
   await pageBB.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+All+Purchase+Order+List+View');
   await pageBB.waitForTimeout(4000);
@@ -696,7 +714,6 @@ console.log("line 254 paar ho chuki hai");
   
   await page.bringToFront();
   await page.reload('domcontentloaded');
-  console.log("line 699 paar ho chuki hai");
 
 
   //Body PO End===================================================================
@@ -787,9 +804,6 @@ console.log("line 254 paar ho chuki hai");
   await pageActivity.locator('[aria-label="Quotation Status"]').press('Control+s');
   await pageActivity.waitForTimeout(2000)
 
-  console.log("line 790 paar ho chuki hai");
-
-
 await pageActivity.goto(jCURL)
 await pageActivity.waitForTimeout(3000)
   await pageActivity.getByPlaceholder('Planned Pickup Start Date/Time').click();
@@ -846,8 +860,9 @@ await pageActivity.waitForTimeout(3000)
   await pageActivity.reload('domcontentloaded');
   await pageActivity.getByLabel('Job Card Form Applet:Generate Approval').click();
   await pageActivity.waitForTimeout(2000)
+  console.log("service process completed");
 
-  console.log("line 850 paar ho chuki hai");
+
 
   // ---------------------
  
@@ -874,10 +889,12 @@ await pageActivity.waitForTimeout(3000)
   await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   await page.locator('[id="1_s_1_l_Status"]').click();
 
-  console.log("line 877 paar ho chuki hai");
   // await page.getByRole('gridcell', { name: 'Combobox Field' }).click();
   // await page.getByRole('link', { name: 'E000010267' }).click();
   await page.locator('[name="Order Number"]').click();
+
+
+  console.log("po invoice");
 
     await page.getByLabel('Sales Order Form Applet:Auto Invoice').click();
     // await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Invoice+Line+Item+Details+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=FS+Invoice+Entry+Applet+w/Total+(new)&SWERowId0=1-1G4J6L&SWEApplet1=FS+Invoice+Line+Items+List+Applet&SWERowId1=1-1G4J6O');
@@ -897,16 +914,13 @@ await pageActivity.waitForTimeout(3000)
     await page.getByRole('cell', { name: 'Expense Payment Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
     await page.getByRole('button', { name: 'Now' }).click();
     await page.getByRole('button', { name: 'Done' }).click();
-    console.log("line 900 paar ho chuki hai");
     // await page.locator('#s_2_1_35_0_icon').click();
     // await page.locator('#ui-id-198').click();
     await page.locator('[aria-label="Expense Payment Method"]').fill('AR Bank Transfer');
-    console.log("line 904 paar ho chuki hai");
     await page.waitForTimeout(3000);
     await page.getByPlaceholder('Expense Payment Method').press('Control+s');
     await page.getByLabel('Invoices Form Applet:Group').click();
     await page.waitForTimeout(3000);
-    console.log("line 909 paar ho chuki hai");
     await page.getByLabel('Invoices Form Applet:Generate Approvals').click();
     await page.waitForTimeout(3000);
     await page.getByRole('link', { name: 'Approvals' }).click();
@@ -914,7 +928,6 @@ await pageActivity.waitForTimeout(3000)
     // await page.pause();
     
     // await page.pause();
-    console.log("line 917 paar ho chuki hai");
     await page.locator('[aria-label="Payment Term Type"]').click();
     await page.locator('[aria-label="Payment Term Type"]').press('Control+Alt+k');
     var rowid8 = await page.locator('[aria-label="Row #"]').textContent();
@@ -942,6 +955,8 @@ await pageActivity.waitForTimeout(3000)
     // var order = await page.locator('[aria-label="Order #"]').inputValue();
     // await page.pause();
 
+    console.log("invoice completed");
+
     // await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Sales+Order+Line+Items+Detail+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+UV+Sales+Order+Form+Applet&SWERowId0=1-1G4JP6&SWEApplet1=MF+UV+Order+Entry+-+Line+Item+List+Applet+(Sales)&SWERowId1=1-1G4JPH');
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+All+Orders+View', {waitUntil : 'networkidle'});
     await page.getByLabel('Sales Orders List Applet:Query').click();
@@ -951,6 +966,8 @@ await pageActivity.waitForTimeout(3000)
     // await page.getByRole('gridcell', { name: 'Combobox Field' }).click();
     // await page.getByRole('link', { name: 'E000010267' }).click();
     await page.locator('[name="Order Number"]').click();
+
+    console.log("registration created");
 
     // await page.getByRole('link', { name: 'Registration Request' }).click();
     // await page.getByLabel('Registration Request List Applet:Create Registration Request').click();
@@ -1016,6 +1033,8 @@ await pageActivity.waitForTimeout(3000)
     
     //await page.getByLabel('Purchase Orders List Applet:OK').click();
     //delivery
+    console.log("delivery request");
+
     await page.getByRole('link', { name: 'Delivery Request' }).click();
     await page.getByLabel('Delivery Request List Applet:Create Delivery Request').click();
     // await page.getByRole('link', { name: '1-1GUW6E' }).click();
