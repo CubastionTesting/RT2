@@ -1,4 +1,4 @@
-const { test, Page } = require("@playwright/test");
+const { test, Page, chromium } = require("@playwright/test");
 //const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -7,7 +7,11 @@ test.describe.serial("Siebel Page Test", () => {
     let page;
  
 //Inventory Transition
-test("Inventory Transition", async ({ browser }) => {
+test("Inventory Transition", async () => { const browser = await chromium.launch({
+
+  headless: true
+
+});
   page = await browser.newPage({ ignoreHTTPSErrors: true });
   await page.goto(
     "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?"
@@ -20,6 +24,7 @@ test("Inventory Transition", async ({ browser }) => {
   "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Inventory+Transactions+View"
 );
 await page.locator('[id="s_2_1_0_0_Ctrl"]').click();
+console.log("Inventory transaction created successfully");
 await page.locator('[id="1_s_2_l_Part__"]').click();
 await page.locator('[id="1_Part__"]').click();
 await page.locator('[id="1_Part__"]').fill("##0464");
@@ -59,7 +64,9 @@ await page.locator('[aria-labelledby="DestStatus_Label_1"]').fill('Good');
 await page.locator('[aria-labelledby="DestStatus_Label_1"]').press('Enter');
 
 await page.locator('[aria-labelledby="Commit_Label_1"]').click();
+console.log("Successfully clicked on Commit");
 await page.locator('[aria-labelledby="Commit_Label_1"]').press('Control+s');
+console.log("Inventory Transaction Completed successfully");
  })
 
 });

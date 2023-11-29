@@ -1,4 +1,4 @@
-const { test, Page } = require("@playwright/test");
+const { test, Page, chromium } = require("@playwright/test");
 const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -7,8 +7,12 @@ test.describe.serial("Siebel Page Test", () => {
     let page023;
     let page027;
 
-test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
-  {
+test.only("Purchase Order (PO to StockTransfer)", async() =>
+  {const browser = await chromium.launch({
+
+    headless: true
+  
+  });
 
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
     await page023.goto(
@@ -24,6 +28,7 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     
     //New PO added
     await page023.locator('[aria-label="Purchase Order List Applet:New"]').click();
+    console.log("New Purchase Order Created Successfully");
 
     //Select Po type as PO to Stock Transfer
     await page023.locator('[id="1_s_2_l_MF_Parts_PO_Reference"]').click();
@@ -49,9 +54,11 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
 
     //Add line item
     await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    console.log("Line Item added");
 
     //Part added
     await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('##00020');
+    console.log("Part added on Line Item");
     await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').press('Enter');
 
     await page023.locator('[name="s_4_1_14_0"]').click();
@@ -62,6 +69,7 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
 
     //Generate Approval
     await page023.locator('[aria-label="Purchase Order Form Applet:Generate Approval"]').click();
+    console.log("Clicked on Generate Approval button ");
 
     //ship from different inventory 20
     page027 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -83,6 +91,7 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
   //open order, fulfill all  
     //await page027.pause()
     await page023.waitForTimeout(3000);
+    console.log("Clicked on Fullfill All button");
     await page027.locator('[id="s_2_1_15_0_Ctrl"]').click();
     //status update
     await page027.locator('[placeholder="Status"]').click();
@@ -91,6 +100,7 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     //shipped
     await page027.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(PO)");
     await page027.locator('[aria-label="Shipments List Applet:Shipped"]').click();
+    console.log("Clicked on Shipped button");
     //await page023.pause();
     await page023.waitForTimeout(3000);
 
@@ -115,7 +125,9 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     await page023.locator('[id="1_MF_Order_Number"]').press('Enter');
     //Click on receive
     await page023.locator('[aria-label="Shipments List Applet:Receive"]').click();
+    console.log("Shipmment received Successfully");
     await page023.waitForTimeout(3000);
+    console.log("Purchase Order Completed Successfully");
     
     //Return Order
        //search order
@@ -139,12 +151,15 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     await page023.locator('[aria-labelledby="s_2_l_MF_Return_Good_Qty"]').fill("1");
     //click return order
     await page023.locator('[aria-label="Purchase Order Form Applet:Return Order"]').click();
+    console.log("Clicked on Return Order Button");
     //go to return order
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+View+(PO)");
+    console.log("Return Order Created Successfully");
     //open return order
     await page023.locator('[class="drilldown"]').click();
     //generate approval
     await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click();
+    console.log("Clicked on Generate Approval button");
     //copy order number
     var rposu=await page023.locator('[id="s_1_1_50_0"]').textContent()
     var retposu=rposu.substr(17);
@@ -157,9 +172,12 @@ test.only("Purchase Order (PO to StockTransfer)", async({browser}) =>
     await page023.locator('[id="1_MF_Accepted_Qty"]').press("Control+s");
     //shipped
     await page023.locator('[id="s_3_1_1_0_Ctrl"]').click();
+    console.log("Clicked on Shiped button");
     //again receive from 20 inventory
     await page027.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Stock+Transfer+Shipment+List+View+-+My+Branch+Pending");
     //click on receive
     await page027.locator('[id="s_1_1_1_0_Ctrl"]').click();
+    console.log("Clicked on Recive button");
+    console.log("Purchase Return Order Completed Successfully");
   });
 });

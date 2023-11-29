@@ -1,4 +1,4 @@
-const { test } = require("@playwright/test");
+const { test,Page, chromium } = require("@playwright/test");
 //const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -7,7 +7,11 @@ test.describe.serial("Siebel Page Test", () => {
     let pageF23;
     let page023;
 
-test("Sales Order with PO", async ({browser}) => {
+test("Sales Order with PO", async () => {const browser = await chromium.launch({
+
+  headless: true
+
+});
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
     await page023.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?"
@@ -31,14 +35,17 @@ test("Sales Order with PO", async ({browser}) => {
     await page023.locator('input[role="textbox"]').press("Tab");
     await page023.waitForLoadState("networkidle");
     await page023.waitForTimeout(3000);
+    console.log("Quote Created Successfully");
     await page023.locator('[aria-labelledby="s_2_l_altLink"]').first().click();
   
     // Add Line Items
     await page023.locator('[aria-label="Line Items List Applet:New"]').click();
     await page023.waitForLoadState("domcontentloaded");
+    console.log("Line item added Successfully");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10PARTS764");
+    console.log("Part added Successfully");
   
     // // Add Line Items
     // await page023.locator('[aria-label="Line Items List Applet:New"]').click();
@@ -141,14 +148,17 @@ test("Sales Order with PO", async ({browser}) => {
     await page023
       .locator('[aria-label="Quote Form Applet:Generate Approvals"]')
       .click();
+      console.log("Clicked on Generate Approval Button");
   
     // Accept/Process
     await page023
       .locator('[aria-label="Quote Form Applet:Accepted"]')
       .click();
+      console.log("Clicked on Accepted button");
     await page023.waitForLoadState("load");
     //Sales order generated
     await page023.waitForLoadState("networkidle");
+    console.log("Sales Order Created Successfully");
   
     //Recalculate the line item
     await page023.locator('[id="s_2_1_8_0_Ctrl"]').click();
@@ -166,8 +176,10 @@ test("Sales Order with PO", async ({browser}) => {
   
     //Generate PO
     await page023.locator('[data-display="Generate PO"]').click();
+    console.log("Clicked on Generate PO button");
 
     await page023.waitForTimeout(4000);
+    console.log("Purchase Order Created Successfully");
   
     //Copy sales order number
     var Wsonumber =await page023.title();
@@ -186,6 +198,7 @@ test("Sales Order with PO", async ({browser}) => {
     await page023
       .locator('[aria-label="Purchase Order Form Applet:Ordered"]')
       .click();
+      console.log("Clicked on Orderd button");
   
     //copy POnumber
     var PO_Number = await page023.title();
@@ -215,6 +228,7 @@ test("Sales Order with PO", async ({browser}) => {
   
     //Click on receive button
     await page023.locator('[id="s_3_1_1_0_Ctrl"]').click();
+    console.log("Shipment Recived Successfully and Purchase Ordere Completed");
   
     //Back to sales order after receiving
     await page023.goto(
@@ -235,9 +249,10 @@ test("Sales Order with PO", async ({browser}) => {
     //Shipment shipped
      await page023.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Lines+View(Sales)"
-    );
+    );console.log("Clicked on Shipped");
     await page023.reload();
     await page023.locator('[id="s_2_1_3_0_Ctrl"]').click();
+    console.log("Sales Order Completed Successfully");
   
     //Status as Completed
     await page023.locator('[placeholder="Status"]').click();
@@ -271,14 +286,17 @@ test("Sales Order with PO", async ({browser}) => {
   
     //Change order button enabled
     await page023.locator('[aria-label="Shipments List Applet:Parts Change Order"]').click();
+    console.log("Clicked on Change Order Button");
   
     // Copy Change order number
     var wconumber =await page023.locator('[id="s_2_1_188_0"]').textContent();
     var wcnum = wconumber.substr(14);
+    console.log("Change Order Created Successfully");
     console.log('change order of sales with po',wcnum);
   
     //Generate approval
     await page023.locator('[aria-label="Order Form Applet:Generate Approvals"]').click();
+    console.log("Clicked on Generate Approval button");
   
     //go to  approval
     pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -296,6 +314,7 @@ test("Sales Order with PO", async ({browser}) => {
     await pageF23.locator('[id="1_Action"]').click();
     await pageF23.locator('[id="1_Action"]').fill("Approved");
     await pageF23.locator('[id="1_Action"]').press('Control+s');
+    console.log("Change Order Approved Successfully");
   
   
   
@@ -324,12 +343,15 @@ test("Sales Order with PO", async ({browser}) => {
     await page023.locator('[id="1_MF_Customer_Return_Reason"]').fill("Shipment mistake");
     //click return order button
     await page023.locator('[aria-label="Shipments List Applet:Return Order"]').click();
+    console.log("Clicked on Return Ordeer button");
     //go to sales return order
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+View(Sales)");
+    console.log("Return Order Created Successfully");
     //click on return order
     await page023.locator('[class="drilldown"]').click();
     //click on generate approval
     await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click();
+    console.log("Clicked on Generate Approval button");
     //copy sales return order
     var wretnum = await page023.locator('[name="s_2_1_52_0"]').textContent();
     var wrnum = wretnum.substr(16);
@@ -338,5 +360,6 @@ test("Sales Order with PO", async ({browser}) => {
     await page023.locator('[aria-label="Orders Form Applet:Receiving"]').click();
     //receive button
     await page023.locator('[aria-label="Shipments List Applet:Receive"]').click();
+    console.log("Return Order Completed Successfully");
   })
 });

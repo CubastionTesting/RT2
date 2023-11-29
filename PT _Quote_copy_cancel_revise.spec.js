@@ -9,7 +9,7 @@ test('record demo', async () => {
   test.setTimeout(12000000);
   const browser = await chromium.launch({
 
-    headless: false
+    headless: true
 
   });
   const context = await browser.newContext();
@@ -29,7 +29,9 @@ test('record demo', async () => {
    await page.waitForLoadState();
    await page.waitForTimeout(3000);
    await page.locator('[id="s_2_1_7_0_Ctrl"]').click();
+   console.log("Quote created Successfully");
    await page.locator('[id="1_Quote_Name"]').press('Control+s');
+   console.log("Quote Saved");
    await page.locator('[id="1_s_2_l_Quote_Number"]').click();
    //await page.pause();
    await page.locator('[placeholder="Customer Code"]').click();
@@ -38,7 +40,9 @@ test('record demo', async () => {
    await page.locator('[name="s_4_1_18_0"]').click();
    await page.locator('[id="1_Product"]').fill('QC000001');
    await page.locator('[id="1_Product"]').press('Control+s');
+   console.log("Parts added in line itenm Successfully");
    await page.locator('[name="s_3_1_24_0"]').click();
+   console.log("Generate Approvals button clicked successfully");
    //await page.pause();
    
    //Pop up for cash flag validation
@@ -53,25 +57,33 @@ test('record demo', async () => {
     
     //Revise Quote
     await page.locator('[id="s_3_1_183_0_Ctrl"]').click();
+    console.log("Revise button clicked successfully");
     await page.waitForTimeout(2000);
+    console.log("Quote Revised successfully");
     await page.locator('[id="1_s_4_l_Discount_Percent"]').click();
     await page.locator('[id="1_Discount_Percent"]').fill('2.5');
     await page.locator('[id="1_Discount_Percent"]').press('Control+s');
+    console.log("Manual discount added successfully on Line items");
     await page.locator('[name="s_3_1_24_0"]').click();
+    console.log("Generate Approvals button clicked successfully");
 
 
 
     //Copy Quote
     await page.locator('[name="s_3_1_59_0"]').click();
+    console.log("Copy button clicked successfully");
     await page.waitForTimeout(2000);
+    console.log("Quote Copied successfully");
 
     //Cancel Quote
     await page.locator('[name="s_3_1_106_0"]').click();
+    console.log("Cancel button clicked successfully");
 
 
     
     await context.close();
     await browser.close();
+    console.log("Quote Cancelled successfully");
   })
 
 

@@ -1,4 +1,4 @@
-const { test, Page } = require("@playwright/test");
+const { test, Page, chromium } = require("@playwright/test");
 const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -7,7 +7,11 @@ test.describe.serial("Siebel Page Test", () => {
     let page;
     let pageF23;
    
-    test("parts expense order without PO", async ({ browser }) => { 
+    test("parts expense order without PO", async () => { const browser = await chromium.launch({
+
+      headless: true
+    
+    });
         page = await browser.newPage({ ignoreHTTPSErrors: true });
         pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });
         await page.goto(
@@ -46,9 +50,11 @@ test.describe.serial("Siebel Page Test", () => {
       
         //Open expense order
         await page.locator('[class="drilldown"]').first().click();
+        console.log("Expence Order Created successfully");
       
         //Adding line item
         await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        console.log("Line item added successfully");
       
         //Add Part
         await page
@@ -276,6 +282,7 @@ test.describe.serial("Siebel Page Test", () => {
         await page
           .locator('[aria-label="Orders Form Applet:Generate Approvals"]')
           .click();
+          console.log("Generate Approval button clicked successfully");
         await page.waitForLoadState("networkidle");
         await page.waitForTimeout(3000);
         //copy row id
@@ -307,6 +314,7 @@ test.describe.serial("Siebel Page Test", () => {
         await page.goto(
           "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Expense)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Branch+List+Applet+(Expense)&SWERowId0="+wporowid
         );
+        console.log("Expence Order Approved successfully");
       
         //drilldown to order number
         await page.locator('[class="drilldown"]').click();
@@ -335,12 +343,13 @@ test.describe.serial("Siebel Page Test", () => {
 
         //FullFill All
         await page.locator('[id="s_4_1_15_0_Ctrl"]').click();
-      
+        console.log("Full fill All button Clicked successfully");
         //Shipment shipped
         await page.goto(
           "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Expense)"
         );
         await page.locator('[id="s_2_1_3_0_Ctrl"]').click();
+        console.log("Shipped button clicked successfully");
       
         //Copy expense number
         var expense = await page.locator('[id="s_3_1_149_0"]').textContent();
@@ -352,6 +361,7 @@ test.describe.serial("Siebel Page Test", () => {
         await page.waitForLoadState("domcontentloaded");
         await page.locator('[placeholder="Status"]').click();
         await page.locator('[placeholder="Status"]').press("Alt+Enter");
+        console.log("Expence Order Completed successfully");
       
         ////RETURN ORDER///////
         // Return quantity
@@ -381,8 +391,10 @@ test.describe.serial("Siebel Page Test", () => {
         await page.locator('[id="1_MF_Customer_Return_Reason"]').press('Control+s');
         //click return order
         await page.locator('[aria-label="Orders Form Applet:Create Return Order"]').click();
+        console.log("Create Return Order button clicked successfully");
         await page.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+(Expense)");
         await page.locator('[class="drilldown"]').click();
+        console.log("Return Order Created successfully");
           //Copy expense number
           var rexpense = await page.locator('[name="s_1_1_48_0"]').textContent();
           var rexnum = rexpense.substr(15);
@@ -395,8 +407,10 @@ test.describe.serial("Siebel Page Test", () => {
 
           //Receiving
           await page.locator('[aria-label="Orders Form Applet:Receiving"]').click();
+          console.log("Reciving button clicked  successfully");
           //receive button
           await page.locator('[aria-label="Shipments List Applet:Receive"]').click();
+          console.log("Clicked on Reciving button and Return Order Completed successfully");
       
       });
 });
