@@ -1,4 +1,4 @@
-const { test } = require("@playwright/test");
+const { test,Page, chromium } = require("@playwright/test");
 const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -7,7 +7,11 @@ test.describe.serial("Siebel Page Test", () => {
     let pageF23;
     let page023;
     
-test("Sales Order without PO", async ({ browser }) => {
+test("Sales Order without PO", async () => {const browser = await chromium.launch({
+
+  headless: true
+
+});
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
     await page023.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?"
@@ -26,6 +30,7 @@ test("Sales Order without PO", async ({ browser }) => {
     await page023.locator('input[role="textbox"]').press("Tab");
     await page023.waitForLoadState("networkidle");
     await page023.waitForTimeout(3000);
+    console.log("Quote Created Successfully");
     await page023.locator('[aria-labelledby="s_2_l_altLink"]').first().click();
   
     // Add Line Items
@@ -130,6 +135,7 @@ test("Sales Order without PO", async ({ browser }) => {
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT014");
+    console.log("Parts added in Line items");
   
     // Press s with modifiers
     await page023.locator('input[role="textbox"]').press("Control+s");
@@ -148,6 +154,7 @@ test("Sales Order without PO", async ({ browser }) => {
     await page023
       .locator('[aria-label="Quote Form Applet:Generate Approvals"]')
       .click();
+      console.log("Clicked on Generate Approval button");
       await page023.waitForLoadState("load")
   
       /// /// ///Print Button
@@ -159,9 +166,11 @@ test("Sales Order without PO", async ({ browser }) => {
   
     // Click [aria-label="Quote\:Accepted"]
     await page023.locator('[aria-label="Quote Form Applet:Accepted"]').click();
+    console.log("Clicked on Accepted button");
     await page023.waitForLoadState("load");
     await page023.waitForLoadState("domcontentloaded");
     await page023.waitForTimeout(3000);
+    console.log("Sales Order Created Successfully");
   
     /// /// ///Order Sheet Print Button
     await page023.locator('[aria-label="Sales Order Form Applet:Order Sheet Print"]').click();
@@ -192,6 +201,7 @@ test("Sales Order without PO", async ({ browser }) => {
     await page023
       .locator('[aria-label="Line Items List Applet:Fulfill All"]')
       .click();
+      console.log("Clicked on Fullfill All button");
   
     // Shipment
     await page023.goto(
@@ -202,11 +212,13 @@ test("Sales Order without PO", async ({ browser }) => {
     await page023
       .locator('[aria-label="Shipments List Applet:Shipped"]')
       .click();
+      console.log("Clicked on Shiped");
     await page023.waitForLoadState("networkidle");
   
     // Updated "Status"
     await page023.locator('[placeholder="Status"]').click();
     await page023.locator('[placeholder="Status"]').press("Alt+Enter");
+    console.log("Sales Order Completed Successfully");
   
     //CHANGE ORDER/////
   
@@ -237,14 +249,18 @@ test("Sales Order without PO", async ({ browser }) => {
   
     //Change order button enabled
     await page023.locator('[aria-label="Shipments List Applet:Parts Change Order"]').click();
+    console.log("Click on Change Order button");
   
     // Copy Change order number
     var conumber =await page023.locator('[id="s_2_1_188_0"]').textContent();
     var cnum = conumber.substr(13);
+    console.log("Change Order Created Successfully");
     console.log('change of sales without po',cnum);
   
     //Generate approval
     await page023.locator('[aria-label="Order Form Applet:Generate Approvals"]').click();
+    console.log("Clicked on Generate Approval");
+    
     await page023.reload()
   
     //go to  approval
@@ -264,6 +280,7 @@ test("Sales Order without PO", async ({ browser }) => {
     //update status
     await page023.waitForTimeout(2000);
     await page023.locator('[placeholder="Status"]').press('Alt+Enter');
+    console.log("Change Order Approved Successfully");
 
     /// /// ///Print button 
     await page023.locator('[aria-label="Order Form Applet:Print"]').click();
@@ -300,13 +317,16 @@ test("Sales Order without PO", async ({ browser }) => {
       await page023.locator('[id="1_MF_Customer_Return_Reason"]').click('Control+s');
       //click return order button
       await page023.locator('[aria-label="Shipments List Applet:Return Order"]').click();
+      console.log("Clicked on Return Order Button");
       //go to sales return order
       await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+View(Sales)");
+      console.log("Return Order Created Successfully");
   
       //click on return order
       await page023.locator('[class="drilldown"]').click();
       //click on generate approval
       await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click();
+      console.log("Click on Generate Approval button");
   
       /// /// ///Print Button
       await page023.locator('[aria-label="Orders Form Applet:Print"]').click();
@@ -317,8 +337,10 @@ test("Sales Order without PO", async ({ browser }) => {
       console.log("Sales return order without PO",rnum)
       //receiving
       await page023.locator('[aria-label="Orders Form Applet:Receiving"]').click();
+      console.log("Click on Receve button");
       //receive button
       await page023.locator('[aria-label="Shipments List Applet:Receive"]').click();
+      console.log("Return Order Completed Successfully");
       
   })
 });  

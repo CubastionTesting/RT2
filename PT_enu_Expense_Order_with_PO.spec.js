@@ -1,4 +1,4 @@
-const { test, Page } = require("@playwright/test");
+const { test, Page, chromium } = require("@playwright/test");
 //const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -7,7 +7,11 @@ test.describe.serial("Siebel Page Test", () => {
     let page;
     let pageF23;
    
-test.only("Parts Expense Order with PO" , async({browser}) => {
+test.only("Parts Expense Order with PO" , async() => {const browser = await chromium.launch({
+
+  headless: true
+
+});
     page = await browser.newPage({ ignoreHTTPSErrors: true });
     pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });
 await page.waitForLoadState()
@@ -33,6 +37,7 @@ await page.waitForLoadState()
     //New Expense Order Created
     await page.locator('[id="s_1_1_22_0_Ctrl"]').click();
     await page.waitForLoadState("domcontentloaded");
+    console.log("Expense Order created successfully");
     //Adding expense order
     await page.locator('[id="1_s_1_l_MF_Internal_Expense_Type"]').click();
 
@@ -50,6 +55,7 @@ await page.waitForLoadState()
     //Adding line item
 
     await page.locator('[aria-label="Line Items List Applet:New"]').click();
+    console.log("Line Items added successfully");
 
     //Add Part
     await page
@@ -99,6 +105,7 @@ await page.waitForLoadState()
     await page
       .locator('[aria-label="Orders Form Applet:Generate Approvals"]')
       .click();
+      console.log("Generate Approvals button clicked successfully");
     await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
 
@@ -133,6 +140,7 @@ await page.waitForLoadState()
     await page.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Expense)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Branch+List+Applet+(Expense)&SWERowId0="+rowid
     );
+    console.log("Expense Order Approved successfully");
 
     //drilldown to order number
     await page.locator('[class="drilldown"]').click();
@@ -144,6 +152,7 @@ await page.waitForLoadState()
     await page
       .locator('[aria-label="Orders Form Applet:Generate PO"]')
       .click();
+      console.log("Generate PO button clicked successfully");
     await pageF23.waitForLoadState("domcontentloaded");
     await page.waitForTimeout(2000);
 
@@ -153,12 +162,14 @@ await page.waitForLoadState()
     );
     await pageF23.waitForLoadState("domcontentloaded");
     await page.waitForTimeout(2000);
+    console.log("Purchase Order Created successfully");
     //PO generated
     await page.locator('[class="drilldown"]').first().click();
     await page.waitForLoadState("domcontentloaded");
 
     //Order PO
     await page.locator('[aria-label="Purchase Order Form Applet:Ordered"]').click();
+    console.log("Ordered button clicked successfully");
 
         //copy purchase order
     await page.goto(
@@ -198,6 +209,7 @@ await page.waitForLoadState()
 
     //Click on receive button
     await page.locator('[id="s_3_1_1_0_Ctrl"]').click();
+    console.log("Shipment Received successfully");
 
     //Back to expense order after receiving
     await page.goto(
@@ -215,6 +227,7 @@ await page.waitForLoadState()
     await page.waitForLoadState("domcontentloaded");
     await page.locator('[id="1_s_1_l_Status"]').click();
     await page.locator('[class="drilldown"]').click();
+    console.log("Shipped button clicked successfully");
 
     //Shipment shipped
     //force2u2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Expense)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Form+Applet+Dashboard+(Expense)&SWERowId0=1-XA78CB&SWEApplet1=MF+Order+Entry+-+Shipment+List+Applet+(Sales)&SWERowId1=1-XQD07F
@@ -223,10 +236,12 @@ await page.waitForLoadState()
     );
     await page.reload();
     await page.locator('[id="s_2_1_3_0_Ctrl"]').click();
+   
 
     //Status as Completed
     await page.locator('[placeholder="Status"]').click();
     await page.locator('[placeholder="Status"]').press("Alt+Enter");
+    console.log("Expence Order Completed successfully");
 
    //////RETURN ORDER///////
     //Return quantity
@@ -254,8 +269,10 @@ await page.waitForLoadState()
     await page.locator('[id="1_MF_Customer_Return_Reason"]').press('Control+s');
     //click return order
     await page.locator('[aria-label="Orders Form Applet:Create Return Order"]').click();
+    console.log("Create Return Order button clicked successfully");
     await page.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+(Expense)");
     await page.locator('[class="drilldown"]').click();
+    console.log("Return Order Created successfully");
 
     //Copy expense number
     var reexpense = await page.locator('[id="s_1_1_48_0"]').textContent();
@@ -265,6 +282,7 @@ await page.waitForLoadState()
     await page.locator('[id="s_1_1_19_0_Ctrl"]').click();
     //receive button
     await page.locator('[name="s_1_1_1_0"]').click();
+    console.log("Return Order Completed successfully");
 
 });
 
