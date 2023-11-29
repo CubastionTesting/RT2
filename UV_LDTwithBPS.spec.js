@@ -6,7 +6,7 @@ const fs = require('fs');
 test('record demo 1', async () => {
   test.setTimeout(900000);
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters = '0123456789';
 
@@ -108,8 +108,9 @@ test('record demo 1', async () => {
     await page.bringToFront();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Opportunity');
     await page.pause();
-    await page.locator('div').filter({ hasText: 'File Auto Application Call List [Alt+I] Call Report [Alt+P] Create Bookmark... S' }).nth(3).click();
-  await page.getByLabel('Opportunities List Applet:New').click();
+    // await page.locator('div').filter({ hasText: 'File Auto Application Call List [Alt+I] Call Report [Alt+P] Create Bookmark... S' }).nth(3).click();
+  console.log("line 111 paar ho chuki hai");
+    await page.getByLabel('Opportunities List Applet:New').click();
   await page.locator('[id="\\31 _s_1_l_MF_Sales_Type"]').click();
   await page.locator('#s_1_2_26_0_icon').click();
   await page.locator('#ui-id-108').click();
@@ -147,6 +148,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.locator('[name="Opportunity #"]').nth(0).click();
   
   await page.locator('[aria-label="Vehicle Search List Applet:New"]').click();
+  console.log("line 151 paar ho chuki hai");
   await page.locator('[aria-label="Vehicle Search List Applet:OK"]').click();
   await page.getByLabel('Opportunity Form Applet:Create Quote').click();
   await page.locator('[name="Quote Number"]').click();
@@ -195,6 +197,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByPlaceholder('Usage Type').fill('Pri');
   await page.getByPlaceholder('Usage Type').press('Enter');
 
+  console.log("line 200 paar ho chuki hai");
+
   await page.getByPlaceholder('Registration Classification').click();
   await page.getByPlaceholder('Registration Classification').fill('Registered');
   await page.getByPlaceholder('Registration Classification').press('Enter');
@@ -205,6 +209,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   
   await page.getByRole('link', { name: 'Approval History' }).click();
   
+  console.log("line 207 paar ho chuki hai");
   // await page.getByPlaceholder('MD Classification').click();
   await page.waitForTimeout(3000);
   
@@ -245,6 +250,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 //   await page.getByLabel('1-1K1H1D', { exact: true }).fill('asdf');
 //   await page.getByLabel('UV Quotes Form Applet:Generate Approvals').click();
 //   await page.getByRole('button', { name: 'OK' }).click();
+
+console.log("line 254 paar ho chuki hai");
   await page.locator('[id="\\31 _s_1_l_MF_BB_Name"]').click();
   await page.locator('#s_1_2_38_0_icon').click();
   await page.locator('#s_6_1_101_0_icon').click();
@@ -292,6 +299,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageQuote.getByLabel('Parts #', { exact: true }).press('Control+S');
   await pageQuote.getByLabel('Quote Form Applet:Estimated').click();
 
+  console.log("line 302 paar ho chuki hai");
+
   // ---------------------
 
   await page.bringToFront();
@@ -329,7 +338,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('#s_1_2_64_0_icon').click();
   await pageActivity.getByLabel('Pick Labor Code List Applet:OK').click();
   await pageActivity.pause();
-  await pageActivity.getByText('0', { exact: true }).click();
+  await pageActivity.getByTitle('0', { exact: true }).click();
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).fill('1');
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).press('Control+s');
   await pageActivity.getByRole('link', { name: 'Lubrication' }).click();
@@ -343,6 +352,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[name="Name"]').click();
   await pageActivity.getByLabel('Quote Form Applet:Update Sale Quote').click();
   await pageActivity.pause();
+
+  console.log("line 356 paar ho chuki hai");
 
   // ---------------------
 
@@ -387,6 +398,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.bringToFront();
     await page.reload('domcontentloaded');
     // await page.pause();
+
+    console.log("line 402 paar ho chuki hai");
 
     await myPage.bringToFront();
     await myPage.getByRole('link', { name: 'Inbox' }).nth(0).click();
@@ -439,6 +452,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await myPage1.waitForLoadState('networkidle');
 
     await page.bringToFront();
+
+    console.log("line 456 paar ho chuki hai");
     await page.reload('domcontentloaded');
     // await page.pause();
     
@@ -529,6 +544,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
+    console.log("line 547 paar ho chuki hai");
     // await page.pause();
 
     //2nd approver
@@ -579,6 +595,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByRole('gridcell', { name: 'Combobox Field' }).click();
   await page.getByPlaceholder('<Case Sensitive>').fill('Parts');
   await page.getByPlaceholder('<Case Sensitive>').press('Enter');
+
+  console.log("line 599 paar ho chuki hai");
   // await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   await page.getByLabel('Parts Internal Line Items List Applet:Create Purchase Order').click();
   await page.getByLabel('Parts Internal Line Items List Applet:Query').click();
@@ -637,6 +655,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
   await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
   await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  console.log("line 658 paar ho chuki hai");
   // await pageappvr.pause();
   
   await pageappvr.locator('[aria-roledescription="Action"]').click();
@@ -677,7 +696,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   
   await page.bringToFront();
   await page.reload('domcontentloaded');
-
+  console.log("line 699 paar ho chuki hai");
 
 
   //Body PO End===================================================================
@@ -768,6 +787,8 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[aria-label="Quotation Status"]').press('Control+s');
   await pageActivity.waitForTimeout(2000)
 
+  console.log("line 790 paar ho chuki hai");
+
 
 await pageActivity.goto(jCURL)
 await pageActivity.waitForTimeout(3000)
@@ -826,15 +847,17 @@ await pageActivity.waitForTimeout(3000)
   await pageActivity.getByLabel('Job Card Form Applet:Generate Approval').click();
   await pageActivity.waitForTimeout(2000)
 
+  console.log("line 850 paar ho chuki hai");
+
   // ---------------------
  
 
   //========================Service PO ends
   await page.bringToFront();
   await page.reload('domcontentloaded');
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(5000);
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+All+Orders+View', {waitUntil : 'networkidle'});
-  await page.waitForTimeout(4000);
+  await page.waitForTimeout(8000);
 
 
   // await page.getByLabel('Sales Orders List Applet:Query', { exact: true }).click();
@@ -850,6 +873,8 @@ await pageActivity.waitForTimeout(3000)
   await page.getByPlaceholder('<Case Sensitive>').fill(order);
   await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   await page.locator('[id="1_s_1_l_Status"]').click();
+
+  console.log("line 877 paar ho chuki hai");
   // await page.getByRole('gridcell', { name: 'Combobox Field' }).click();
   // await page.getByRole('link', { name: 'E000010267' }).click();
   await page.locator('[name="Order Number"]').click();
@@ -872,16 +897,24 @@ await pageActivity.waitForTimeout(3000)
     await page.getByRole('cell', { name: 'Expense Payment Date Press F2 for Date Time Field' }).getByLabel('Press F2 for Date Time Field').click();
     await page.getByRole('button', { name: 'Now' }).click();
     await page.getByRole('button', { name: 'Done' }).click();
+    console.log("line 900 paar ho chuki hai");
     // await page.locator('#s_2_1_35_0_icon').click();
     // await page.locator('#ui-id-198').click();
     await page.locator('[aria-label="Expense Payment Method"]').fill('AR Bank Transfer');
+    console.log("line 904 paar ho chuki hai");
+    await page.waitForTimeout(3000);
     await page.getByPlaceholder('Expense Payment Method').press('Control+s');
     await page.getByLabel('Invoices Form Applet:Group').click();
+    await page.waitForTimeout(3000);
+    console.log("line 909 paar ho chuki hai");
     await page.getByLabel('Invoices Form Applet:Generate Approvals').click();
+    await page.waitForTimeout(3000);
     await page.getByRole('link', { name: 'Approvals' }).click();
-    await page.pause();
+    await page.waitForTimeout(3000);
+    // await page.pause();
     
-    await page.pause();
+    // await page.pause();
+    console.log("line 917 paar ho chuki hai");
     await page.locator('[aria-label="Payment Term Type"]').click();
     await page.locator('[aria-label="Payment Term Type"]').press('Control+Alt+k');
     var rowid8 = await page.locator('[aria-label="Row #"]').textContent();
@@ -969,7 +1002,7 @@ await pageActivity.waitForTimeout(3000)
     await page.locator('[id="1_s_1_l_Status"]').click();
     await page.locator('[name="Order Number"]').click();
     await page.getByRole('link', { name: 'Purchase Order' }).click();
-    await page.pause();
+    // await page.pause();
     await page.getByLabel('Purchase Order List Applet:Map').click();
     const elementExists = await page.getByLabel('Purchase Orders List Applet:OK').isDisabled();
     console.log(elementExists);
@@ -1031,7 +1064,7 @@ await pageActivity.waitForTimeout(3000)
     await pageappvr.waitForLoadState('networkidle');
 
     await page.bringToFront();
-    await page.pause();
+    // await page.pause();
     await page.close();
     await pageappvr.close();
     await myPage.close();
