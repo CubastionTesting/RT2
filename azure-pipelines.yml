@@ -19,33 +19,38 @@ steps:
     npm install && npx playwright install
   displayName: 'npm install and build'
 - script: |
-    npx playwright test PT _Quote_copy_cancel_revise
-  displayName: 'Running Test file for Parts Quote copy, revise and cancel case'
+    npx playwright test SV_12_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 12 Month Inspection'
 - script: |
-    npx playwright test PT_LPP_RT2
-  displayName: 'Running Test file for LPP Parts'
+    npx playwright test SV_24_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 24 Month Inspection'
 - script: |
-    npx playwright test PT_Verify_Cycle_Count
-  displayName: 'Running Test file for Parts Cycle count'
+    npx playwright test SV_3_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 3 Month Inspection'
 - script: |
-    npx playwright test PT_enu_Expense_Order_Without_PO
-  displayName: 'Running Test file for Parts Expence Order Without Purchase Order and return order'
+    npx playwright test SV_6_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 6 Month Inspection'
 - script: |
-    npx playwright test PT_enu_Expense_Order_With_PO
-  displayName: 'Running Test file for Parts Expence Order With Purchase Oreder and Return Order'
+    npx playwright test SV_AccidentBranch
+  displayName: 'Running Test file for Service Job Card Type as Accident in the Branch'
 - script: |
-    npx playwright test PT_enu_Inventory_Transaction
-  displayName: 'Running Test file for Parts Inventory Transaction'
+    npx playwright test SV_Fieldfix
+  displayName: 'Running Test file for Service Job Card Type as Field Fix'
 - script: |
-    npx playwright test PT_enu_POtoSupplier
-  displayName: 'Running Test file for Parts Purchase Order type as PO to Supplier and Return Order'
+    npx playwright test SV_Inspection
+  displayName: 'Running Test file for Service Job Card Type as Inspection Chargeable'
 - script: |
-    npx playwright test PT_enu_Sales_Order_With_PO
-  displayName: 'Running Test file for Parts Sales Order With PO and Return Order'
+    npx playwright test SV_JCChangePrice
+  displayName: 'Running Test file for Service Change Order type as Price Change'
 - script: |
-    npx playwright test PT_enu_Sales_Order_Without_PO
-  displayName: 'Running Test file for Parts Sales Order Without PO and Return Order'
+    npx playwright test SV_PayerChangewith_print
+  displayName: 'Running Test file for Service Change order type as Payer change and print'
 - script: |
-    npx playwright test PT_enu_StockTransfer
-  displayName: 'Running Test file for Parts Stock Transfer'
-
+    npx playwright test SV_Reworking
+  displayName: 'Running Test file for Service Job Card Type as Re-working'
+- script: |
+    npx playwright test SV_SPOexternalwith_print
+  displayName: 'Running Test file for Service Job Card with Service Purchase Order'
+- script: |
+    npx playwright test SV_chargeble
+  displayName: 'Running Test file for Service Job Card Type as Chargeble'
