@@ -1,0 +1,56 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install && npx playwright install
+  displayName: 'npm install and build'
+- script: |
+    npx playwright test SV_12_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 12 Month Inspection'
+- script: |
+    npx playwright test SV_24_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 24 Month Inspection'
+- script: |
+    npx playwright test SV_3_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 3 Month Inspection'
+- script: |
+    npx playwright test SV_6_M_inspec
+  displayName: 'Running Test file for Service Job Card Type as 6 Month Inspection'
+- script: |
+    npx playwright test SV_AccidentBranch
+  displayName: 'Running Test file for Service Job Card Type as Accident in the Branch'
+- script: |
+    npx playwright test SV_Fieldfix
+  displayName: 'Running Test file for Service Job Card Type as Field Fix'
+- script: |
+    npx playwright test SV_Inspection
+  displayName: 'Running Test file for Service Job Card Type as Inspection Chargeable'
+- script: |
+    npx playwright test SV_JCChangePrice
+  displayName: 'Running Test file for Service Change Order type as Price Change'
+- script: |
+    npx playwright test SV_PayerChangewith_print
+  displayName: 'Running Test file for Service Change order type as Payer change and print'
+- script: |
+    npx playwright test SV_Reworking
+  displayName: 'Running Test file for Service Job Card Type as Re-working'
+- script: |
+    npx playwright test SV_SPOexternalwith_print
+  displayName: 'Running Test file for Service Job Card with Service Purchase Order'
+- script: |
+    npx playwright test SV_chargeble
+  displayName: 'Running Test file for Service Job Card Type as Chargeble'
