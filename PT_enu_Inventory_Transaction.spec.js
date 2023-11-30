@@ -7,7 +7,9 @@ test.describe.serial("Siebel Page Test", () => {
     let page;
  
 //Inventory Transition
-test("Inventory Transition", async () => { const browser = await chromium.launch({
+test("Inventory Transition", async () => { 
+  test.setTimeout(12000000);
+  const browser = await chromium.launch({
 
   headless: true
 

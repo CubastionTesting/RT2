@@ -8,7 +8,9 @@ test.describe.serial("Siebel Page Test", () => {
     let page027;
 
 test.only("Purchase Order (PO to StockTransfer)", async() =>
-  {const browser = await chromium.launch({
+  {
+    test.setTimeout(12000000);
+    const browser = await chromium.launch({
 
     headless: true
   

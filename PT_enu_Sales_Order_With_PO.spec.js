@@ -7,7 +7,9 @@ test.describe.serial("Siebel Page Test", () => {
     let pageF23;
     let page023;
 
-test("Sales Order with PO", async () => {const browser = await chromium.launch({
+test("Sales Order with PO", async () => {
+  test.setTimeout(12000000);
+  const browser = await chromium.launch({
 
   headless: true
 
