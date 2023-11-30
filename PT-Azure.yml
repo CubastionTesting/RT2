@@ -1,0 +1,54 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install && npx playwright install
+  displayName: 'npm install and build'
+- script: |
+    npx playwright test PT _Quote_copy_cancel_revise
+  displayName: 'Running Test file for Parts Quote copy, revise and cancel case'
+- script: |
+    npx playwright test PT_LPP_RT2
+  displayName: 'Running Test file for LPP Parts'
+- script: |
+    npx playwright test PT_Verify_Cycle_Count
+  displayName: 'Running Test file for Parts Cycle count'
+- script: |
+    npx playwright test PT_enu_Expense_Order_Without_PO
+  displayName: 'Running Test file for Parts Expence Order Without Purchase Order and return order'
+- script: |
+    npx playwright test PT_enu_Expense_Order_With_PO
+  displayName: 'Running Test file for Parts Expence Order With Purchase Oreder and Return Order'
+- script: |
+    npx playwright test PT_enu_Inventory_Transaction
+  displayName: 'Running Test file for Parts Inventory Transaction'
+- script: |
+    npx playwright test PT_enu_POtoSupplier
+  displayName: 'Running Test file for Parts Purchase Order type as PO to Supplier and Return Order'
+- script: |
+    npx playwright test PT_enu_Sales_Order_With_PO
+  displayName: 'Running Test file for Parts Sales Order With PO and Return Order'
+- script: |
+    npx playwright test PT_enu_Sales_Order_Without_PO
+  displayName: 'Running Test file for Parts Sales Order Without PO and Return Order'
+- script: |
+    npx playwright test PT_enu_StockTransfer
+  displayName: 'Running Test file for Parts Stock Transfer'
+- script: |
+    npx playwright test PT _Quote_copy_cancel_revise
+  displayName: 'Running Test file for Parts Quote copy, revise and cancel case'
+
