@@ -4,7 +4,7 @@ const fs = require('fs');
 
 test('payable', async () => {
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters = '0123456789';
 
@@ -78,6 +78,7 @@ test('payable', async () => {
     await pageApp4.getByRole('button', { name: 'Log on' }).click();
 
     await page.bringToFront();
+    await page.pause();
     await page.getByRole('link', { name: '取引先' }).click();
     await page.getByRole('button', { name: '取引先 リストアプレット:新規' }).click();
     await page.locator('[id="1_s_1_l_Name"]').click();
@@ -90,6 +91,10 @@ test('payable', async () => {
     await page.locator('[id="\\31 _s_1_l_Main_Phone_Number"]').click();
     await page.getByRole('textbox', { name: '電話番号' }).fill('9414141410');
     await page.getByRole('textbox', { name: '電話番号' }).press('Control+s');
+
+    const CustomerID = await page.locator('[id="1_s_1_l_Location"]').textContent();
+    console.log("Customer Id is : " + CustomerID);
+
     await page.getByRole('gridcell', { name: '顧客名-ｶﾅ' }).click();
     await page.locator('[name="Name"]').first().click();
     await page.getByRole('link', { name: '顧客住所' }).click();
@@ -208,7 +213,7 @@ test('payable', async () => {
 
 test('both', async () => {
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters = '0123456789';
 
@@ -245,7 +250,7 @@ test('both', async () => {
 
 
     //login process starting
-    await page.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
 
     await page.getByLabel('User ID').click();
     await page.getByLabel('User ID').fill('D8FOFD22');
@@ -253,28 +258,28 @@ test('both', async () => {
     await page.getByLabel('Password').fill('Snakamura@1');
     await page.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp1.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
     await pageApp1.getByLabel('User ID').click( );
     await pageApp1.getByLabel('User ID').fill('D8FDFO22');
     await pageApp1.getByRole('button', { name: 'Next' }).click();
     await pageApp1.getByLabel('Password').fill('Snakamura@1');
     await pageApp1.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp2.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
+    await pageApp2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
     await pageApp2.getByLabel('User ID').click( );
-    await pageApp2.getByLabel('User ID').fill('D8FORF22');
+    await pageApp2.getByLabel('User ID').fill('D8FDFO25');
     await pageApp2.getByRole('button', { name: 'Next' }).click();
     await pageApp2.getByLabel('Password').fill('Snakamura@1');
     await pageApp2.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp3.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
+    await pageApp3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
     await pageApp3.getByLabel('User ID').click( );
-    await pageApp3.getByLabel('User ID').fill('D8FFDP13');
+    await pageApp3.getByLabel('User ID').fill('D8FDFO22');
     await pageApp3.getByRole('button', { name: 'Next' }).click();
     await pageApp3.getByLabel('Password').fill('Snakamura@1');
     await pageApp3.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp4.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
+    await pageApp4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
     await pageApp4.getByLabel('User ID').click( );
     await pageApp4.getByLabel('User ID').fill('D8FDFO19');
     await pageApp4.getByRole('button', { name: 'Next' }).click();
@@ -282,6 +287,7 @@ test('both', async () => {
     await pageApp4.getByRole('button', { name: 'Log on' }).click();
 
     await page.bringToFront();
+    await page.pause();
     await page.getByRole('link', { name: '取引先' }).click();
     await page.getByRole('button', { name: '取引先 リストアプレット:新規' }).click();
     await page.locator('[id="1_s_1_l_Name"]').click();
@@ -293,6 +299,10 @@ test('both', async () => {
     await page.locator('[id="\\31 _s_1_l_Main_Phone_Number"]').click();
     await page.getByRole('textbox', { name: '電話番号' }).fill('9414141410');
     await page.getByRole('textbox', { name: '電話番号' }).press('Control+s');
+
+    const BothID = await page.locator('[id="1_s_1_l_Location"]').textContent();
+    console.log("Both Id is : " + BothID);
+
     await page.getByRole('gridcell', { name: '顧客名-ｶﾅ' }).click();
     await page.locator('[name="Name"]').first().click();
     await page.getByRole('link', { name: '顧客住所' }).click();
@@ -353,17 +363,20 @@ test('both', async () => {
     // await page.getByRole('button', { name: 'サービスリクエスト リストアプレット:承認依頼' }).click();
     // await page.reload();
     await page.waitForTimeout(3000);
-    await page.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Service+Account+List+View', { waitUntil: 'networkidle' });
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Service+Account+List+View', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(3000);
     await page.locator('[id="s_1_1_3_0_Ctrl"]').click();
 
     //copy row id
-    await page.locator('[id="1_s_1_l_SR_Number"]').press("Control+Alt+k");
+    await page.locator('[id="\\31 _s_1_l_Request_infoSales_approver"]').click();
+    await page.getByLabel('営業承認者', { exact: true }).press('Alt+Control+k');
+
     var SRrowid = await page.locator('[aria-label="ロウ番号"]').textContent();
-    console.log(SRrowid);
-    await page.locator('[aria-label="ロウ番号"]').press("Control+c");
+    console.log("Row id is : " + SRrowid);
+    // await page.locator('[aria-label="ロウ番号"]').press("Control+c");
 
     await pageApp1.bringToFront();
-    await pageApp1.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp1.waitForLoadState('domcontentloaded');
     await pageApp1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp1.getByRole('gridcell', { name: 'リンク' }).click();
@@ -378,7 +391,7 @@ test('both', async () => {
 
     await page.reload();
     await pageApp2.bringToFront();
-    await pageApp2.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp2.waitForLoadState('domcontentloaded');
     await pageApp2.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp2.getByRole('gridcell', { name: 'リンク' }).click();
@@ -393,7 +406,7 @@ test('both', async () => {
 
     await page.reload();
     await pageApp3.bringToFront();
-    await pageApp3.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp3.waitForLoadState('domcontentloaded');
     await pageApp3.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp3.getByRole('gridcell', { name: 'リンク' }).click();
@@ -408,7 +421,7 @@ test('both', async () => {
 
     await page.reload();
     await pageApp4.bringToFront();
-    await pageApp4.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp4.waitForLoadState('domcontentloaded');
     await pageApp4.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp4.getByRole('gridcell', { name: 'リンク' }).click();
@@ -426,9 +439,9 @@ test('both', async () => {
 });
 
 
-test.only('receivable', async () => {
+test('Vendor', async () => {
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters = '0123456789';
 
@@ -465,7 +478,7 @@ test.only('receivable', async () => {
 
 
     //login process starting
-    await page.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
 
     await page.getByLabel('User ID').click();
     await page.getByLabel('User ID').fill('D8FOFD22');
@@ -473,28 +486,28 @@ test.only('receivable', async () => {
     await page.getByLabel('Password').fill('Snakamura@1');
     await page.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp1.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
     await pageApp1.getByLabel('User ID').click( );
     await pageApp1.getByLabel('User ID').fill('D8FDFO22');
     await pageApp1.getByRole('button', { name: 'Next' }).click();
     await pageApp1.getByLabel('Password').fill('Snakamura@1');
     await pageApp1.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp2.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
+    await pageApp2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
     await pageApp2.getByLabel('User ID').click( );
-    await pageApp2.getByLabel('User ID').fill('D8FORF22');
+    await pageApp2.getByLabel('User ID').fill('D8FDFO25');
     await pageApp2.getByRole('button', { name: 'Next' }).click();
     await pageApp2.getByLabel('Password').fill('Snakamura@1');
     await pageApp2.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp3.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
+    await pageApp3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
     await pageApp3.getByLabel('User ID').click( );
-    await pageApp3.getByLabel('User ID').fill('D8FFDP13');
+    await pageApp3.getByLabel('User ID').fill('D8FDFO22');
     await pageApp3.getByRole('button', { name: 'Next' }).click();
     await pageApp3.getByLabel('Password').fill('Snakamura@1');
     await pageApp3.getByRole('button', { name: 'Log on' }).click();
 
-    await pageApp4.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
+    await pageApp4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?', { waitUntil: 'networkidle' });
     await pageApp4.getByLabel('User ID').click( );
     await pageApp4.getByLabel('User ID').fill('D8FDFO19');
     await pageApp4.getByRole('button', { name: 'Next' }).click();
@@ -513,6 +526,11 @@ test.only('receivable', async () => {
     await page.locator('[id="\\31 _s_1_l_Main_Phone_Number"]').click();
     await page.getByRole('textbox', { name: '電話番号' }).fill('9414141410');
     await page.getByRole('textbox', { name: '電話番号' }).press('Control+s');
+
+    const VendorID = await page.locator('[id="1_s_1_l_Location"]').textContent();
+    console.log("Vendor Id is : " + VendorID);
+
+
     await page.getByRole('gridcell', { name: '顧客名-ｶﾅ' }).click();
     await page.locator('[name="Name"]').first().click();
     await page.getByRole('link', { name: '顧客住所' }).click();
@@ -576,7 +594,7 @@ test.only('receivable', async () => {
     // await page.getByRole('button', { name: 'サービスリクエスト リストアプレット:承認依頼' }).click();
     // await page.reload();
     await page.waitForTimeout(3000);
-    await page.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Service+Account+List+View', { waitUntil: 'networkidle' });
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Service+Account+List+View', { waitUntil: 'networkidle' });
     await page.locator('[id="s_1_1_3_0_Ctrl"]').click();
 
     //copy row id
@@ -586,7 +604,7 @@ test.only('receivable', async () => {
     await pageApp1.pause();
 
     await pageApp1.bringToFront();
-    await pageApp1.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp1.waitForLoadState('domcontentloaded');
     await pageApp1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp1.getByRole('gridcell', { name: 'リンク' }).click();
@@ -601,7 +619,7 @@ test.only('receivable', async () => {
 
     await page.reload();
     await pageApp2.bringToFront();
-    await pageApp2.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp2.waitForLoadState('domcontentloaded');
     await pageApp2.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp2.getByRole('gridcell', { name: 'リンク' }).click();
@@ -616,7 +634,7 @@ test.only('receivable', async () => {
 
     await page.reload();
     await pageApp3.bringToFront();
-    await pageApp3.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp3.waitForLoadState('domcontentloaded');
     await pageApp3.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp3.getByRole('gridcell', { name: 'リンク' }).click();
@@ -631,7 +649,7 @@ test.only('receivable', async () => {
 
     await page.reload();
     await pageApp4.bringToFront();
-    await pageApp4.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
     await pageApp4.waitForLoadState('domcontentloaded');
     await pageApp4.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
     await pageApp4.getByRole('gridcell', { name: 'リンク' }).click();
