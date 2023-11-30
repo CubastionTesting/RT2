@@ -1,4 +1,5 @@
 import { test } from '@playwright/test';
+import { Console } from 'console';
 
 const { chromium } = require('@playwright/test');
 
@@ -207,4 +208,128 @@ test('record demo', async () => {
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+  await page.reload()
+  await page.waitForTimeout(2000)
+  //await page.pause()
+
+  //Copy job card
+  await page.getByRole('link', { name: '整備履歴' }).click();
+  await page.waitForTimeout(2000)
+  await page.getByLabel('整備履歴 リストアプレット:ジョブカードをコピーする').click();
+  await page.waitForTimeout(3000)
+  const copyjcurl = page.url();
+  const copyJC = await page.locator('[id="s_2_1_174_0_Label"]').textContent()
+  console.log('Copy Job Card: ' +copyJC )
+  await page.getByPlaceholder('取引先コード').click();
+  await page.getByPlaceholder('取引先コード').fill('0000002810');
+  await page.getByPlaceholder('取引先コード').press('Control+s');
+  await page.getByPlaceholder('請求先コード').click();
+  await page.getByPlaceholder('請求先コード').fill('0000002810');
+  await page.getByPlaceholder('請求先コード').press('Control+s');
+  await page.getByLabel('ジョブカード フォームアプレット:見積作成/同期').click();
+  //await page.getByRole('link', { name: '1-1LTMG4' }).click();
+  await page.locator('[class="drilldown"]').first().click();
+  await page.waitForTimeout(2000)
+  await page.getByLabel('見積り フォームアプレット:承認依頼').click();
+  await page.getByPlaceholder('了解者').click();
+  await page.getByRole('cell', { name: '了解者 Press F2 for 選択フィールド' }).getByLabel('Press F2 for 選択フィールド').click();
+  await page.getByRole('row', { name: '2810渋江 - コンボボックスフィールド 複数選択フィールド 0000002810 ss@gmail.com 岡山東支店' }).getByTitle('渋江　康彦').click();
+  await page.getByLabel('担当者を選択 リストアプレット:OK').click();
+  await page.getByPlaceholder('了解者').press('Control+s');
+  await page.getByPlaceholder('見積状況').click();
+  await page.locator('#s_2_1_228_0_icon').click();
+  //await page.pause()
+  await page.locator('#ui-id-275').click();
+  await page.getByPlaceholder('見積状況').press('Control+S');
+  await page.goto(copyjcurl);
+  await page.waitForTimeout(3000);
+  //await page.getByRole('link', { name: 'SR 番号:I000016896' }).click();
+  await page.getByPlaceholder('引取開始予定日時').click();
+  await page.getByPlaceholder('引取開始予定日時').fill(' ');
+  await page.getByPlaceholder('引取開始予定日時').press('Enter');
+  await page.getByPlaceholder('受領日(納車)予定日').click();
+  await page.getByPlaceholder('受領日(納車)予定日').fill(' ');
+  await page.getByPlaceholder('受領日(納車)予定日').press('Enter');
+  await page.getByPlaceholder('予定作業開始日').click();
+  await page.getByPlaceholder('予定作業開始日').fill(' ');
+  await page.getByPlaceholder('予定作業開始日').press('Enter');
+  await page.getByPlaceholder('サービスカー貸出予定日').click();
+  await page.getByPlaceholder('サービスカー貸出予定日').fill(' ');
+  await page.getByPlaceholder('サービスカー貸出予定日').press('Enter');
+  await page.getByPlaceholder('工事完了予定日時').click();
+  await page.getByPlaceholder('工事完了予定日時').fill(' ');
+  await page.getByPlaceholder('工事完了予定日時').press('Enter');
+  await page.getByPlaceholder('入庫予定日時').click();
+  await page.getByPlaceholder('入庫予定日時').fill(' ');
+  await page.getByPlaceholder('入庫予定日時').press('Enter');
+  await page.getByPlaceholder('納車開始予定日時').click();
+  await page.getByPlaceholder('納車開始予定日時').fill(' ');
+  await page.getByPlaceholder('納車開始予定日時').press('Enter');
+  await page.getByPlaceholder('入庫日時').click();
+  await page.getByPlaceholder('入庫日時').fill(' ');
+  await page.getByPlaceholder('入庫日時').press('Enter');
+  await page.getByPlaceholder('入庫日時').press('Control+S');
+ 
+  //await page.locator('#ui-id-308').click();
+  await page.locator('[class="drilldown"]').first().click();
+  await page.waitForTimeout(2000)
+  await page.getByLabel('ワークオーダー フォームアプレット:開始').click();
+  await page.waitForTimeout(2000)
+  await page.getByRole('link', { name: 'パーツ' }).click();
+  await page.waitForTimeout(2000)
+  await page.getByLabel('パーツ リストアプレット:部品オーダー').click();
+  await page.waitForTimeout(2000)
+  const copyInternalOrder = await page.locator('[id="1_s_2_l_Order_Id"]').textContent()
+  console.log('Copy Parts Internal Order : ' +copyInternalOrder )
+  
+  //Parts Process
+  //Part Staff Process
+  await Part1.bringToFront()
+
+
+  await Part1.getByRole('link', { name: 'Parts Internal Order' }).click();
+  await Part1.getByRole('button', { name: 'Orders List Applet:Query' }).click();
+  await Part1.locator('[name="Order_Number"]').fill(copyInternalOrder);
+  await Part1.locator('[aria-roledescription="Status"]').click();
+  
+  await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
+  await Part1.waitForTimeout(2000)
+  await Part1.locator('[name="Order Number"]').click();
+  //await Part1.locator('[class="drilldown"]').click();
+  await Part1.waitForTimeout(2000)
+  await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
+  await Part1.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();
+  await Part1.getByRole('button', { name: 'Shipments List Applet:Shipped' }).click();
+  await Part1.getByPlaceholder('Status', { exact: true }).click();
+  await Part1.getByPlaceholder('Status', { exact: true }).press('Alt+Enter');
+  //await Part1.waitForTimeout(2000)
+
+  await page.bringToFront()
+
+  //Parts end
+  //await page.pause()
+  await page.getByLabel('ワークオーダー フォームアプレット:終了').click();
+  await page.waitForTimeout(2000)
+  await page.getByLabel('ワークオーダー フォームアプレット:検収完了').click();
+  await page.waitForTimeout(2000)
+  await page.goto(copyjcurl);
+  //await page.getByPlaceholder('受領日(納車)日').click();
+  //await page.getByPlaceholder('受領日(納車)日').fill(' ');
+  //await page.getByPlaceholder('受領日(納車)日').press('Enter');
+  //await page.getByPlaceholder('受領日(納車)日').press('Control+s');
+  await page.locator('#s_2_1_35_0_icon').click();
+  await page.getByRole('button', { name: '現在' }).click();
+  await page.getByRole('button', { name: '完了' }).click();
+  await page.getByPlaceholder('受領日(納車)日').press('Control+s');
+
+  await page.getByPlaceholder('JC状況').click();
+  await page.getByPlaceholder('JC状況').fill('引渡完了');
+  await page.getByPlaceholder('JC状況').press('Control+s');
+  await page.getByRole('button', { name: 'ジョブカード フォームアプレット:承認依頼' }).click();
+  await page.getByPlaceholder('拠点名', { exact: true }).click();
+  await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+  //await page.pause()
+
+  
+
   })
