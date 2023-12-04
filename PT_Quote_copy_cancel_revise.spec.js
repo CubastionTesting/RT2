@@ -28,21 +28,21 @@ test('record demo', async () => {
    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+All+Quote+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Quote+Branch+List+Applet');
    await page.waitForLoadState();
    await page.waitForTimeout(3000);
-   await page.locator('[id="s_2_1_7_0_Ctrl"]').click();
+   await page.locator('[id="s_2_1_7_0_Ctrl"]').click(); //Plus button
    console.log("Quote created Successfully");
    await page.locator('[id="1_Quote_Name"]').press('Control+s');
    console.log("Quote Saved");
    await page.locator('[id="1_s_2_l_Quote_Number"]').click();
    //await page.pause();
-   await page.locator('[placeholder="Customer Code"]').click();
+   await page.locator('[placeholder="Customer Code"]').click(); //Customer Code column
    await page.locator('[placeholder="Customer Code"]').fill('0000002810');
    await page.locator('[placeholder="Customer Code"]').press('Control+s');
-   await page.locator('[name="s_4_1_18_0"]').click();
-   await page.locator('[id="1_Product"]').fill('QC000001');
+   await page.locator('[name="s_4_1_18_0"]').click(); //Plus button
+   await page.locator('[id="1_Product"]').fill('QC000001'); //Parts# column
    await page.locator('[id="1_Product"]').press('Control+s');
    console.log("Parts added in line itenm Successfully");
    await page.locator('[name="s_3_1_24_0"]').click();
-   console.log("Generate Approvals button clicked successfully");
+   console.log("Generate Approvals button clicked successfully"); //Generate Approval buton
    //await page.pause();
    
    //Pop up for cash flag validation
@@ -56,7 +56,7 @@ test('record demo', async () => {
     }
     
     //Revise Quote
-    await page.locator('[id="s_3_1_183_0_Ctrl"]').click();
+    await page.locator('[id="s_3_1_183_0_Ctrl"]').click(); //Revise button
     console.log("Revise button clicked successfully");
     await page.waitForTimeout(2000);
     console.log("Quote Revised successfully");
@@ -64,19 +64,19 @@ test('record demo', async () => {
     await page.locator('[id="1_Discount_Percent"]').fill('2.5');
     await page.locator('[id="1_Discount_Percent"]').press('Control+s');
     console.log("Manual discount added successfully on Line items");
-    await page.locator('[name="s_3_1_24_0"]').click();
+    await page.locator('[name="s_3_1_24_0"]').click(); //Generate Approval button
     console.log("Generate Approvals button clicked successfully");
 
 
 
     //Copy Quote
-    await page.locator('[name="s_3_1_59_0"]').click();
+    await page.locator('[name="s_3_1_59_0"]').click(); //Copy button
     console.log("Copy button clicked successfully");
     await page.waitForTimeout(2000);
     console.log("Quote Copied successfully");
 
     //Cancel Quote
-    await page.locator('[name="s_3_1_106_0"]').click();
+    await page.locator('[name="s_3_1_106_0"]').click(); //Cancel button
     console.log("Cancel button clicked successfully");
 
 
