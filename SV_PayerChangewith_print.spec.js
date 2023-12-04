@@ -12,8 +12,7 @@ test('record demo', async () => {
   test.setTimeout(12000000);
   const browser = await chromium.launch({
 
-    headless: true
-
+    headless: false
   });
   const context = await browser.newContext();
   const context1 = await browser.newContext();

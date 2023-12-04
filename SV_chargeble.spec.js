@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(12000000);
   const browser = await chromium.launch({
 
-    headless: true
+    headless: false
 
   });
   const context = await browser.newContext();
@@ -96,7 +96,7 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="純作業時間"]').click();
   await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
   await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
-
+  await page.pause()
   await page.getByRole('link', { name: 'パーツ' }).click();
   await page.getByRole('button', { name: 'パーツ リストアプレット:新規' }).click();
   await page.locator('[id="1_s_2_l_Product_Name"]').click();
@@ -125,7 +125,7 @@ test('record demo', async () => {
 
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
-
+  await page.pause()
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
@@ -199,6 +199,7 @@ test('record demo', async () => {
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
   await page.getByPlaceholder('受領日(納車)日').press('Control+s');
+  await page.pause()
 
   await page.getByPlaceholder('JC状況').click();
   await page.getByPlaceholder('JC状況').fill('引渡完了');
