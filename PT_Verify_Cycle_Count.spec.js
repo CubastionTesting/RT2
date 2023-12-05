@@ -120,7 +120,7 @@ test('record demo', async () => {
   await page.locator('[aria-label="Row #"]').click();
   var cycleCountID = await page.locator('[aria-label="Row #"]').textContent();
   await page.locator('[aria-label="Row #"]').press("Control+c");
-  console.log('cycleCountID',cycleCountID);
+  console.log('cycleCountID is',cycleCountID);
   // ---------------------
   await context.close();
   await browser.close();

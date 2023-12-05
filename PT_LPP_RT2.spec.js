@@ -40,7 +40,7 @@ test('record demo', async () => {
   await page.getByRole('textbox', { name: '#000000001 Supplier # Selection Field' }).press('Control+s');
   await page.locator('[class="drilldown"]').first().click(); //LPP Registration column
   var registration = await page.locator('[aria-label="Registration #"]').inputValue();
-  console.log('registration',registration);
+  console.log('registration is:',registration);
   
   await page.getByRole('button', { name: 'Local Procurement List Applet:New' }).click(); //Plus button
   if (await validation.isVisible() == true){
