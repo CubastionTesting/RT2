@@ -6,7 +6,7 @@ const fs = require('fs');
 //initializing the tests
 
 test('record demo 1', async () => {
-  test.setTimeout(120000000);
+  test.setTimeout(1500000);
 
 
   const browser = await chromium.launch({
