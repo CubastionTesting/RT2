@@ -376,6 +376,6 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
    await pageApp5.locator('[id="1_Action"]').press('Control+s');
 
    const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
-  console.log('Reworkin Job card created and Job card no. :->' + Jobcardno);
+  console.log('Reworking Job card created and Job card no. :->' + Jobcardno);
 
 })

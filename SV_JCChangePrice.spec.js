@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(12000000);
   const browser = await chromium.launch({
 
-    headless: true
+    headless: false
 
   });
   const context = await browser.newContext();
@@ -225,7 +225,6 @@ test('record demo', async () => {
   await page.getByRole('button', { name: '関連オーダー リストアプレット:ジャンプ' }).click();
   await page.locator('[class="drilldown"]').click();
   //change order with price change
-  const Changeurl = page.url();
   await page.getByPlaceholder('変更理由').click();
   await page.locator('[aria-label="変更理由"]').click();
   await page.locator('[aria-label="変更理由"]').fill('価格の変更');
@@ -241,6 +240,8 @@ test('record demo', async () => {
   await page.getByRole('textbox', { name: '変更後売上 計算機フィールド' }).fill('201322');
   await page.getByRole('textbox', { name: '変更後売上 計算機フィールド' }).press('Control+s');
   await page.getByRole('button', { name: '受注変更 フォームアプレット:承認依頼' }).click();
+
+  const Changeurl = page.url();
 
   //Change order Approval flow start
 
@@ -356,10 +357,11 @@ test('record demo', async () => {
   await page.goto(Changeurl);
 
   const myChangeOrder1 = await page.locator('[name="s_3_1_143_0"]').inputValue();
-  console.log('Change Order Approved for Payer change and order id is :->' + myChangeOrder1);
-  //await page.bringToFront()
+  console.log('Change Order Approved for Price change and order id is :->' + myChangeOrder1);
+  await page.bringToFront()
   await page.goto(jcurl);
+  
   const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
-  console.log('Change order created with price change and Job card no. :->' + Jobcardno);
+  console.log('Change order with price change created and Job card no. :->' + Jobcardno);
 
 })

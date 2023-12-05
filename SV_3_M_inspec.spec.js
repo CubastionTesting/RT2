@@ -32,9 +32,6 @@ test('record demo', async () => {
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=eAuto+All+Vehicle+View');
   await page.waitForLoadState();
   await page.waitForTimeout(3000);
-  await page.pause();
-
-
   await page.getByRole('button', { name: '車両 リストアプレット:クエリー' }).click();
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');

@@ -297,7 +297,8 @@ test('record demo', async () => {
   await pageApp1.locator('[id="1_Action"]').fill('Approved');
   await pageApp1.locator('[id="1_Action"]').press('Control+s');
   await page.goto(jcurl);
+  await page.waitForTimeout(3000);
   const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
-  console.log('Inspection Job card created and Job card no. :->' + Jobcardno);
+  console.log('inspection Job card created and Job card no. :->' + Jobcardno);
 
 })
