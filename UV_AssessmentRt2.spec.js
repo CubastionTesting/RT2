@@ -3,9 +3,9 @@ const { chromium } = require('@playwright/test');
 const fs = require('fs');
 
 test('record demo 1', async () => {
-   test.setTimeout(1500000);
+   test.setTimeout(1200000);
     const browser = await chromium.launch({
-        headless: true
+        headless: false
     });
     const characters ='0123456789';
 
@@ -33,7 +33,6 @@ function generateString(length) {
 
 
     //login process starting
-    await page.pause();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu',{ waitUntil: 'networkidle' });
     await page.locator('[name="userid"]').fill('D8FFOR20');
     await page.locator('[id="next-btn"]').click();
@@ -65,6 +64,7 @@ function generateString(length) {
     //await pageAppvr.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(4000);
     await page.waitForLoadState();
+
     // await page.pause();
 
 
@@ -149,12 +149,23 @@ function generateString(length) {
     const yuv = await page.locator('[placeholder="Assessment #"]').inputValue();
     console.log(yuv);
 
-
+await page.pause();
     await page.getByPlaceholder('Capacity').click();
     await page.getByPlaceholder('Capacity').fill('8989');
     await page.getByRole('button', { name: 'Assessment Request Form Applet:Generate Approvals' }).click();
-    await page.getByRole('link', { name: 'Approval History' }).click();
+    await page.getByRole('link', { name: 'Approval History' }).click()
+
+    const validApprovers = ["SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr", "SCHQ-Sales-NV-Mgr"];
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
+    
     await page.getByPlaceholder('Assessment #').click();
+
+
     await page.getByPlaceholder('Assessment #').press('Control+Alt+k');
     var rowid = await page.locator('[aria-label="Row #"]').textContent();
     console.log(rowid);
