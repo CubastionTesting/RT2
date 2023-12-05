@@ -33,9 +33,13 @@ await page.waitForLoadState()
     await pageF23.waitForTimeout(5000);
     await pageF23.waitForLoadState("domcontentloaded");
 
+    const validation = pageF23.locator('[id="Close_dialog_btn_close"]');
 
     //New Expense Order Created
-    await page.locator('[id="s_1_1_22_0_Ctrl"]').click();
+    await page.locator('[id="s_1_1_22_0_Ctrl"]').click(); //Plus Button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Expence order');
+    }
     await page.waitForLoadState("domcontentloaded");
     console.log("Expense Order created successfully");
     //Adding expense order
@@ -54,7 +58,10 @@ await page.waitForLoadState()
 
     //Adding line item
 
-    await page.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page.locator('[aria-label="Line Items List Applet:New"]').click(); //plus button on Line Items
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Expense order');
+    }
     console.log("Line Items added successfully");
 
     //Add Part
@@ -66,7 +73,7 @@ await page.waitForLoadState()
       .fill("#10PARTS764");
     await page
       .getByRole("textbox", { name: "Parts # Selection Field" })
-      .press("Enter");
+      .press("Enter"); //Parts added
 
     //increase po qty
     await page.waitForTimeout(3000)
@@ -86,7 +93,7 @@ await page.waitForLoadState()
     await page.locator('[id="s_3_1_47_0_icon"]').click();
     await page
       .locator('[placeholder="Order Department"]')
-      .fill("New Vehicle");
+      .fill("New Vehicle"); //Order Department
       await page.locator('[id="s_3_1_47_0_icon"]').press('Control+s');
     //Copy Expense Order
     var Exp_Order = await page.locator('[id="s_3_1_149_0_Label"]').textContent();
@@ -103,8 +110,10 @@ await page.waitForLoadState()
 
     //generate approval
     await page
-      .locator('[aria-label="Orders Form Applet:Generate Approvals"]')
-      .click();
+      .locator('[aria-label="Orders Form Applet:Generate Approvals"]').click(); //generate Approval button
+      if (await validation.isVisible() == true){
+        console.log('error in Generate Approval button in Part Expense Order');
+      }
       console.log("Generate Approvals button clicked successfully");
     await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
@@ -131,7 +140,7 @@ await page.waitForLoadState()
 
     //approve the approval
     await pageF23.locator('[id="1_s_2_l_Action"]').click();
-    await pageF23.locator('[id="1_Action"]').fill("Approved");
+    await pageF23.locator('[id="1_Action"]').fill("Approved"); //Action Column
     await pageF23.locator('[id="1_Action"]').press("Control+s");
 
     //back to 56 and check status should be changed
@@ -150,8 +159,10 @@ await page.waitForLoadState()
 
     //generate PO button
     await page
-      .locator('[aria-label="Orders Form Applet:Generate PO"]')
-      .click();
+      .locator('[aria-label="Orders Form Applet:Generate PO"]').click(); //Generate PO button
+      if (await validation.isVisible() == true){
+        console.log('error in Generate PO button in Part Expense Order');
+      }
       console.log("Generate PO button clicked successfully");
     await pageF23.waitForLoadState("domcontentloaded");
     await page.waitForTimeout(2000);
@@ -164,11 +175,14 @@ await page.waitForLoadState()
     await page.waitForTimeout(2000);
     console.log("Purchase Order Created successfully");
     //PO generated
-    await page.locator('[class="drilldown"]').first().click();
+    await page.locator('[class="drilldown"]').first().click(); //Purchasae Order#
     await page.waitForLoadState("domcontentloaded");
 
     //Order PO
-    await page.locator('[aria-label="Purchase Order Form Applet:Ordered"]').click();
+    await page.locator('[aria-label="Purchase Order Form Applet:Ordered"]').click(); //Orderd button
+    if (await validation.isVisible() == true){
+      console.log('error in Orderd button in Part Purchase Order');
+    }
     console.log("Ordered button clicked successfully");
 
         //copy purchase order
@@ -208,7 +222,10 @@ await page.waitForLoadState()
     await page.locator('[id="s_3_1_6_0_Ctrl"]').click();
 
     //Click on receive button
-    await page.locator('[id="s_3_1_1_0_Ctrl"]').click();
+    await page.locator('[id="s_3_1_1_0_Ctrl"]').click(); //Receive button
+    if (await validation.isVisible() == true){
+      console.log('error in Receive button in Receve');
+    }
     console.log("Shipment Received successfully");
 
     //Back to expense order after receiving
@@ -235,7 +252,7 @@ await page.waitForLoadState()
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Expense)"
     );
     await page.reload();
-    await page.locator('[id="s_2_1_3_0_Ctrl"]').click();
+    await page.locator('[id="s_2_1_3_0_Ctrl"]').click(); //Shiped
    
 
     //Status as Completed
@@ -248,10 +265,10 @@ await page.waitForLoadState()
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Expense)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Form+Applet+Dashboard+(Expense)');
     await page.locator('[id="1_s_1_l_MF_Return_Qty"]').click();
     await page.locator('[id="1_MF_Return_Qty"]').click();
-    await page.locator('[id="1_MF_Return_Qty"]').fill("1");
+    await page.locator('[id="1_MF_Return_Qty"]').fill("1"); //Return Quantity
     //Return reason
     await page.locator('[aria-labelledby="s_1_l_altCombo"]').click();
-    await page.locator('[id="1_MF_Customer_Return_Reason"]').click();
+    await page.locator('[id="1_MF_Customer_Return_Reason"]').click(); //Customer Return Reason
     await page.locator('[id="1_MF_Customer_Return_Reason"]').fill('Incorrect product');
     await page.waitForTimeout(3000);
 
@@ -268,7 +285,10 @@ await page.waitForLoadState()
 
     await page.locator('[id="1_MF_Customer_Return_Reason"]').press('Control+s');
     //click return order
-    await page.locator('[aria-label="Orders Form Applet:Create Return Order"]').click();
+    await page.locator('[aria-label="Orders Form Applet:Create Return Order"]').click(); //Return Order button
+    if (await validation.isVisible() == true){
+      console.log('error in Return Order button in Part Expense Order');
+    }
     console.log("Create Return Order button clicked successfully");
     await page.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+(Expense)");
     await page.locator('[class="drilldown"]').click();
@@ -279,8 +299,10 @@ await page.waitForLoadState()
     var reexnum = reexpense.substr(15);
     console.log('return expense with po',reexnum);
     //Receiving
-    await page.locator('[id="s_1_1_19_0_Ctrl"]').click();
-    //receive button
+    await page.locator('[id="s_1_1_19_0_Ctrl"]').click(); //Receiving button
+    if (await validation.isVisible() == true){
+      console.log('error in Receive button in Receve');
+    }
     await page.locator('[name="s_1_1_1_0"]').click();
     console.log("Return Order Completed successfully");
 

@@ -26,10 +26,15 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+All+Quote+List+View"
     );
     await page023.waitForLoadState("domcontentloaded");
+    const validation = page023.locator('[id="Close_dialog_btn_close"]');
+    
   
     // Quotes\:New
-    await page023.locator('[aria-label="Quotes List Applet:New"]').click();
-    
+    await page023.locator('[aria-label="Quotes List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
+
     // Press s with modifiers
     await page023.locator('input[role="textbox"]').press("Control+s");
     await page023.locator('input[role="textbox"]').press("Tab");
@@ -39,12 +44,15 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('[aria-labelledby="s_2_l_altLink"]').first().click();
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
     console.log("Line item added Successfully");
   
     //Add Part
-    await page023.locator('input[role="textbox"]').fill("#10PARTS764");
+    await page023.locator('input[role="textbox"]').fill("#10PARTS764"); //Part# column
     console.log("Part added Successfully");
   
     // // Add Line Items
@@ -136,7 +144,7 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     //Add Customer Code
     await page023.reload()
 
-    await page023.locator('[placeholder="Customer Code"]').click();
+    await page023.locator('[placeholder="Customer Code"]').click(); //Customer Code column
   
     // Fill [placeholder="Customer Code"]
     await page023.locator('[placeholder="Customer Code"]').fill("0000002810");
@@ -146,14 +154,20 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
   
     // Click [aria-label="Quote\:Generate Approvals"]
     await page023
-      .locator('[aria-label="Quote Form Applet:Generate Approvals"]')
-      .click();
+      .locator('[aria-label="Quote Form Applet:Generate Approvals"]').click(); //Generate Approval button
+      if (await validation.isVisible() == true){
+        console.log('error in Generate Approval button in Part Quote');
+      }
+
+
       console.log("Clicked on Generate Approval Button");
   
     // Accept/Process
     await page023
-      .locator('[aria-label="Quote Form Applet:Accepted"]')
-      .click();
+      .locator('[aria-label="Quote Form Applet:Accepted"]').click(); //Accepted button
+      if (await validation.isVisible() == true){
+        console.log('error in Accepted button in Part Quote');
+      }
       console.log("Clicked on Accepted button");
     await page023.waitForLoadState("load");
     //Sales order generated
@@ -163,8 +177,9 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     //Recalculate the line item
     await page023.locator('[id="s_2_1_8_0_Ctrl"]').click();
 
+
     //po qty 0
-    await page023.locator('[id="1_s_2_l_MF_MFTBC_Ordered_Qty"]').click();
+    await page023.locator('[id="1_s_2_l_MF_MFTBC_Ordered_Qty"]').click(); //Purchase Order Qty
     await page023.locator('[id="1_MF_MFTBC_Ordered_Qty"]').fill("1");
 
     //own branch stock 0
@@ -175,7 +190,10 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.waitForTimeout(2000);
   
     //Generate PO
-    await page023.locator('[data-display="Generate PO"]').click();
+    await page023.locator('[data-display="Generate PO"]').click(); //Generate PO button
+    if (await validation.isVisible() == true){
+      console.log('error in Generate PO button in Part Sales Order');
+    }
     console.log("Clicked on Generate PO button");
 
     await page023.waitForTimeout(4000);
@@ -196,8 +214,10 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('[class="drilldown"]').click();
     //order purchase order
     await page023
-      .locator('[aria-label="Purchase Order Form Applet:Ordered"]')
-      .click();
+      .locator('[aria-label="Purchase Order Form Applet:Ordered"]').click(); //Ordered button
+      if (await validation.isVisible() == true){
+        console.log('error in Ordered button in Part Purchase Order');
+      }
       console.log("Clicked on Orderd button");
   
     //copy POnumber
@@ -227,7 +247,10 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('[id="s_3_1_6_0_Ctrl"]').click();
   
     //Click on receive button
-    await page023.locator('[id="s_3_1_1_0_Ctrl"]').click();
+    await page023.locator('[id="s_3_1_1_0_Ctrl"]').click(); //Receive button
+    if (await validation.isVisible() == true){
+      console.log('error in Recive button in Recive');
+    }
     console.log("Shipment Recived Successfully and Purchase Ordere Completed");
   
     //Back to sales order after receiving
@@ -249,9 +272,12 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     //Shipment shipped
      await page023.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Lines+View(Sales)"
-    );console.log("Clicked on Shipped");
+    );console.log("Clicked on Shipped"); //Shipped button
     await page023.reload();
     await page023.locator('[id="s_2_1_3_0_Ctrl"]').click();
+    if (await validation.isVisible() == true){
+      console.log('error in Shipped button in Part Sales Order');
+    }
     console.log("Sales Order Completed Successfully");
   
     //Status as Completed
@@ -285,7 +311,10 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('[id="1_MF_Selected_Flag"]').press('Control+s');
   
     //Change order button enabled
-    await page023.locator('[aria-label="Shipments List Applet:Parts Change Order"]').click();
+    await page023.locator('[aria-label="Shipments List Applet:Parts Change Order"]').click(); //Change Order button
+    if (await validation.isVisible() == true){
+      console.log('error in Change Order button in Shipment');
+    }
     console.log("Clicked on Change Order Button");
   
     // Copy Change order number
@@ -295,7 +324,10 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     console.log('change order of sales with po',wcnum);
   
     //Generate approval
-    await page023.locator('[aria-label="Order Form Applet:Generate Approvals"]').click();
+    await page023.locator('[aria-label="Order Form Applet:Generate Approvals"]').click(); //Generate Approval button
+    if (await validation.isVisible() == true){
+      console.log('error in Generate Approval button in Part Change Order');
+    }
     console.log("Clicked on Generate Approval button");
   
     //go to  approval
@@ -342,7 +374,10 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('[id="1_MF_Customer_Return_Reason"]').click();
     await page023.locator('[id="1_MF_Customer_Return_Reason"]').fill("Shipment mistake");
     //click return order button
-    await page023.locator('[aria-label="Shipments List Applet:Return Order"]').click();
+    await page023.locator('[aria-label="Shipments List Applet:Return Order"]').click(); //Return Order button
+    if (await validation.isVisible() == true){
+      console.log('error in Return Order button button in Part Sales Order');
+    }
     console.log("Clicked on Return Ordeer button");
     //go to sales return order
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+View(Sales)");
@@ -350,16 +385,25 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     //click on return order
     await page023.locator('[class="drilldown"]').click();
     //click on generate approval
-    await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click();
+    await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click(); //Generate Approval button
+    if (await validation.isVisible() == true){
+      console.log('error in Generate Approval button in Part Return Order');
+    }
     console.log("Clicked on Generate Approval button");
     //copy sales return order
     var wretnum = await page023.locator('[name="s_2_1_52_0"]').textContent();
     var wrnum = wretnum.substr(16);
     console.log("Sales return order with PO : ",wrnum)
     //receiving
-    await page023.locator('[aria-label="Orders Form Applet:Receiving"]').click();
+    await page023.locator('[aria-label="Orders Form Applet:Receiving"]').click(); //Receiving button
+    if (await validation.isVisible() == true){
+      console.log('error in Receiving button in Parts Sales Order');
+    }
     //receive button
-    await page023.locator('[aria-label="Shipments List Applet:Receive"]').click();
+    await page023.locator('[aria-label="Shipments List Applet:Receive"]').click(); //Receive button
+    if (await validation.isVisible() == true){
+      console.log('error in Receive button in Receive');
+    }
     console.log("Return Order Completed Successfully");
   })
 });

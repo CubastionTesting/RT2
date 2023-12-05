@@ -9,7 +9,7 @@ test.describe.serial("Siebel Page Test", () => {
    
     test("parts expense order without PO", async () => { const browser = await chromium.launch({
 
-      headless: true
+      headless: false
     
     });
         page = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -26,19 +26,26 @@ test.describe.serial("Siebel Page Test", () => {
         
         const LoginuserF23 = new FusoLogin(pageF23);
         await LoginuserF23.loginFDP("D8FDPF23", "Snakamura@1");
-        await page.waitForLoadState("domcontentloaded");
+        await pageF23.waitForLoadState("domcontentloaded");
       
+        await page.waitForTimeout(7000);
         //Expense Order link:
         await page.goto(
           "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Expense)"
         );
       
+        const validation = pageF23.locator('[id="Close_dialog_btn_close"]');
+
+
         //New Expense Order Created
-        await page.locator('[aria-label="Orders List Applet:New"]').click();
+        await page.locator('[aria-label="Orders List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expence order');
+        }
         await page.waitForLoadState("domcontentloaded");
       
         //Adding expense order
-        await page.locator('[id="1_s_1_l_MF_Internal_Expense_Type"]').click();
+        await page.locator('[id="1_s_1_l_MF_Internal_Expense_Type"]').click(); //Internal Expense Type
       
         //expense type
         await page
@@ -49,11 +56,14 @@ test.describe.serial("Siebel Page Test", () => {
           .press("Control+s");
       
         //Open expense order
-        await page.locator('[class="drilldown"]').first().click();
+        await page.locator('[class="drilldown"]').first().click(); //Order#
         console.log("Expence Order Created successfully");
       
         //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
         console.log("Line item added successfully");
       
         //Add Part
@@ -62,7 +72,7 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT001");
+          .fill("#10JCT001"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
@@ -77,7 +87,10 @@ test.describe.serial("Siebel Page Test", () => {
           await page.locator('[id="1_s_4_l_MF_Parts_Status"]').press("Enter");
 
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -85,13 +98,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT002");
+          .fill("#10JCT002"); //Part#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -99,13 +115,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT003");
+          .fill("#10JCT003"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -113,13 +132,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT004");
+          .fill("#10JCT004"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -133,7 +155,10 @@ test.describe.serial("Siebel Page Test", () => {
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -141,13 +166,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT006");
+          .fill("#10JCT006"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -155,13 +183,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT007");
+          .fill("#10JCT007"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -169,13 +200,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT008");
+          .fill("#10JCT008"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -183,13 +217,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT009");
+          .fill("#10JCT009"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -197,13 +234,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT010");
+          .fill("#10JCT010"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -211,13 +251,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT011");
+          .fill("#10JCT011"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -225,13 +268,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT012");
+          .fill("#10JCT012"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -239,13 +285,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT013");
+          .fill("#10JCT013"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -253,13 +302,16 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT014");
+          .fill("#10JCT014"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
           //Adding line item
-        await page.locator('[aria-label="Line Items List Applet:New"]').click();
+        await page.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+        if (await validation.isVisible() == true){
+          console.log('error in plus button in Part Expense order');
+        }
       
         //Add Part
         await page
@@ -267,21 +319,23 @@ test.describe.serial("Siebel Page Test", () => {
           .click();
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
-          .fill("#10JCT015");
+          .fill("#10JCT015"); //Parts#
         await page
           .getByRole("textbox", { name: "Parts # Selection Field" })
           .press("Enter");
       
         //select order department
-        await page.locator('[id="s_3_1_47_0_icon"]').click();
+        await page.locator('[id="s_3_1_47_0_icon"]').click(); //Order department
         await page
           .locator('[placeholder="Order Department"]')
           .fill("New Vehicle");
       
         //generate approval
         await page
-          .locator('[aria-label="Orders Form Applet:Generate Approvals"]')
-          .click();
+          .locator('[aria-label="Orders Form Applet:Generate Approvals"]').click(); //Generate Approvals
+          if (await validation.isVisible() == true){
+            console.log('error in Generate Approval button in Part Expence order');
+          }
           console.log("Generate Approval button clicked successfully");
         await page.waitForLoadState("networkidle");
         await page.waitForTimeout(3000);
@@ -315,7 +369,7 @@ test.describe.serial("Siebel Page Test", () => {
           "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Expense)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Branch+List+Applet+(Expense)&SWERowId0="+wporowid
         );
         console.log("Expence Order Approved successfully");
-      
+     
         //drilldown to order number
         await page.locator('[class="drilldown"]').click();
       /// ///Making reservation 
@@ -324,13 +378,21 @@ test.describe.serial("Siebel Page Test", () => {
           await page.locator('[id="1_s_4_l_MF_Parts_Status"]').press("Enter");
 
           //Recalculate the line item
-          await page.locator('[id="s_4_1_8_0_Ctrl"]').click();
+          await page.locator('[id="s_4_1_8_0_Ctrl"]').click(); //Recalculate button
+
+        //console.log(stack);
 
         //click reserve button
-          await page.locator('[aria-label="Line Items List Applet:Reserve"]').first().click();
+          await page.locator('[aria-label="Line Items List Applet:Reserve"]').first().click(); //Reserve button
+          if (await validation.isVisible() == true){
+            console.log('error in Reserve button in Part Expense order');
+          }
 
           //Reserve Slip Print
-          await page.locator('[aria-label="Orders Form Applet:Reserve Slip Print"]').click();
+          await page.locator('[aria-label="Orders Form Applet:Reserve Slip Print"]').click(); //Reserve Slip print button
+          if (await validation.isVisible() == true){
+            console.log('error in reserve slip print button in Part Expense order');
+          }
           console.log("Reservation made of expense order")
 
           //shipment request
@@ -339,16 +401,25 @@ test.describe.serial("Siebel Page Test", () => {
           await page.locator('[id="1_s_4_l_MF_Parts_Status"]').press("Enter");
 
           //Recalculate the line item
-        await page.locator('[id="s_4_1_8_0_Ctrl"]').click();
+        await page.locator('[id="s_4_1_8_0_Ctrl"]').click(); //Recalculate button
+        if (await validation.isVisible() == true){
+          console.log('error in recalculate button in Part Expense order');
+        }
 
         //FullFill All
-        await page.locator('[id="s_4_1_15_0_Ctrl"]').click();
+        await page.locator('[id="s_4_1_15_0_Ctrl"]').click(); //Fullfill All button
+        if (await validation.isVisible() == true){
+          console.log('error in Fullfill All button in Part Expence order');
+        }
         console.log("Full fill All button Clicked successfully");
         //Shipment shipped
         await page.goto(
           "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Expense)"
         );
-        await page.locator('[id="s_2_1_3_0_Ctrl"]').click();
+        await page.locator('[id="s_2_1_3_0_Ctrl"]').click(); //Shipped button
+        if (await validation.isVisible() == true){
+          console.log('error in Shipped button in Part Expence order');
+        }
         console.log("Shipped button clicked successfully");
       
         //Copy expense number
@@ -390,10 +461,13 @@ test.describe.serial("Siebel Page Test", () => {
       
         await page.locator('[id="1_MF_Customer_Return_Reason"]').press('Control+s');
         //click return order
-        await page.locator('[aria-label="Orders Form Applet:Create Return Order"]').click();
+        await page.locator('[aria-label="Orders Form Applet:Create Return Order"]').click(); //Create Return Order button
+        if (await validation.isVisible() == true){
+          console.log('error in Create Return Order button in Part Expence order');
+        }
         console.log("Create Return Order button clicked successfully");
         await page.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+(Expense)");
-        await page.locator('[class="drilldown"]').click();
+        await page.locator('[class="drilldown"]').click(); //Return order#
         console.log("Return Order Created successfully");
           //Copy expense number
           var rexpense = await page.locator('[name="s_1_1_48_0"]').textContent();
@@ -401,15 +475,24 @@ test.describe.serial("Siebel Page Test", () => {
           console.log('return expense without po',rexnum);
 
           /// ///Print button
-          await page.locator('[aria-label="Orders Form Applet:Print"]').click();
+          await page.locator('[aria-label="Orders Form Applet:Print"]').click(); //Print button
+          if (await validation.isVisible() == true){
+            console.log('error in print button in Part Expence order');
+          }
           console.log('Expense return print button clicked')
 
 
           //Receiving
-          await page.locator('[aria-label="Orders Form Applet:Receiving"]').click();
+          await page.locator('[aria-label="Orders Form Applet:Receiving"]').click(); //Receiving button
+          if (await validation.isVisible() == true){
+            console.log('error in Receiving button in Parts Expense Return Order');
+          }
           console.log("Reciving button clicked  successfully");
           //receive button
-          await page.locator('[aria-label="Shipments List Applet:Receive"]').click();
+          await page.locator('[aria-label="Shipments List Applet:Receive"]').click(); //Receive button
+          if (await validation.isVisible() == true){
+            console.log('error in Receive button in Receive');
+          }
           console.log("Clicked on Reciving button and Return Order Completed successfully");
       
       });

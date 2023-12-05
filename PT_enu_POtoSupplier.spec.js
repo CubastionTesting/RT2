@@ -24,12 +24,18 @@ test.describe.serial("Siebel Page Test", () => {
 await page023.waitForTimeout(2000);
     //PO link
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(PO)");
+
+    const validation = page023.locator('[id="Close_dialog_btn_close"]');
+
     //New PO added
-    await page023.locator('[aria-label="Purchase Order List Applet:New"]').click();
+    await page023.locator('[aria-label="Purchase Order List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Purchase Order');
+    }
     console.log("New Purchase Order Created");
 
     //Select Po type as PO to Supplier
-    await page023.locator('[id="1_s_2_l_MF_Parts_PO_Reference"]').click();
+    await page023.locator('[id="1_s_2_l_MF_Parts_PO_Reference"]').click(); //PO Type column
     await page023.locator('[id="1_MF_Parts_PO_Reference"]').fill('PO to Supplier');
     await page023.locator('[id="1_MF_Parts_PO_Reference"]').press('Enter');
 
@@ -42,28 +48,40 @@ await page023.waitForTimeout(2000);
     console.log('po to supplier',num);
 
     //Add Supplier Name
-    await page023.locator('[aria-labelledby="MF_Supplier_Code_Label_1"]').click();
+    await page023.locator('[aria-labelledby="MF_Supplier_Code_Label_1"]').click(); //Supplier# column
     await page023.locator('[aria-labelledby="MF_Supplier_Code_Label_1"]').fill('0000140457');
 
     //Add line item
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Purchase Order');
+    }
     console.log("Line Item added Successfully");
 
     //Part added
-    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('##0135500330');
+    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('##0135500330'); //Part#
     await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').press('Control+s');
     console.log("Parts added in Line item");
 
     //Generate Approval
-    await page023.locator('[aria-label="Purchase Order Form Applet:Generate Approval"]').click();
+    await page023.locator('[aria-label="Purchase Order Form Applet:Generate Approval"]').click(); //Generate Approval button
+    if (await validation.isVisible() == true){
+      console.log('error in Generate Approval button in Part Purchase Order');
+    }
     console.log("Clicked on Generate Approval button");
 
     //Order PO
-    await page023.locator('[aria-label="Purchase Order Form Applet:Ordered"]').click();
+    await page023.locator('[aria-label="Purchase Order Form Applet:Ordered"]').click(); //Orderd button
+    if (await validation.isVisible() == true){
+      console.log('error in Orderd button in Part Purchase Order');
+    }
     console.log("Clicked on Orderd button");
 
     /// ///Click Print button
-    await page023.locator('[aria-label="Purchase Order Form Applet:Print"]').click();
+    await page023.locator('[aria-label="Purchase Order Form Applet:Print"]').click(); //Print button
+    if (await validation.isVisible() == true){
+      console.log('error in print button in Part Purchase Order');
+    }
     console.log("Print button clicked of Purchase order")
 
     //Receiving
@@ -81,7 +99,10 @@ await page023.waitForTimeout(2000);
     
 
     //Click on receive
-    await page023.locator('[aria-label="Shipments List Applet:Receive"]').click();
+    await page023.locator('[aria-label="Shipments List Applet:Receive"]').click(); //Receive button
+    if (await validation.isVisible() == true){
+      console.log('error in Receivetton in Receive');
+    }
  
     
     ////Return Order
@@ -95,13 +116,16 @@ await page023.waitForTimeout(2000);
     await page023.locator('[id="1_Order_Number"]').press('Tab');
     await page023.locator('[class="drilldown"]').click();
     //Return reason
-    await page023.locator('[id="1_s_2_l_MF_Return_Reason"]').click();
+    await page023.locator('[id="1_s_2_l_MF_Return_Reason"]').click(); //Return reson column
     await page023.locator('[id="1_MF_Return_Reason"]').fill("Broken parts");
     //return qty
-    await page023.locator('[aria-roledescription="Return Good Qty"]').click();
+    await page023.locator('[aria-roledescription="Return Good Qty"]').click(); //Return Qty column
     await page023.locator('[aria-labelledby="s_2_l_MF_Return_Good_Qty"]').fill("1");
     //click return order
-    await page023.locator('[aria-label="Purchase Order Form Applet:Return Order"]').click();
+    await page023.locator('[aria-label="Purchase Order Form Applet:Return Order"]').click(); //Return Order button
+    if (await validation.isVisible() == true){
+      console.log('error in Return order button in Part Purchase Order');
+    }
     console.log("Clicked on Return Order Button");
     //go to return order
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+View+(PO)");
@@ -109,7 +133,10 @@ await page023.waitForTimeout(2000);
     //open return order
     await page023.locator('[class="drilldown"]').click();
     //generate approval
-    await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click();
+    await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click(); //Generate Approval button
+    if (await validation.isVisible() == true){
+      console.log('error in Generate Approval button in Part Purchase Return Order');
+    }
     console.log("Clicked on Generate Approval Button");
     
     //go to approval
@@ -122,7 +149,7 @@ await page023.waitForTimeout(2000);
     await pagePF23.waitForLoadState("domcontentloaded");
     //take approval
     await pagePF23.locator('[id="1_s_2_l_Action"]').click();
-    await pagePF23.locator('[id="1_Action"]').click();
+    await pagePF23.locator('[id="1_Action"]').click(); //Action column
     await pagePF23.locator('[id="1_Action"]').fill("Approved");
     await pagePF23.locator('[id="1_Action"]').press('Control+s');
     //order PO
@@ -132,11 +159,11 @@ await page023.waitForTimeout(2000);
     await page023.waitForTimeout(2000);
     console.log("Successfully Approved");
     await page023.pause();
-    await page023.locator('[aria-label="Orders Form Applet:Ordered"]').click();
+    await page023.locator('[aria-label="Orders Form Applet:Ordered"]').click(); //Ordered button
     console.log("Successefully clicked on orderd button ");
     //await page0
     ///Print Button
-    await page023.locator('[aria-label="Orders Form Applet:Print"]').click();
+    await page023.locator('[aria-label="Orders Form Applet:Print"]').click(); //Print button
     console.log("Print button clicked of po return order")
 
     //copy order number
@@ -146,11 +173,14 @@ await page023.waitForTimeout(2000);
     //shipment
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Purchase+Shipment+Lines+View(RO)")
       //accepted qty
-    await page023.locator('[id="1_s_2_l_MF_Accepted_Qty"]').click();
+    await page023.locator('[id="1_s_2_l_MF_Accepted_Qty"]').click(); //Accepted Qty column
     await page023.locator('[id="1_MF_Accepted_Qty"]').fill("1");
     await page023.locator('[id="1_MF_Accepted_Qty"]').press("Control+s");
     //shipment
-    await page023.locator('[id="s_3_1_1_0_Ctrl"]').click();
+    await page023.locator('[id="s_3_1_1_0_Ctrl"]').click(); //Shipped button
+    if (await validation.isVisible() == true){
+      console.log('error in Shipped button in Part Purchase Return Order');
+    }
     console.log("Successfully completed Return Order");
   });
 });
