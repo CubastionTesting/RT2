@@ -186,7 +186,7 @@ await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }
   await page.locator('#s_2_1_119_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
-
+// Planned Work Completion Date/Time
   await page.locator('#s_2_1_68_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
