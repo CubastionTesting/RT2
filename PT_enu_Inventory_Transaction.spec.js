@@ -23,7 +23,13 @@ test("Inventory Transition", async () => { const browser = await chromium.launch
  await page.goto(
   "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Inventory+Transactions+View"
 );
+
+const validation = page.locator('[id="Close_dialog_btn_close"]');
+
 await page.locator('[id="s_2_1_0_0_Ctrl"]').click(); //Plus button
+if (await validation.isVisible() == true){
+  console.log('error in plus button in inventory Transactions');
+}
 console.log("Inventory transaction created successfully");
 await page.locator('[id="1_s_2_l_Part__"]').click();
 await page.locator('[id="1_Part__"]').click();

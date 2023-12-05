@@ -33,9 +33,13 @@ await page.waitForLoadState()
     await pageF23.waitForTimeout(5000);
     await pageF23.waitForLoadState("domcontentloaded");
 
+    const validation = pageF23.locator('[id="Close_dialog_btn_close"]');
 
     //New Expense Order Created
     await page.locator('[id="s_1_1_22_0_Ctrl"]').click(); //Plus Button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Expence order');
+    }
     await page.waitForLoadState("domcontentloaded");
     console.log("Expense Order created successfully");
     //Adding expense order
@@ -55,6 +59,9 @@ await page.waitForLoadState()
     //Adding line item
 
     await page.locator('[aria-label="Line Items List Applet:New"]').click(); //plus button on Line Items
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Expense order');
+    }
     console.log("Line Items added successfully");
 
     //Add Part
@@ -103,8 +110,10 @@ await page.waitForLoadState()
 
     //generate approval
     await page
-      .locator('[aria-label="Orders Form Applet:Generate Approvals"]')
-      .click(); //generate Approval button
+      .locator('[aria-label="Orders Form Applet:Generate Approvals"]').click(); //generate Approval button
+      if (await validation.isVisible() == true){
+        console.log('error in Generate Approval button in Part Expense Order');
+      }
       console.log("Generate Approvals button clicked successfully");
     await page.waitForLoadState("networkidle");
     await page.waitForTimeout(3000);
@@ -150,8 +159,10 @@ await page.waitForLoadState()
 
     //generate PO button
     await page
-      .locator('[aria-label="Orders Form Applet:Generate PO"]')
-      .click(); //Generate PO button
+      .locator('[aria-label="Orders Form Applet:Generate PO"]').click(); //Generate PO button
+      if (await validation.isVisible() == true){
+        console.log('error in Generate PO button in Part Expense Order');
+      }
       console.log("Generate PO button clicked successfully");
     await pageF23.waitForLoadState("domcontentloaded");
     await page.waitForTimeout(2000);
@@ -169,6 +180,9 @@ await page.waitForLoadState()
 
     //Order PO
     await page.locator('[aria-label="Purchase Order Form Applet:Ordered"]').click(); //Orderd button
+    if (await validation.isVisible() == true){
+      console.log('error in Orderd button in Part Purchase Order');
+    }
     console.log("Ordered button clicked successfully");
 
         //copy purchase order
@@ -209,6 +223,9 @@ await page.waitForLoadState()
 
     //Click on receive button
     await page.locator('[id="s_3_1_1_0_Ctrl"]').click(); //Receive button
+    if (await validation.isVisible() == true){
+      console.log('error in Receive button in Receve');
+    }
     console.log("Shipment Received successfully");
 
     //Back to expense order after receiving
@@ -269,6 +286,9 @@ await page.waitForLoadState()
     await page.locator('[id="1_MF_Customer_Return_Reason"]').press('Control+s');
     //click return order
     await page.locator('[aria-label="Orders Form Applet:Create Return Order"]').click(); //Return Order button
+    if (await validation.isVisible() == true){
+      console.log('error in Return Order button in Part Expense Order');
+    }
     console.log("Create Return Order button clicked successfully");
     await page.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+(Expense)");
     await page.locator('[class="drilldown"]').click();
@@ -279,8 +299,10 @@ await page.waitForLoadState()
     var reexnum = reexpense.substr(15);
     console.log('return expense with po',reexnum);
     //Receiving
-    await page.locator('[id="s_1_1_19_0_Ctrl"]').click(); //Receiving
-    //receive button
+    await page.locator('[id="s_1_1_19_0_Ctrl"]').click(); //Receiving button
+    if (await validation.isVisible() == true){
+      console.log('error in Receive button in Receve');
+    }
     await page.locator('[name="s_1_1_1_0"]').click();
     console.log("Return Order Completed successfully");
 
