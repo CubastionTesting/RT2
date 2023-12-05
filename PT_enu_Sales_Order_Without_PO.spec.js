@@ -9,7 +9,7 @@ test.describe.serial("Siebel Page Test", () => {
     
 test("Sales Order without PO", async () => {const browser = await chromium.launch({
 
-  headless: true
+  headless: false
 
 });
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -22,8 +22,14 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     await page023.waitForTimeout(2000);
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+All+Quote+List+View");
     await page023.waitForLoadState("domcontentloaded");
+
+    const validation = page023.locator('[id="Close_dialog_btn_close"]');
+
     // "Quotes\:New"
     await page023.locator('[aria-label="Quotes List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
   
     // Press s with modifiers
     await page023.locator('input[role="textbox"]').press("Control+s");
@@ -35,102 +41,147 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
   
     // Add Line Items
     await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("##0464"); //Part# column
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT001");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT002");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT003");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT004");
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT005");
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT006");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT007");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT008");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT009");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT010");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT011");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT012");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
     await page023.locator('input[role="textbox"]').fill("#10JCT013");
   
     // Add Line Items
-    await page023.locator('[aria-label="Line Items List Applet:New"]').click();
+    await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
+    if (await validation.isVisible() == true){
+      console.log('error in plus button in Part Quote');
+    }
     await page023.waitForLoadState("domcontentloaded");
   
     //Add Part
@@ -159,6 +210,9 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
   
       /// /// ///Print Button
       await page023.locator('[aria-label="Quote Form Applet:Print Quote"]').click(); //Print button
+      if (await validation.isVisible() == true){
+        console.log('error in print button in Part Quote');
+      }
       var quote = await page023.locator('[name="s_3_1_224_0"]').textContent();
     var qnum = quote.substr(10);
     await page023.waitForLoadState("domcontentloaded");
@@ -166,6 +220,9 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
   
     // Click [aria-label="Quote\:Accepted"]
     await page023.locator('[aria-label="Quote Form Applet:Accepted"]').click(); //Accepted button
+    if (await validation.isVisible() == true){
+      console.log('error in Accepted button in Part Quote');
+    }
     console.log("Clicked on Accepted button");
     await page023.waitForLoadState("load");
     await page023.waitForLoadState("domcontentloaded");
@@ -173,16 +230,15 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     console.log("Sales Order Created Successfully");
   
     /// /// ///Order Sheet Print Button
-    await page023.locator('[aria-label="Sales Order Form Applet:Order Sheet Print"]').click(); //Order Sheet Print button
+    await page023.locator('[aria-label="Sales Order Form Applet:Order Sheet Print"]').click();
   
     console.log("Order Sheet Print Button Of Sales Order Clicked")
     
   /// /// ///Reserve Button
-  await page023.locator('[aria-label="Line Items List Applet:Reserve"]').click(); //Reserve button
+  await page023.locator('[aria-label="Line Items List Applet:Reserve"]').click();
   
   /// /// ///Reserve Print Button
-  await page023.locator('[aria-label="Sales Order Form Applet:Reserve Slip Print"]').click(); //reserve Slip Print button
-  
+  await page023.locator('[aria-label="Sales Order Form Applet:Reserve Slip Print"]').click();
   console.log("Reserve Print Button Of Sales Order Clicked")
   
     //Copy Sales Order
@@ -195,12 +251,14 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     //Recalculate the line item
     await page023
       .locator('[aria-label="Line Items List Applet:Recalculate"]')
-      .click(); //Recalculate button
+      .click(); 
   
     //Fulfill All
     await page023
-      .locator('[aria-label="Line Items List Applet:Fulfill All"]')
-      .click(); //Fullfill All button
+      .locator('[aria-label="Line Items List Applet:Fulfill All"]').click(); //Fullfill All button
+      if (await validation.isVisible() == true){
+        console.log('error in Fullfill All button in Part Sales Order');
+      }
       console.log("Clicked on Fullfill All button");
   
     // Shipment
@@ -210,8 +268,10 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
   
     // Shipments\:Shipped
     await page023
-      .locator('[aria-label="Shipments List Applet:Shipped"]')
-      .click(); //Shipped button
+      .locator('[aria-label="Shipments List Applet:Shipped"]').click(); //Shipped button
+      if (await validation.isVisible() == true){
+        console.log('error in Shipped button in Part Sales Order');
+      }
       console.log("Clicked on Shiped");
     await page023.waitForLoadState("networkidle");
   
@@ -249,6 +309,9 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
   
     //Change order button enabled
     await page023.locator('[aria-label="Shipments List Applet:Parts Change Order"]').click(); //Parts Change Order button
+    if (await validation.isVisible() == true){
+      console.log('error in parts change order button in Part Sales Order');
+    }
     console.log("Click on Change Order button");
   
     // Copy Change order number
@@ -259,6 +322,9 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
   
     //Generate approval
     await page023.locator('[aria-label="Order Form Applet:Generate Approvals"]').click(); //Generate Approval button
+    if (await validation.isVisible() == true){
+      console.log('error in Generate Approval button in Part change order');
+    }
     console.log("Clicked on Generate Approval");
     
     await page023.reload()
@@ -283,8 +349,7 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     console.log("Change Order Approved Successfully");
 
     /// /// ///Print button 
-    await page023.locator('[aria-label="Order Form Applet:Print"]').click(); //Print button
-    
+    await page023.locator('[aria-label="Order Form Applet:Print"]').click();
     console.log("Print Button Of Sales Change Order Clicked")
   
   
@@ -317,6 +382,9 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
       await page023.locator('[id="1_MF_Customer_Return_Reason"]').click('Control+s');
       //click return order button
       await page023.locator('[aria-label="Shipments List Applet:Return Order"]').click(); //Return Order button
+      if (await validation.isVisible() == true){
+        console.log('error in Return Order button in Part Sales Order');
+      }
       console.log("Clicked on Return Order Button");
       //go to sales return order
       await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Return+Order+View(Sales)");
@@ -326,6 +394,9 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
       await page023.locator('[class="drilldown"]').click();
       //click on generate approval
       await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click(); //Generate Approval button
+      if (await validation.isVisible() == true){
+        console.log('error in Generate Approval button in Part Sales Return Order');
+      }
       console.log("Click on Generate Approval button");
   
       /// /// ///Print Button
@@ -337,9 +408,15 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
       console.log("Sales return order without PO",rnum)
       //receiving
       await page023.locator('[aria-label="Orders Form Applet:Receiving"]').click(); //Receiving button
+      if (await validation.isVisible() == true){
+        console.log('error in Receiving Order button in Part Sales Order');
+      }
       console.log("Click on Receve button");
       //receive button
       await page023.locator('[aria-label="Shipments List Applet:Receive"]').click(); //Receive button
+      if (await validation.isVisible() == true){
+        console.log('error in Receive Order button in Receive');
+      }
       console.log("Return Order Completed Successfully");
       
   })
