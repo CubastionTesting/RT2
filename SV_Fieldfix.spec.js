@@ -49,7 +49,7 @@ test('record demo', async () => {
   //await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
 
 
-
+//job card creation
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
 
   await page.getByRole('button', { name: 'ジョブカード リストアプレット:ジョブカード作成' }).click();
@@ -60,7 +60,7 @@ test('record demo', async () => {
   await page.locator('[id="\\31 _s_1_l_INS_Product"]').click();
 
   await page.locator('[id="1_INS_Product"]').click();
-
+//fill job card type
   await page.locator('[id="1_INS_Product"]').fill('15：市場措置');
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
@@ -78,7 +78,7 @@ test('record demo', async () => {
   await page.getByPlaceholder('請求先コード').click();
 
   await page.getByPlaceholder('請求先コード').fill('0000002810');
-
+//work Order creation
   await page.getByRole('checkbox', { name: '車両引取納車フラグ' }).uncheck();
   await page.getByRole('checkbox', { name: '納引なしのフラグ' }).check();
   await page.locator('[aria-label="納引なしの理由"]').click();
@@ -91,38 +91,14 @@ test('record demo', async () => {
 
   await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click();
 
-  //ffcode
+  //field fix code
   await page.locator('[id="\\31 _s_1_l_MF_Field_Fix_Code"]').click();
   await page.getByRole('textbox', { name: '市場措置コード' }).fill('R1452612');
   await page.getByRole('textbox', { name: '市場措置コード' }).press('Control+s');
-  //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Auto+Vehicle+Job+Card+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Auto+Vehicle+Entry+Applet&SWERowId0=1-PE7-171&SWEApplet1=MF+Job+Card+List+Applet&SWERowId1=1-1KT12N');
-  //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Job+Card+Detail+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Job+Card+Detail+Applet&SWERowId0=1-1KT12N&SWEApplet1=MF+Job+Card+Work+Orders+List+Applet&SWERowId1=1-1KT13B');
-  await page.locator('[id="\\31 _s_1_l_MF_Field_Fix_Order_Code"]').click();
+ await page.locator('[id="\\31 _s_1_l_MF_Field_Fix_Order_Code"]').click();
   await page.getByRole('textbox', { name: 'FF注文コード' }).fill('R1452612');
   await page.getByRole('textbox', { name: 'FF注文コード' }).press('Control+s');
-
-
   await page.locator('[class="drilldown"]').click();
-
- // await page.getByRole('button', { name: '作業 リストアプレット:新規' }).click();
-
-  //await page.locator('[id="\\31 _s_1_l_MF_Labor_Code"]').click();
-
-  //await page.locator('[id="s_1_2_64_0_icon"]').click();
-
-  //await page.getByRole('button', { name: 'ピック労働コード リストアプレット:OK' }).click();
-
-  //await page.getByRole('gridcell', { name: '計算機フィールド' }).first().click();
-  //await page.pause();
-
-  //await page.locator('[aria-roledescription="数量"]').click();
-  //await page.locator('[name="Recommended_Quantity"]').fill('1');
-
-  //await page.locator('[aria-roledescription="純作業時間"]').click();
-  //await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
-  //await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
-
-  //await page.pause();
   await page.getByRole('link', { name: 'パーツ' }).click();
   await page.getByRole('button', { name: 'パーツ リストアプレット:新規' }).click();
   await page.locator('[id="1_s_2_l_Product_Name"]').click();
@@ -140,13 +116,9 @@ test('record demo', async () => {
 
   await page.goBack();
   await page.waitForTimeout(3000);
-  
- // await page.pause();
-
-
+// Quote creation
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
   await page.locator('[name="Name"]').nth(0).click();
-  //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Service+Quote+Line+Items+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Quote+Form+Applet&');
   await page.getByRole('button', { name: '見積り フォームアプレット:承認依頼' }).click();
   await page.locator('#s_2_1_130_0_icon').click();
   await page.getByRole('button', { name: '担当者を選択 リストアプレット:OK' }).click();
@@ -154,29 +126,38 @@ test('record demo', async () => {
 
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
+//Quote Approval done
 
-  //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
   await page.getByPlaceholder('引取開始予定日時').click();
+  //Planned Pickup Start Date/Time
   await page.locator('#s_2_1_153_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  // Planned Arrival Date/Time
   await page.locator('#s_2_1_66_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Arrival Date/Time
   await page.locator('#s_2_1_20_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+// Planned Delivery Start Date/Tim
   await page.locator('#s_2_1_154_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  // Planned Delivery Date/Time
   await page.locator('#s_2_1_67_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  //Planned Work Start Date
   await page.locator('#s_2_1_126_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Planned Courtesy Vehicle Date
   await page.locator('#s_2_1_119_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
@@ -186,10 +167,6 @@ test('record demo', async () => {
   await page.locator('[class="drilldown"]').first().click();
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click();
-
-  //await page.pause();
-
-
 
   //Part Staff Process
   const Part1 = await context1.newPage();
@@ -208,7 +185,7 @@ test('record demo', async () => {
   await Part1.locator('[aria-roledescription="Status"]').click();
   
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
-  //await pa1ge.pause();
+  //await page.pause();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
   await Part1.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();
@@ -222,15 +199,14 @@ test('record demo', async () => {
 
   await page.bringToFront()
 
-
+//work order 'Stop' button
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click();
+
+  //work order 'set acceptance' button
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click();
   await page.goto(jcurl);
-
-
-
   
-
+//Delivery date/time
   await page.locator('#s_2_1_35_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
@@ -246,4 +222,7 @@ test('record demo', async () => {
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+
+  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
+  console.log('Fieldfix Job card created and Job card no. :->' + Jobcardno);
   })
