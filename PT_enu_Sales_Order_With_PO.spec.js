@@ -9,7 +9,7 @@ test.describe.serial("Siebel Page Test", () => {
 
 test("Sales Order with PO", async () => {const browser = await chromium.launch({
 
-  headless: true
+  headless: false
 
 });
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -39,7 +39,7 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('input[role="textbox"]').press("Control+s");
     await page023.locator('input[role="textbox"]').press("Tab");
     await page023.waitForLoadState("networkidle");
-    await page023.waitForTimeout(3000);
+    await page023.waitForTimeout(1000);
     console.log("Quote Created Successfully");
     await page023.locator('[aria-labelledby="s_2_l_altLink"]').first().click();
   
@@ -196,7 +196,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     }
     console.log("Clicked on Generate PO button");
 
-    await page023.waitForTimeout(4000);
     console.log("Purchase Order Created Successfully");
   
     //Copy sales order number
@@ -329,6 +328,16 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
       console.log('error in Generate Approval button in Part Change Order');
     }
     console.log("Clicked on Generate Approval button");
+
+    //function
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Parts+Change+Order+Approval+History+View');
+    const validApprovers = ["SCHQ-CS-Parts-Mgr"];
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
   
     //go to  approval
     pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -338,7 +347,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     const Loginuser021 = new FusoLogin(pageF23);
     await Loginuser021.loginFDP("D8FFOR21", "Snakamura@1");
     await pageF23.waitForLoadState("domcontentloaded");
-   await pageF23.waitForTimeout(2000)
   
   
     //take approval
@@ -359,7 +367,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('[aria-label="Sales Orders List Applet:Go"]').click();
       //order found
     await page023.locator('[aria-labelledby="s_1_l_Order_Number"]').press("Tab");
-    await page023.waitForTimeout(2000);
     //open order number
     await page023.locator('[class="drilldown"]').click();
     
