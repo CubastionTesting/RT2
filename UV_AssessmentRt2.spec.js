@@ -234,6 +234,14 @@ await page.pause();
     await page.locator('body').press('Alt+Enter');
     await page.getByRole('button', { name: 'Purchase Quote Form Applet:Generate Approvals' }).click();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Purchase+Quote+Approval+View',{ waitUntil: 'networkidle' });
+
+    const validApprovers1 = ["SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr", "SCHQ-Sales-NV-Mgr"];
+    const verfyappvr1 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff1 = new verfyappvr1.appnew(page);
+    for (let n = 0; n < validApprovers1.length; n++) {
+      const isApproverValid = await SalesGPStaff1.isValidApprover(validApprovers1[n],n);
+    }
    // await page.waitForNavigation('domcontentloaded');
     await page.locator('[aria-label="Assessment #"]').click();
     await page.locator('[aria-label="Assessment #"]').press('Control+Alt+k');
@@ -322,6 +330,14 @@ await page.pause();
     console.log('RequestId :-> ' + requestId);
     await page.getByRole('button', { name: 'Stock In Verification Form Applet:Generate Approvals' }).click();
     await page.getByRole('link', { name: 'Approval History' }).click();
+
+    const validApprovers2 = ["SCHQ-Sales-UV-Mgr"];
+    const verfyappvr2 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff2 = new verfyappvr2.appnew(page);
+    for (let n = 0; n < validApprovers2.length; n++) {
+      const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
+    }
     await page.locator('[aria-label="Assessment #"]').click();
     await page.locator('[aria-label="Assessment #"]').press('Control+Alt+k');
     var rowid3 = await page.locator('[aria-label="Row #"]').textContent();
@@ -383,6 +399,14 @@ await page.pause();
     await page.getByRole('button', { name: 'Temporary Resale Price List Applet:Generate Approvals' }).click();
     await page.getByText('Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1').click();
     await page.getByRole('region').filter({ hasText: 'Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1Create Temporary Resale ' }).press('Alt+Control+k');
+
+    const validApprovers3 = ["SCHQ-Sales-UV-Mgr","HQ-TAJ-Fleet-SnrMgr"];
+    const verfyappvr3 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff3 = new verfyappvr3.appnew(page);
+    for (let n = 0; n < validApprovers3.length; n++) {
+      const isApproverValid = await SalesGPStaff3.isValidApprover(validApprovers3[n],n);
+    }
     // await page.locator('#\31 _s_3_l_MF_Status').click()
     // await page.locator('[id="1_MF_Dealer_Resale_Price"]').press('Control+Alt+k');
     var rowid4 = await page.locator('[aria-label="Row #"]').textContent();
