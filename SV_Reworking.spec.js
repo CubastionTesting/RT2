@@ -192,8 +192,15 @@ await page.getByLabel('経費負担場所', { exact: true }).click();
   console.log(quotid);
   console.log('Expense Row id is'+quotid);
   await page.locator('[data-display="OK"]').click();
-
-
+  await page.getByRole('link', { name: '承認', exact: true }).click();
+  await page.waitForTimeout(2000)
+  const validApprovers = ["Branch-Service-Mgr", "Branch-Head", "SCHQ-CS-Service-Mgr", "SCHQ-CS-Snr-Mgr"];
+  const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+  const SalesGPStaff = new verfyappvr.appnew(page);
+  for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApproverJPN(validApprovers[n],n);
+  }
 
   //Approver process starts
   await pageApp1.bringToFront();
@@ -334,6 +341,15 @@ await pageApp5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer
 
    var JCkaKuchhHai = await page.locator('[name="s_3_1_363_0"]').textContent();
    console.log('Sales order screen ki ID :-> ' + JCkaKuchhHai);
+   await page.getByLabel('レコード情報 フォームアプレット:OK').click();
+   await page.getByRole('link', { name: '承認' }).click();
+   await page.pause()
+   //Verify approvers
+  const jcvalidApprovers = ["Branch-Service-Mgr", "Branch-Head", "SCHQ-CS-Service-Mgr", "SCHQ-CS-Snr-Mgr"];
+  const jcSalesGPStaff = new verfyappvr.appnew(page);
+  for (let n = 0; n < jcvalidApprovers.length; n++) {
+      const isApproverValid = await jcSalesGPStaff.isValidApproverJPN(jcvalidApprovers[n],n);
+  }
 
    await pageApp1.bringToFront();
    await pageApp1.locator('[aria-label="Inbox Items List Applet:Query"]').click();

@@ -137,6 +137,9 @@ test('record demo', async () => {
   await page.locator('[aria-label="印刷状況"]').click();
   await page.locator('[aria-label="印刷状況"]').press('Control+Alt+k');
   var rowid = await page.locator('[aria-label="ロウ番号"]').textContent();
+  await page.getByLabel('レコード情報 フォームアプレット:OK').click();
+  await page.getByRole('link', { name: '承認', exact: true }).click();
+  await page.waitForTimeout(2000)
   const context3 = await browser.newContext();
   const pageappvr = await context3.newPage();
   await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
@@ -148,6 +151,13 @@ test('record demo', async () => {
   await pageappvr.waitForLoadState('domcontentloaded');
   // await pageappvr.pause()
   await pageappvr.waitForTimeout(3000);
+  await page.pause()
+  const validApprovers = ["Branch-Service-Mgr"];
+  const verfyappvr = require('./approverfunction');
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApproverJPN(validApprovers[n],n);
+    }
   await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
   await pageappvr.waitForTimeout(3000);
   await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
@@ -165,7 +175,9 @@ test('record demo', async () => {
   // await page.pause();
   //Quote Approval done
 
-  await page.locator('#s_2_1_130_0_icon').click();
+  //await page.locator('#s_2_1_130_0_icon').click();
+  await page.getByPlaceholder('了解者').click();
+    await page.getByRole('cell', { name: '了解者 Press F2 for 選択フィールド' }).getByLabel('Press F2 for 選択フィールド').click();
   await page.getByRole('button', { name: '担当者を選択 リストアプレット:OK' }).click();
   await page.getByPlaceholder('見積状況').click();
 
@@ -274,6 +286,9 @@ test('record demo', async () => {
   var rowid3 = await page.locator('[aria-label="ロウ番号"]').textContent();
   console.log(rowid3);
   console.log('Expense Row id is' + rowid3);
+  await page.getByLabel('レコード情報 フォームアプレット:OK').click();
+  await page.getByRole('link', { name: '承認' }).click();
+  await page.waitForTimeout(2000)
 
 
   const context2 = await browser.newContext();
@@ -287,6 +302,12 @@ test('record demo', async () => {
   await pageApp1.getByLabel('Password').fill('Snakamura@1');
   await pageApp1.getByRole('button', { name: 'Log on' }).click();
   await pageApp1.waitForTimeout(3000);
+  await page.pause()
+  const jcvalidApprovers = ["Branch-Service-Mgr"];
+    const jcSalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < jcvalidApprovers.length; n++) {
+      const isApproverValid = await jcSalesGPStaff.isValidApproverJPN(jcvalidApprovers[n],n);
+    }
   await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
 
   await pageApp1.locator('[aria-label="Inbox Items List Applet:Query"]').click();
