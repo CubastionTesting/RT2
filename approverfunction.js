@@ -1,8 +1,8 @@
 class appnew{
-    constructor(page,page1) { 
+    constructor(page) { 
 
         this.position = page.locator('[aria-roledescription="Position"]');
-        this.positionjpn = page1.locator('[aria-roledescription="役職"]');
+        this.positionjpn = page.locator('[aria-roledescription="役職"]');
 
     }
         async isValidApprover(validApprovers,n) {
