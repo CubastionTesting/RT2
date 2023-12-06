@@ -10,7 +10,7 @@ test('record demo 1', async () => {
 
 
   const browser = await chromium.launch({
-    headless: true
+    headless: false
   });
   const characters = '0123456789';
 
@@ -269,6 +269,7 @@ test('record demo 1', async () => {
 
   await page.bringToFront();
   await page.reload();
+  await page.pause();
   await page.waitForTimeout(4000);
 
   await page.getByRole('link', { name: '関連見積' }).click();
@@ -313,7 +314,6 @@ test('record demo 1', async () => {
   await page.reload();
   await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).filter({ hasText: '進行中' }).click();
   await page.getByRole('button', { name: '関連する見積り リストアプレット:顧客見積更新' }).click();
-  //await page.waitForTimeout(5000);
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').click();
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').fill('10000');
   await page.getByRole('cell', { name: '販売価格 Press F2 for 計算機フィールド' }).getByPlaceholder('販売価格').press('Control+s');
@@ -351,6 +351,16 @@ test('record demo 1', async () => {
  
   //end new code
   await page.getByRole('button', { name: '見積り フォームアプレット:承認依頼' }).click();
+  await page.getByRole('link', { name: '承認履歴' }).click();
+
+  const validApprovers = ["Branch-Sales-Mgr", "Branch-Head"];
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApproverJPN(validApprovers[n],n);
+    }
+
   await page.getByPlaceholder('見積名').click();
   await page.getByPlaceholder('見積名').press('Alt+Control+k');
   var rowid = await page.locator('[aria-label="ロウ番号"]').textContent();
@@ -517,6 +527,15 @@ test('record demo 1', async () => {
   await page.getByRole('button', { name: '完了' }).click();
   await page.getByRole('link', { name: '明細項目' }).click();
   await page.getByRole('button', { name: '販売オーダー フォームアプレット:承認依頼' }).click();
+  await page.getByRole('link', { name: '承認', exact: true }).click();
+  const validApprovers1 = ["Branch-Sales-Mgr", "Branch-Head"];
+  const verfyappvr1 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff1 = new verfyappvr1.appnew(page);
+  for (let n = 0; n < validApprovers1.length; n++) {
+    const isApproverValid = await SalesGPStaff1.isValidApproverJPN(validApprovers1[n],n);
+  }
+
   await page.getByPlaceholder('商談台数').click();
   await page.getByPlaceholder('商談台数').press('Alt+Control+k');
   var rowid1 = await page.locator('[aria-label="ロウ番号"]').textContent();
@@ -761,8 +780,9 @@ test('record demo 1', async () => {
   //await pageActivity.waitForTimeout(5000);
 
 
-await myVecPage.waitForTimeout(5000);
+  await myVecPage.waitForTimeout(5000);
   await myVecPage.bringToFront();
+  await myVecPage.pause();
   await myVecPage.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Chassis+Order+View');
   await myVecPage.waitForTimeout(6000);
   await myVecPage.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+All+Body+Building+Order+across+HQ+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Body+Building+Order+List+Applet');
@@ -797,11 +817,21 @@ await myVecPage.waitForTimeout(5000);
   await myVecPage.getByRole('textbox', { name: '架装単価 通貨計算機フィールド' }).fill('4567');
   await myVecPage.getByRole('textbox', { name: '架装単価 通貨計算機フィールド' }).press('Control+s');
   await myVecPage.getByRole('button', { name: '架装発注-ヘッダー フォームアプレット:承認依頼' }).click();
-  await myVecPage.getByPlaceholder('発注番号').click();
+  await myVecPage.getByRole('link', { name: '承認', exact: true }).click();
+
+
+const validApprovers2 = ["SCHQ-Sales-Vehicle-Mgr"];
+  const verfyappvr2 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff2 = new verfyappvr2.appnew(myVecPage);
+  for (let n = 0; n < validApprovers2.length; n++) {
+    const isApproverValid = await SalesGPStaff2.isValidApproverJPN(validApprovers2[n],n);
+  }
+
 
   // await myVecPage.waitForTimeout(5000);
 
-
+  await myVecPage.getByPlaceholder('発注番号').click();
   await myVecPage.locator('[aria-label="発注番号"]').press('Control+Alt+k');
   var bb_rowid =  await myVecPage.locator('[aria-label="ロウ番号"]').textContent();
   console.log(bb_rowid);
@@ -1043,6 +1073,16 @@ await myVecPage.waitForTimeout(5000);
   await page.getByRole('button', { name: '請求 フォームアプレット:合計を更新' }).click();
   await page.getByRole('button', { name: '請求 フォームアプレット:請求振分' }).click();
   await page.getByRole('button', { name: '請求 フォームアプレット:承認依頼' }).click();
+  await page.getByRole('link', { name: '承認' }).click();
+
+  const validApprovers3 = ["Branch-Sales-Mgr"];
+  const verfyappvr3 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff3 = new verfyappvr3.appnew(page);
+  for (let n = 0; n < validApprovers3.length; n++) {
+    const isApproverValid = await SalesGPStaff3.isValidApproverJPN(validApprovers3[n],n);
+  }
+
   await page.getByPlaceholder('請求番号').click();
   await page.getByPlaceholder('請求番号').press('Alt+Control+k');
   var rowidH = await page.locator('[aria-label="ロウ番号"]').textContent();
@@ -1206,6 +1246,16 @@ await myVecPage.locator('[class="drilldown"]').click();
   await page.getByRole('button', { name: '登録配達依頼 フォームアプレット:完了' }).click();
   await page.getByRole('link', { name: '登録/配達:' }).click();
   await page.getByRole('button', { name: '販売オーダー フォームアプレット:承認依頼' }).click();
+  await page.getByRole('link', { name: '承認', exact: true }).click();
+
+  const validApprovers4 = ["Branch-Sales-Mgr"];
+  const verfyappvr4 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff4 = new verfyappvr4.appnew(page);
+  for (let n = 0; n < validApprovers4.length; n++) {
+    const isApproverValid = await SalesGPStaff4.isValidApproverJPN(validApprovers4[n],n);
+  }
+
   await page.locator('input[name="s_1_1_119_0"]').click();
   await page.locator('input[name="s_1_1_119_0"]').press('Alt+Control+k');
   var rowid5 = await page.locator('[aria-label="ロウ番号"]').textContent();
