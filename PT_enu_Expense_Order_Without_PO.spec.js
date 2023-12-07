@@ -9,7 +9,7 @@ test.describe.serial("Siebel Page Test", () => {
    
     test("parts expense order without PO", async () => { const browser = await chromium.launch({
 
-      headless: false
+      headless: true
     
     });
         page = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -75,6 +75,7 @@ test.describe.serial("Siebel Page Test", () => {
           console.log('error in plus button in Part Expense order');
         }
         console.log("Line item added successfully");
+        await page.waitForLoadState("domcontentloaded")
       
         //Add Part
         await page
@@ -354,6 +355,16 @@ test.describe.serial("Siebel Page Test", () => {
         var wporowid = await page.locator('[aria-label="Row #"]').textContent();
         // console.log(wporowid);
         await page.locator('[aria-label="Row #"]').press("Control+c");
+
+        await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Approval+Flow+History+View+(Expense)');
+    const validApprovers = ["Branch-Parts-Mgr"];
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
+    
       
         //approval user link
         await pageF23.goto(
@@ -453,7 +464,7 @@ test.describe.serial("Siebel Page Test", () => {
         await page.locator('[id="1_s_1_l_MF_Customer_Return_Reason"]').click();
         await page.locator('[id="1_MF_Customer_Return_Reason"]').click();
         await page.locator('[id="1_MF_Customer_Return_Reason"]').fill('Incorrect product');
-        await page.waitForTimeout(3000);
+        await page.waitForLoadState("domcontentloaded");
       
        await page.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Line+Items+Detail+View+(Expense)")
       

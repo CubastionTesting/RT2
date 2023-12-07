@@ -9,7 +9,7 @@ test.describe.serial("Siebel Page Test", () => {
     
 test("Sales Order without PO", async () => {const browser = await chromium.launch({
 
-  headless: false
+  headless: true
 
 });
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -40,7 +40,7 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     await page023.locator('input[role="textbox"]').press("Control+s");
     await page023.locator('input[role="textbox"]').press("Tab");
     await page023.waitForLoadState("networkidle");
-    await page023.waitForTimeout(3000);
+    await page023.waitForTimeout(2000);
     console.log("Quote Created Successfully");
     await page023.locator('[aria-labelledby="s_2_l_altLink"]').first().click();
   
@@ -231,7 +231,7 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     console.log("Clicked on Accepted button");
     await page023.waitForLoadState("load");
     await page023.waitForLoadState("domcontentloaded");
-    await page023.waitForTimeout(3000);
+    await page023.waitForTimeout(2000);
     console.log("Sales Order Created Successfully");
   
     /// /// ///Order Sheet Print Button
@@ -332,7 +332,18 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     }
     console.log("Clicked on Generate Approval");
     
-    await page023.reload()
+    await page023.reload();
+
+    //function
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Parts+Change+Order+Approval+History+View');
+    const validApprovers = ["SCHQ-CS-Parts-Mgr"];
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
+  
   
     //go to  approval
     pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });
