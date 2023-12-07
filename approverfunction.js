@@ -1,5 +1,6 @@
 class appnew{
   constructor(page) { 
+    this.page = page;
 
         this.position = page.locator('[aria-roledescription="Position"]');
     }
@@ -14,5 +15,19 @@ class appnew{
             }
             return isValid;
           }
+    
+
+
+        async correctApprover(rowid){
+            await this.page.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+            await this.page.locator('[id="1_s_1_l_Name"]').click();
+            await this.page.locator('[id="1_Name"]').fill(rowid);
+            await this.page.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+            await this.page.locator('[id="1_s_1_l_Action"]').click();
+            await this.page.locator('[id="1_Action"]').fill('Approved');
+            await this.page.locator('[id="1_Action"]').press('Control+s');
+            await this.page.waitForLoadState('networkidle');           
+
     }
+  }
 module.exports = {appnew};
