@@ -16,6 +16,17 @@ class appnew{
             return isValid;
           }
     
+          async isValidApproverJPN(validApprovers,n) {
+            const approverElement = await this.positionjpn.nth(n).textContent();
+            console.log(approverElement);
+            const isValid = validApprovers.includes(approverElement);
+            if (isValid) {
+              console.log("Correct approver as expected");
+            } else {
+              console.log("Wrong approver, current approver is "+approverElement+"correct approver is "+validApprovers);
+            }
+            return isValid;
+          }
 
 
         async correctApprover(rowid){
