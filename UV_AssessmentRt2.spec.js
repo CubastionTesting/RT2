@@ -42,6 +42,11 @@ function generateString(length) {
     await page.waitForTimeout(4000);
     await page.waitForLoadState();
     // await page.pause();
+    const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
 
     //login for approver *****************
     await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu',{ waitUntil: 'networkidle' });
@@ -53,6 +58,11 @@ function generateString(length) {
     await page.waitForTimeout(4000);
     await page.waitForLoadState();
     // await page.pause();
+    const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage(pageappvr.locator('[id="_sweappmenu"]'),"pageappvr Browser not opened").toBeVisible());
+ 
+    else{
+   console.log("pageappvr Browser Opened");}
 
     // Login with Another Approver
 
@@ -64,10 +74,13 @@ function generateString(length) {
     //await pageAppvr.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(4000);
     await page.waitForLoadState();
+     
+  //checking browser open functionality
+  const checkpage2 = expect.configure({timeout:20000});
+   if(await checkpage(pageAppvr.locator('[id="_sweappmenu"]'),"pageAppvr Browser not opened").toBeVisible());
 
-    // await page.pause();
-
-
+   else{
+  console.log("pageAppvr Browser Opened");}
     //  await page.pause();
     //Assessment Request process starting ************
     await page.getByRole('link', { name: 'Assessment Request' }).click();

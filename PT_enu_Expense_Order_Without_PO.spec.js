@@ -1,4 +1,4 @@
-const { test, Page, chromium } = require("@playwright/test");
+const { test, Page, chromium ,expect} = require("@playwright/test");
 const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -23,12 +23,22 @@ test.describe.serial("Siebel Page Test", () => {
         const Loginuser023 = new FusoLogin(page); 
         await Loginuser023.loginFDP("D8FFOR24", "Snakamura@1");
         await page.waitForLoadState("domcontentloaded");
+        const checkpage = expect.configure({timeout:20000});
+        if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+        else{
+        console.log("page Browser Opened");}
         
         const LoginuserF23 = new FusoLogin(pageF23);
         await LoginuserF23.loginFDP("D8FDPF23", "Snakamura@1");
         await pageF23.waitForLoadState("domcontentloaded");
       
-        await page.waitForTimeout(7000);
+        // await page.waitForTimeout(7000);
+        const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage(pageF23.locator('[id="_sweappmenu"]'),"pageF23 Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageF23 Browser Opened");}
         //Expense Order link:
         await page.goto(
           "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Expense)"

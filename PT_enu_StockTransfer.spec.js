@@ -1,4 +1,4 @@
-const { test, Page, chromium } = require("@playwright/test");
+const { test, Page, chromium,expect } = require("@playwright/test");
 const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -21,7 +21,12 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     const Loginuser023 = new FusoLogin(page023);
     await Loginuser023.loginFDP("D8FDFO23", "Snakamura@1");
     await page023.waitForLoadState("domcontentloaded");
-    await page023.waitForTimeout(2000);
+    // await page023.waitForTimeout(2000);
+    const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page023.locator('[id="_sweappmenu"]'),"page023 Browser not opened").toBeVisible());
+
+    else{
+    console.log("page023 Browser Opened");}
 
     //PO link
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(PO)");
@@ -90,7 +95,12 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     const Loginuser027 = new FusoLogin(page027);
     await Loginuser027.loginFDP("D8FDFO27", "Snakamura@1");
     await page027.waitForLoadState("domcontentloaded");
-    await page027.waitForTimeout(2000);
+    // await page027.waitForTimeout(2000);
+    const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage(page027.locator('[id="_sweappmenu"]'),"page027 Browser not opened").toBeVisible());
+
+    else{
+    console.log("page027 Browser Opened");}
     await page027.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+FDP+Orders+View+(PO)")
     //search order
     await page027.locator('[id="s_2_1_21_0_Ctrl"]').click();

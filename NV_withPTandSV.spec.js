@@ -59,6 +59,11 @@ test('record demo 1', async () => {
   await page.getByRole('button', { name: 'Next' }).click();
   await page.getByLabel('Password').fill('Snakamura@1');
   await page.getByRole('button', { name: 'Log on' }).click();
+  const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
 
   //login process starting
   await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
@@ -68,6 +73,11 @@ test('record demo 1', async () => {
   await part.getByRole('button', { name: 'Next' }).click();
   await part.getByLabel('Password').fill('Snakamura@1');
   await part.getByRole('button', { name: 'Log on' }).click();
+  const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage1(part.locator('[id="_sweappmenu"]'),"part Browser not opened").toBeVisible());
+
+    else{
+    console.log("part Browser Opened");}
 
   //login process starting
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
@@ -78,6 +88,12 @@ test('record demo 1', async () => {
   await pageActivity.getByLabel('Password').fill('Snakamura@1');
   await pageActivity.getByRole('button', { name: 'Log on' }).click();
 
+  const checkpage2 = expect.configure({timeout:20000});
+    if(await checkpage2(pageActivity.locator('[id="_sweappmenu"]'),"pageActivity Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageActivity Browser Opened");}
+
   //login process starting
   await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
 
@@ -86,6 +102,11 @@ test('record demo 1', async () => {
   await approver1.getByRole('button', { name: 'Next' }).click();
   await approver1.getByLabel('Password').fill('Snakamura@1');
   await approver1.getByRole('button', { name: 'Log on' }).click();
+  const checkpage3 = expect.configure({timeout:20000});
+    if(await checkpage3(approver1.locator('[id="_sweappmenu"]'),"approver1 Browser not opened").toBeVisible());
+
+    else{
+    console.log("approver1 Browser Opened");}
 
 
   await approver2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
@@ -95,6 +116,11 @@ test('record demo 1', async () => {
   await approver2.getByRole('button', { name: 'Next' }).click();
   await approver2.getByLabel('Password').fill('Snakamura@1');
   await approver2.getByRole('button', { name: 'Log on' }).click();
+  const checkpage4 = expect.configure({timeout:20000});
+    if(await checkpage4(approver2.locator('[id="_sweappmenu"]'),"approver2 Browser not opened").toBeVisible());
+
+    else{
+    console.log("approver2 Browser Opened");}
 
 
 
@@ -104,6 +130,11 @@ test('record demo 1', async () => {
   await approverX.getByRole('button', { name: 'Next' }).click();
   await approverX.getByLabel('Password').fill('Snakamura@1');
   await approverX.getByRole('button', { name: 'Log on' }).click();
+  const checkpage5 = expect.configure({timeout:20000});
+    if(await checkpage(approverX.locator('[id="_sweappmenu"]'),"approverX Browser not opened").toBeVisible());
+
+    else{
+    console.log("approverX Browser Opened");}
 
 
   await approverY.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
@@ -112,6 +143,11 @@ test('record demo 1', async () => {
   await approverY.getByRole('button', { name: 'Next' }).click();
   await approverY.getByLabel('Password').fill('Snakamura@1');
   await approverY.getByRole('button', { name: 'Log on' }).click();
+  const checkpage6 = expect.configure({timeout:20000});
+    if(await checkpage6(approverY.locator('[id="_sweappmenu"]'),"approverY Browser not opened").toBeVisible());
+
+    else{
+    console.log("approverY Browser Opened");}
 
 
 
@@ -124,6 +160,11 @@ test('record demo 1', async () => {
   await myVecPage.getByRole('button', { name: 'Next' }).click();
   await myVecPage.getByLabel('Password').fill('Snakamura@1');
   await myVecPage.getByRole('button', { name: 'Log on' }).click();
+  const checkpage7 = expect.configure({timeout:20000});
+    if(await checkpage7(myVecPage.locator('[id="_sweappmenu"]'),"myVecPage Browser not opened").toBeVisible());
+
+    else{
+    console.log("myVecPage Browser Opened");}
 
 
 
@@ -134,6 +175,11 @@ test('record demo 1', async () => {
   await approver3.getByRole('button', { name: 'Next' }).click();
   await approver3.getByLabel('Password').fill('Snakamura@1');
   await approver3.getByRole('button', { name: 'Log on' }).click();
+  const checkpage8 = expect.configure({timeout:20000});
+    if(await checkpage8(approver3.locator('[id="_sweappmenu"]'),"approver3 Browser not opened").toBeVisible());
+
+    else{
+    console.log("approver3 Browser Opened");}
 
 
 

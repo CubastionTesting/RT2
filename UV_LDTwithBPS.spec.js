@@ -52,15 +52,25 @@ test('record demo 1', async () => {
     await page.getByRole('button', { name: 'Next' }).click();
     await page.getByLabel('Password').fill('Snakamura@1');
     await page.getByRole('button', { name: 'Log on' }).click();
+    const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
     //login process starting
     await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
 
     await pageappvr.getByLabel('User ID').click();
     await pageappvr.getByLabel('User ID').fill('D8FDFO22');
     await pageappvr.getByRole('button', { name: 'Next' }).click();
-    await pageappvr.getByLabel('Password').fill('Snakamura@1');
+    await pageappvr.getByLabel('Password').fill('Snakamura@13');
     await pageappvr.getByRole('button', { name: 'Log on' }).click();
-    // await pageappvr.pause();
+    
+    const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage(pageappvr.locator('[id="_sweappmenu"]'),"pageappvr Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageappvr Browser Opened");}
 
     //login process starting
     await myPage.bringToFront();
@@ -72,6 +82,12 @@ test('record demo 1', async () => {
     await myPage.getByLabel('Password').fill('Snakamura@1');
     await myPage.getByRole('button', { name: 'Log on' }).click();
     // await myPage.pause();
+    const checkpage2 = expect.configure({timeout:20000});
+    if(await checkpage(myPage.locator('[id="_sweappmenu"]'),"myPage Browser not opened").toBeVisible());
+
+    else{
+    console.log("myPage Browser Opened");}
+    
 
     await myPage1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
     // await myPage1.pause();
@@ -80,6 +96,12 @@ test('record demo 1', async () => {
     await myPage1.getByRole('button', { name: 'Next' }).click();
     await myPage1.getByLabel('Password').fill('Snakamura@1');
     await myPage1.getByRole('button', { name: 'Log on' }).click();
+    
+    const checkpage3 = expect.configure({timeout:20000});
+    if(await checkpage(myPage1.locator('[id="_sweappmenu"]'),"myPage1 Browser not opened").toBeVisible());
+
+    else{
+    console.log("myPage1 Browser Opened");}
 
     await pageQuote.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
     await pageQuote.pause();
@@ -89,6 +111,12 @@ test('record demo 1', async () => {
     await pageQuote.getByLabel('Password').fill('Snakamura@1');
     await pageQuote.getByRole('button', { name: 'Log on' }).click();
 
+    const checkpage4 = expect.configure({timeout:20000});
+    if(await checkpage(pageQuote.locator('[id="_sweappmenu"]'),"pageQuote Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageQuote Browser Opened");}
+
     await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
     // await pageActivity.pause();
     await pageActivity.getByLabel('User ID').click();
@@ -97,6 +125,12 @@ test('record demo 1', async () => {
     await pageActivity.getByLabel('Password').fill('Snakamura@1');
     await pageActivity.getByRole('button', { name: 'Log on' }).click();
 
+    const checkpage5 = expect.configure({timeout:20000});
+    if(await checkpage(pageActivity.locator('[id="_sweappmenu"]'),"pageActivity Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageActivity Browser Opened");}
+
     await pageBB.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
     // await pageBB.pause();
     await pageBB.getByLabel('User ID').click();
@@ -104,6 +138,12 @@ test('record demo 1', async () => {
     await pageBB.getByRole('button', { name: 'Next' }).click();
     await pageBB.getByLabel('Password').fill('Snakamura@1');
     await pageBB.getByRole('button', { name: 'Log on' }).click();
+
+    const checkpage6 = expect.configure({timeout:20000});
+    if(await checkpage(pageBB.locator('[id="_sweappmenu"]'),"pageBB Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageBB Browser Opened");}
 
     await page.bringToFront();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Opportunity');

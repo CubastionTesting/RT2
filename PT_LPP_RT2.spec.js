@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test,expect } from '@playwright/test';
 
 const { chromium } = require('@playwright/test');
 
@@ -19,11 +19,20 @@ test('record demo', async () => {
    await page.locator('[id="password"]').fill('Snakamura@1');
    await page.locator('[id="loginSubmitButton"]').click();
    await page.waitForLoadState();
-   await page.waitForTimeout(3000);
+  
+   const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
+   
+  //  if(await page.locator('[id="_sweappmenu"]').isVisible() == true){
+  //   console.log("Part Browser opened")
+  //  }
    
    const randomNum = Math.random() * 9000
    const token = Math.floor(1000 + randomNum)
-   console.log(token)
+  //  console.log(token)
  
    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+LPP+Registration+My+List+View');
    await page.waitForLoadState();

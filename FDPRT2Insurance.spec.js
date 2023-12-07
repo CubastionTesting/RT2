@@ -21,6 +21,11 @@ test('record demo 1', async () => {
     await page.locator('[id="password"]').fill('Snakamura@1');
     await page.locator('[id="loginSubmitButton"]').click();
     await page.waitForLoadState('domcontentloaded');
+    const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
 
  //login for approver *****************
  await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu',{ waitUntil: 'networkidle' });
@@ -29,6 +34,11 @@ test('record demo 1', async () => {
  await pageappvr.locator('[id="password"]').fill('Snakamura@1');
  await pageappvr.locator('[id="loginSubmitButton"]').click();
  await pageappvr.waitForLoadState('domcontentloaded');
+ const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage1(pageappvr.locator('[id="_sweappmenu"]'),"pageappvr Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageappvr Browser Opened");}
 
  // ***************
 

@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test , expect} from '@playwright/test';
 
 const { chromium } = require('@playwright/test');
 
@@ -19,6 +19,8 @@ test('record demo', async () => {
   const context1 = await browser.newContext();
 
   const page = await context.newPage();
+  const context2 = await browser.newContext();
+  const pageApp1 = await context2.newPage();
 
   // const pageApp3 = await context3.newpage();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?');
@@ -27,10 +29,15 @@ test('record demo', async () => {
   await page.locator('#password').fill('Snakamura@1');
   await page.click('#loginSubmitButton');
   await page.waitForLoadState();
-  await page.waitForTimeout(3000);
+  // await page.waitForTimeout(3000);
 //await page.pause()
-  const context2 = await browser.newContext();
-  const pageApp1 = await context2.newPage();
+  // const context2 = await browser.newContext();
+  // const pageApp1 = await context2.newPage();
+  const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
 
   await pageApp1.waitForLoadState('networkidle');
   await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle'});
@@ -39,9 +46,13 @@ test('record demo', async () => {
   await pageApp1.getByRole('button', { name: 'Next' }).click();
   await pageApp1.getByLabel('Password').fill('Snakamura@1');
   await pageApp1.getByRole('button', { name: 'Log on' }).click();
-  await pageApp1.waitForTimeout(3000);
-  await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle'});
+  //await pageApp1.waitForTimeout(3000);
+  // await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle'});
+  const checkpage1 = expect.configure({timeout:20000});
+  if(await checkpage(pageApp1.locator('[id="_sweappmenu"]'),"pageApp1 Browser not opened").toBeVisible());
 
+  else{
+  console.log("pageApp1 Browser Opened");}
   
   const context3 = await browser.newContext();
   const pageApp3 = await context3.newPage();
@@ -53,8 +64,13 @@ test('record demo', async () => {
   await pageApp3.getByRole('button', { name: 'Next' }).click();
   await pageApp3.getByLabel('Password').fill('Snakamura@1');
   await pageApp3.getByRole('button', { name: 'Log on' }).click();
-  await pageApp3.waitForTimeout(3000);
-  await pageApp3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle'});
+  // await pageApp3.waitForTimeout(3000);
+  const checkpage2 = expect.configure({timeout:20000});
+    if(await checkpage(pageApp3.locator('[id="_sweappmenu"]'),"pageApp3 Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageApp3 Browser Opened");}
+  // await pageApp3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle'});
 
   const context4 = await browser.newContext();
   const pageApp4 = await context4.newPage();4
@@ -65,9 +81,14 @@ test('record demo', async () => {
   await pageApp4.getByRole('button', { name: 'Next' }).click();
   await pageApp4.getByLabel('Password').fill('Snakamura@1');
   await pageApp4.getByRole('button', { name: 'Log on' }).click();
-  await pageApp4.waitForTimeout(3000);
-  await pageApp4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle'});
- 
+  // await pageApp4.waitForTimeout(3000);
+  // await pageApp4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle'});
+  const checkpage4 = expect.configure({timeout:20000});
+  if(await checkpage(pageApp4.locator('[id="_sweappmenu"]'),"pageApp4 Browser not opened").toBeVisible());
+
+  else{
+  console.log("pageApp4 Browser Opened");}
+
   const context5 = await browser.newContext();
   const pageApp5 = await context5.newPage();
 
@@ -78,7 +99,12 @@ test('record demo', async () => {
   await pageApp5.getByRole('button', { name: 'Next' }).click();
   await pageApp5.getByLabel('Password').fill('Snakamura@1');
   await pageApp5.getByRole('button', { name: 'Log on' }).click();
-  await pageApp5.waitForTimeout(3000);
+  // await pageApp5.waitForTimeout(3000);
+  const checkpage5 = expect.configure({timeout:20000});
+    if(await checkpage(pageApp5.locator('[id="_sweappmenu"]'),"pageApp5 Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageApp5 Browser Opened");}
   
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=eAuto+All+Vehicle+View');
   await page.waitForLoadState();

@@ -1,4 +1,4 @@
-const { test,Page, chromium } = require("@playwright/test");
+const { test,Page, chromium, expect } = require("@playwright/test");
 const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -19,7 +19,12 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     const Loginuser023 = new FusoLogin(page023);
     await Loginuser023.loginFDP("D8FORF24", "Snakamura@1");
     await page023.waitForLoadState("domcontentloaded");
-    await page023.waitForTimeout(2000);
+    // await page023.waitForTimeout(2000);
+    const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page023.locator('[id="_sweappmenu"]'),"page023 Browser not opened").toBeVisible());
+
+    else{
+    console.log("page023 Browser Opened");}
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+All+Quote+List+View");
     await page023.waitForLoadState("domcontentloaded");
 

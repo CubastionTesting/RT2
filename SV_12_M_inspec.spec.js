@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test,expect } from '@playwright/test';
 
 const { chromium } = require('@playwright/test');
 
@@ -24,16 +24,24 @@ test('record demo', async () => {
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?');
  await page.locator('#userid').fill('D8FDFO24');
   await page.click('#next-btn');
-  await page.locator('#password').fill('Snakamura@1');
+  await page.locator('#password').fill('Snakamura@');
   await page.click('#loginSubmitButton');
   await page.waitForLoadState();
-  await page.waitForTimeout(3000);
+  // await page.waitForTimeout(3000);
+  const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
 
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=eAuto+All+Vehicle+View');
   await page.waitForLoadState();
   await page.waitForTimeout(3000);
 
   await page.getByRole('button', { name: '車両 リストアプレット:クエリー' }).click();
+ 
+ 
+  console.log("All browser has been opened successfully");
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
   await page.waitForTimeout(3000);
@@ -174,7 +182,12 @@ test('record demo', async () => {
   await Part1.locator('[name="password"]').click();
   await Part1.locator('[name="password"]').fill('Snakamura@1');
   await Part1.locator('[id="loginSubmitButton"]').click();
-  await Part1.waitForTimeout(3000);
+  // await Part1.waitForTimeout(3000);
+  const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage(Part1.locator('[id="_sweappmenu"]'),"Part1 Browser not opened").toBeVisible());
+
+    else{
+    console.log("Part1 Browser Opened");}
 
 
   await Part1.getByRole('link', { name: 'Parts Internal Order' }).click();

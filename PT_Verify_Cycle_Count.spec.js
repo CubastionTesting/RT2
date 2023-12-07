@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test,expect } from '@playwright/test';
 
 const { chromium } = require('@playwright/test');
 
@@ -21,7 +21,12 @@ test('record demo', async () => {
    await page.locator('[id="password"]').fill('Snakamura@1');
    await page.locator('[id="loginSubmitButton"]').click();
    await page.waitForLoadState();
-   await page.waitForTimeout(3000);
+  //  await page.waitForTimeout(3000);
+  const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
 
    const validation = page.locator('[id="Close_dialog_btn_close"]');
    

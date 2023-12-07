@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test ,expect} from '@playwright/test';
 
 const { chromium } = require('@playwright/test');
 
@@ -27,7 +27,12 @@ test('record demo', async () => {
   await page.locator('#password').fill('Snakamura@1');
   await page.click('#loginSubmitButton');
   await page.waitForLoadState();
-  await page.waitForTimeout(3000);
+  // await page.waitForTimeout(3000);
+  const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
 
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=eAuto+All+Vehicle+View');
   await page.waitForLoadState();
@@ -147,7 +152,12 @@ test('record demo', async () => {
   await pageappvr.getByRole('button', { name: 'Log on' }).click();
   await pageappvr.waitForLoadState('domcontentloaded');
   // await pageappvr.pause()
-  await pageappvr.waitForTimeout(3000);
+  // await pageappvr.waitForTimeout(3000);
+  const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage(pageappvr.locator('[id="_sweappmenu"]'),"pageappvr Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageappvr Browser Opened");}
   await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
   await pageappvr.waitForTimeout(3000);
   await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
@@ -222,7 +232,12 @@ test('record demo', async () => {
   await Part1.locator('[name="password"]').click();
   await Part1.locator('[name="password"]').fill('Snakamura@1');
   await Part1.locator('[id="loginSubmitButton"]').click();
-  await Part1.waitForTimeout(3000);
+  // await Part1.waitForTimeout(3000);
+  const checkpage2 = expect.configure({timeout:20000});
+    if(await checkpage(Part1.locator('[id="_sweappmenu"]'),"Part1 Browser not opened").toBeVisible());
+
+    else{
+    console.log("Part1 Browser Opened");}
 
 
   await Part1.getByRole('link', { name: 'Parts Internal Order' }).click();
@@ -286,7 +301,12 @@ test('record demo', async () => {
   await pageApp1.getByRole('button', { name: 'Next' }).click();
   await pageApp1.getByLabel('Password').fill('Snakamura@1');
   await pageApp1.getByRole('button', { name: 'Log on' }).click();
-  await pageApp1.waitForTimeout(3000);
+  // await pageApp1.waitForTimeout(3000);
+  const checkpage3 = expect.configure({timeout:20000});
+    if(await checkpage(pageApp1.locator('[id="_sweappmenu"]'),"pageApp1 Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageApp1 Browser Opened");}
   await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
 
   await pageApp1.locator('[aria-label="Inbox Items List Applet:Query"]').click();

@@ -1,4 +1,4 @@
-const { test, Page, chromium } = require("@playwright/test");
+const { test, Page, chromium ,expect} = require("@playwright/test");
 //const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -19,7 +19,12 @@ test("Inventory Transition", async () => { const browser = await chromium.launch
   const Loginuser = new FusoLogin(page);
   await Loginuser.loginFDP("D8FFOR24", "Snakamura@1");
   await page.waitForLoadState("domcontentloaded");
- await page.waitForTimeout(2000)
+//  await page.waitForTimeout(2000)
+const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page.locator('[id="_sweappmenu"]'),"page Browser not opened").toBeVisible());
+
+    else{
+    console.log("page Browser Opened");}
  await page.goto(
   "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Inventory+Transactions+View"
 );

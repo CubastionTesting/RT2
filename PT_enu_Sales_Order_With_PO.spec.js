@@ -1,4 +1,4 @@
-const { test,Page, chromium } = require("@playwright/test");
+const { test,Page, chromium, expect } = require("@playwright/test");
 //const { Console } = require("console");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
@@ -19,7 +19,12 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     const Loginuser023 = new FusoLogin(page023);
     await Loginuser023.loginFDP("D8FDFO23", "Snakamura@1");
     await page023.waitForLoadState("domcontentloaded");
-   await page023.waitForTimeout(2000)
+  //  await page023.waitForTimeout(2000)
+  const checkpage = expect.configure({timeout:20000});
+    if(await checkpage(page023.locator('[id="_sweappmenu"]'),"page023 Browser not opened").toBeVisible());
+
+    else{
+    console.log("page023 Browser Opened");}
     // Click text=Parts Quotes
     //const user023 = new Parts(page023);
     await page023.goto(
@@ -338,7 +343,12 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     const Loginuser021 = new FusoLogin(pageF23);
     await Loginuser021.loginFDP("D8FFOR21", "Snakamura@1");
     await pageF23.waitForLoadState("domcontentloaded");
-   await pageF23.waitForTimeout(2000)
+  //  await pageF23.waitForTimeout(2000)
+  const checkpage1 = expect.configure({timeout:20000});
+    if(await checkpage(pageF23.locator('[id="_sweappmenu"]'),"pageF23 Browser not opened").toBeVisible());
+
+    else{
+    console.log("pageF23 Browser Opened");}
   
   
     //take approval
