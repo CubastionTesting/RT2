@@ -104,7 +104,7 @@ test('record demo', async () => {
 
 
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
-
+//Create job card
   await page.getByRole('button', { name: 'ジョブカード リストアプレット:ジョブカード作成' }).click();
   
   //await pageApp.locator('[name="Action"]').press('Control+s');
@@ -113,7 +113,7 @@ test('record demo', async () => {
   await page.locator('[id="\\31 _s_1_l_INS_Product"]').click();
 
   await page.locator('[id="1_INS_Product"]').click();
-
+//fill job card type
   await page.locator('[id="1_INS_Product"]').fill('11：一般整備');
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
@@ -121,7 +121,6 @@ test('record demo', async () => {
   await page.getByPlaceholder('取引先コード').click();
 
   await page.getByPlaceholder('取引先コード').fill('0000002810');
-
   const jcurl = page.url();
 
   await page.getByRole('cell', { name: '整備担当者コード' }).filter({ hasText: '整備担当者コード' }).locator('div').click();
@@ -129,7 +128,7 @@ test('record demo', async () => {
   await page.getByPlaceholder('請求先コード').click();
 
   await page.getByPlaceholder('請求先コード').fill('0000002810');
-
+//work Order creation
   await page.locator('tr:nth-child(17) > td:nth-child(10)').click();
 
   await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click();
@@ -169,7 +168,7 @@ test('record demo', async () => {
 
   await page.goBack();
   await page.waitForTimeout(3000);
-
+// Quote created
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
   await page.locator('[name="Name"]').nth(0).click();
   //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Service+Quote+Line+Items+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Quote+Form+Applet&');
@@ -254,29 +253,38 @@ test('record demo', async () => {
 
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
-
+//Quote Approval done
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
   await page.getByPlaceholder('引取開始予定日時').click();
+  //Planned Pickup Start Date/Time
   await page.locator('#s_2_1_153_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  // Planned Arrival Date/Time
   await page.locator('#s_2_1_66_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Arrival Date/Time
   await page.locator('#s_2_1_20_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+// Planned Delivery Start Date/Tim
   await page.locator('#s_2_1_154_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  // Planned Delivery Date/Time
   await page.locator('#s_2_1_67_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  //Planned Work Start Date
   await page.locator('#s_2_1_126_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Planned Courtesy Vehicle Date
   await page.locator('#s_2_1_119_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
@@ -318,12 +326,13 @@ test('record demo', async () => {
 
   await page.bringToFront()
 
-
+ //work order 'Stop' button
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click();
+   //work order 'set acceptance' button
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click();
   await page.goto(jcurl);
   
-
+//Delivery date/time
   await page.locator('#s_2_1_35_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
@@ -336,4 +345,7 @@ test('record demo', async () => {
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+
+  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
+  console.log('Chargeble Job card created and Job card no. :->' + Jobcardno);
   })

@@ -47,14 +47,8 @@ test('record demo', async () => {
   await page.getByText('FUSO-Gen').click();
   await page.getByRole('link', { name: 'FY54JY-540054' }).click();
 
-  // ---------------------
-
-  //await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
-
-
-
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
-
+//job card created
   await page.getByRole('button', { name: 'ジョブカード リストアプレット:ジョブカード作成' }).click();
   
   //await pageApp.locator('[name="Action"]').press('Control+s');
@@ -72,7 +66,7 @@ test('record demo', async () => {
   await page.getByPlaceholder('取引先コード').click();
 
   await page.getByPlaceholder('取引先コード').fill('0000002810');
-
+//work order created
   const jcurl = page.url();
 
   await page.getByRole('cell', { name: '整備担当者コード' }).filter({ hasText: '整備担当者コード' }).locator('div').click();
@@ -125,8 +119,7 @@ test('record demo', async () => {
   await page.goBack();
   await page.waitForTimeout(3000);
   
- // await page.pause();
-
+//Quote creation
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
   await page.locator('[name="Name"]').nth(0).click();
@@ -139,31 +132,40 @@ test('record demo', async () => {
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
 
-  //const value = await page.locator('[placeholder="JC番号"]').inputValue();
+   //Quote Approval done
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
   await page.getByPlaceholder('引取開始予定日時').click();
-  await page.locator('#s_2_1_153_0_icon').click();
-  await page.getByRole('button', { name: '現在' }).click();
-  await page.getByRole('button', { name: '完了' }).click();
-  await page.locator('#s_2_1_66_0_icon').click();
-  await page.getByRole('button', { name: '現在' }).click();
-  await page.getByRole('button', { name: '完了' }).click();
-  await page.locator('#s_2_1_20_0_icon').click();
-  await page.getByRole('button', { name: '現在' }).click();
-  await page.getByRole('button', { name: '完了' }).click();
-  await page.locator('#s_2_1_154_0_icon').click();
-  await page.getByRole('button', { name: '現在' }).click();
-  await page.getByRole('button', { name: '完了' }).click();
-  await page.locator('#s_2_1_67_0_icon').click();
-  await page.getByRole('button', { name: '現在' }).click();
-  await page.getByRole('button', { name: '完了' }).click();
-  await page.locator('#s_2_1_126_0_icon').click();
-  await page.getByRole('button', { name: '現在' }).click();
-  await page.getByRole('button', { name: '完了' }).click();
-  await page.locator('#s_2_1_119_0_icon').click();
-  await page.getByRole('button', { name: '現在' }).click();
-  await page.getByRole('button', { name: '完了' }).click();
+ //Planned Pickup Start Date/Time
+ await page.locator('#s_2_1_153_0_icon').click();
+ await page.getByRole('button', { name: '現在' }).click();
+ await page.getByRole('button', { name: '完了' }).click();
+
+ // Planned Arrival Date/Time
+ await page.locator('#s_2_1_66_0_icon').click();
+ await page.getByRole('button', { name: '現在' }).click();
+ await page.getByRole('button', { name: '完了' }).click();
+ //Arrival Date/Time
+ await page.locator('#s_2_1_20_0_icon').click();
+ await page.getByRole('button', { name: '現在' }).click();
+ await page.getByRole('button', { name: '完了' }).click();
+ // Planned Delivery Start Date/Tim
+ await page.locator('#s_2_1_154_0_icon').click();
+ await page.getByRole('button', { name: '現在' }).click();
+ await page.getByRole('button', { name: '完了' }).click();
+ // Planned Delivery Date/Time
+ await page.locator('#s_2_1_67_0_icon').click();
+ await page.getByRole('button', { name: '現在' }).click();
+ await page.getByRole('button', { name: '完了' }).click();
+
+ //Planned Work Start Date
+ await page.locator('#s_2_1_126_0_icon').click();
+ await page.getByRole('button', { name: '現在' }).click();
+ await page.getByRole('button', { name: '完了' }).click();
+ //Planned Courtesy Vehicle Date
+ await page.locator('#s_2_1_119_0_icon').click();
+ await page.getByRole('button', { name: '現在' }).click();
+ await page.getByRole('button', { name: '完了' }).click();
 
   await page.locator('#s_2_1_68_0_icon').click();
   await page.getByPlaceholder('工事完了予定日時').press('Control+s');
@@ -192,7 +194,6 @@ test('record demo', async () => {
   await Part1.locator('[aria-roledescription="Status"]').click();
   
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
-  //await pa1ge.pause();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
   await Part1.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();
@@ -207,11 +208,14 @@ test('record demo', async () => {
   await page.bringToFront()
 
 
+  //work order 'Stop' button
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click();
+   //work order 'set acceptance' button
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click();
   await page.goto(jcurl);
   
-
+  
+ //Delivery date/time
   await page.locator('#s_2_1_35_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
@@ -258,5 +262,10 @@ test('record demo', async () => {
 
   const myChangeOrder1 = await page.locator('[name="s_3_1_143_0"]').inputValue();
   console.log('Change Order Approved for Payer change and order id is :->' + myChangeOrder1);
+
+  await page.goto(jcurl);
+
+  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
+  console.log('Payer change oredr created and Job card no. :->' + Jobcardno);
 
 })
