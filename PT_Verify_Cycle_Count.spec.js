@@ -7,7 +7,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: true
+    headless: false
 
   });
   
@@ -114,6 +114,13 @@ test('record demo', async () => {
   await page.getByRole('button', { name: 'Now' }).click();
   await page.getByRole('button', { name: 'Done' }).click();
   await page.getByPlaceholder('End').press('Control+S');
+  await page.waitForTimeout(3000);
+  await page.locator('[aria-label="Inventory Location"]').press("Control+Alt+k");
+  await page.waitForTimeout(3000);
+  await page.locator('[aria-label="Row #"]').click();
+  var cycleCountID = await page.locator('[aria-label="Row #"]').textContent();
+  await page.locator('[aria-label="Row #"]').press("Control+c");
+  console.log('cycleCountID is',cycleCountID);
   // ---------------------
   await context.close();
   await browser.close();
