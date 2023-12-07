@@ -256,7 +256,9 @@ test('record demo', async () => {
   console.log(rowid3);
 
   console.log('Change order Row id is : ' + rowid3);
-
+  await page.getByLabel('レコード情報 フォームアプレット:OK').click();
+  //await page.pause()
+  await page.getByRole('link', { name: '承認' }).click();
   //Approval 1.................
   const approval = await context2.newPage();
 
@@ -276,23 +278,6 @@ test('record demo', async () => {
 
   await approval.waitForTimeout(3000);
 
-  await approval.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
-
-  await approval.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-  await approval.locator('[id="1_s_2_l_Name"]').click();
-
-  await approval.locator('[name="Name"]').fill(rowid3);
-
-  await approval.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-
-  await approval.locator('[aria-roledescription="Action"]').click();
-
-  await approval.locator('[id="1_Action"]').fill('Approved');
-
-  await approval.locator('[id="1_Action"]').press('Control+s');
-
-
-  //Approval 2.................
   const approva = await context3.newPage();
 
   await approva.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
@@ -310,6 +295,47 @@ test('record demo', async () => {
   await approva.locator('[id="loginSubmitButton"]').click();
 
   await approva.waitForTimeout(3000);
+
+  const approv = await context4.newPage();
+
+  await approv.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
+  await approv.locator('[id="userid"]').click();
+  await approv.locator('[id="userid"]').fill('D8FDPF20');
+  await approv.locator('[id="next-btn"]').click();
+  await approv.locator('[name="password"]').click();
+  await approv.locator('[name="password"]').fill('Snakamura@1');
+  await approv.locator('[id="loginSubmitButton"]').click();
+  await approv.waitForTimeout(3000);
+
+  //Verify Approver
+  const validApprovers = ["Branch-Service-Mgr", "SCHQ-CS-Service-Mgr", "SCHQ-CS-Snr-Mgr"];
+  const verfyappvr = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff = new verfyappvr.appnew(page);
+  for (let n = 0; n < validApprovers.length; n++) {
+    const isApproverValid = await SalesGPStaff.isValidApproverJPN(validApprovers[n],n);
+  }
+
+   //Approval 1.................
+
+  await approval.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
+
+  await approval.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+  await approval.locator('[id="1_s_2_l_Name"]').click();
+
+  await approval.locator('[name="Name"]').fill(rowid3);
+
+  await approval.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+
+  await approval.locator('[aria-roledescription="Action"]').click();
+
+  await approval.locator('[id="1_Action"]').fill('Approved');
+
+  await approval.locator('[id="1_Action"]').press('Control+s');
+
+
+  //Approval 2.................
+
 
   await approva.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
 
@@ -332,16 +358,7 @@ test('record demo', async () => {
   //await page.bringToFront()
 
   //Approval 3..............
-  const approv = await context4.newPage();
 
-  await approv.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
-  await approv.locator('[id="userid"]').click();
-  await approv.locator('[id="userid"]').fill('D8FDPF20');
-  await approv.locator('[id="next-btn"]').click();
-  await approv.locator('[name="password"]').click();
-  await approv.locator('[name="password"]').fill('Snakamura@1');
-  await approv.locator('[id="loginSubmitButton"]').click();
-  await approv.waitForTimeout(3000);
   await approv.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
 
   await approv.locator('[aria-label="Inbox Items List Applet:Query"]').click();
