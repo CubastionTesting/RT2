@@ -46,7 +46,9 @@ test('record demo', async () => {
   // ---------------------
 
   //await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
+await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
 
+<<<<<<< HEAD
   const validation = page.locator('[id="Close_dialog_btn_close"]');
 
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
@@ -55,14 +57,23 @@ test('record demo', async () => {
   if (await validation.isVisible() == true){
     console.log('error in Create Job Card button in Vehicle');
   }
+=======
+//job card created..........
+  await page.getByRole('button', { name: 'ジョブカード リストアプレット:ジョブカード作成' }).click();
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   
   //await pageApp.locator('[name="Action"]').press('Control+s');
   page.on('dialog', dialog => dialog.accept());
 
   await page.locator('[id="\\31 _s_1_l_INS_Product"]').click();
 
+<<<<<<< HEAD
   await page.locator('[id="1_INS_Product"]').click(); //received Detail column
 
+=======
+  await page.locator('[id="1_INS_Product"]').click();
+//fill job card type
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   await page.locator('[id="1_INS_Product"]').fill('11：一般整備');
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
@@ -79,11 +90,16 @@ test('record demo', async () => {
   await page.getByPlaceholder('請求先コード').click(); //Bill to Basic Account Code column
 
   await page.getByPlaceholder('請求先コード').fill('0000002810');
+<<<<<<< HEAD
 
   await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click(); //Plus button
   if (await validation.isVisible() == true){
     console.log('error in Plus button in Job Card');
   }
+=======
+//work order created
+  await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click();
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   await page.getByText('自社メカ').click();
   await page.locator('#s_1_2_36_0_icon').click(); //internal/External classification column
   await page.locator('#ui-id-215').click();
@@ -105,7 +121,7 @@ test('record demo', async () => {
 
 
 
-  //External mechanic
+  //External mechanic work order
  
 
   //await page.locator('[class="drilldown"]').click();
@@ -186,28 +202,37 @@ test('record demo', async () => {
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
   await page.getByPlaceholder('引取開始予定日時').click();
+  //Planned Pickup Start Date/Time
   await page.locator('#s_2_1_153_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  // Planned Arrival Date/Time
   await page.locator('#s_2_1_66_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Arrival Date/Time
   await page.locator('#s_2_1_20_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+// Planned Delivery Start Date/Tim
   await page.locator('#s_2_1_154_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  // Planned Delivery Date/Time
   await page.locator('#s_2_1_67_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  //Planned Work Start Date
   await page.locator('#s_2_1_126_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Planned Courtesy Vehicle Date
   await page.locator('#s_2_1_119_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
-
+// Planned Work Completion Date/Time
   await page.locator('#s_2_1_68_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
@@ -221,25 +246,20 @@ test('record demo', async () => {
   }
   console.log("Service Purchase Order created successfully");
 
-  //page.on('dialog', dialog => dialog.accept());
-  //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Job+Card+Order+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Job+Card+Detail+Applet');
-  await page.waitForTimeout(3000);
+ await page.waitForTimeout(3000);
 
   await page.getByRole('button', { name: '関連オーダー リストアプレット:クエリー' }).click();
   await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).first().click();
-
-
-  //await page.getByRole('button', { name: '関連オーダー リストアプレット:クエリー' }).click();
-  //await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).first().click();
-
-  
   await page.getByPlaceholder('<大文字と小文字を区別する>').fill('Service Purchase Order');
-
   await page.locator('[aria-label="関連オーダー リストアプレット:ジャンプ"]').click();
+<<<<<<< HEAD
 
 
   
   await page.locator('[class="drilldown"]').first().click(); //Work Order# column
+=======
+  await page.locator('[class="drilldown"]').first().click();
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
 
   await page.getByRole('button', { name: 'サービスオーダー詳細 フォームアプレット:承認依頼' }).click(); //Generate Approval button
   if (await validation.isVisible() == true){
@@ -317,6 +337,7 @@ test('record demo', async () => {
   await page.goto(jcurl);
   console.log("Work Order Status Successfully changed to Set Acceptance Inspection Completed");
 
+//Delivery date/time
   await page.locator('#s_2_1_35_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click(); //Delivery date/time column
   await page.getByRole('button', { name: '完了' }).click();
@@ -336,4 +357,8 @@ test('record demo', async () => {
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   console.log("JC Closed");
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+
+  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
+  console.log('External mechanic work order created and Job card no. :->' + Jobcardno);
+
 })

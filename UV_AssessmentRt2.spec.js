@@ -155,6 +155,8 @@ await page.pause();
     await page.getByRole('button', { name: 'Assessment Request Form Applet:Generate Approvals' }).click();
     await page.getByRole('link', { name: 'Approval History' }).click()
 
+
+  //Approver function start to validate Approver
     const validApprovers = ["SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr", "SCHQ-Sales-NV-Mgr"];
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
@@ -162,7 +164,9 @@ await page.pause();
     for (let n = 0; n < validApprovers.length; n++) {
       const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
     }
-    
+    //Approver function end to validate Approver
+
+
     await page.getByPlaceholder('Assessment #').click();
 
 
@@ -321,7 +325,18 @@ await page.pause();
     const requestId = await page.locator('[aria-label="Request #"]').inputValue();
     console.log('RequestId :-> ' + requestId);
     await page.getByRole('button', { name: 'Stock In Verification Form Applet:Generate Approvals' }).click();
+
+  //Approver function end to validate Approver
+    
     await page.getByRole('link', { name: 'Approval History' }).click();
+
+    const validApprovers2 = ["SCHQ-Sales-UV-Mgr"];
+    const verfyappvr2 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff2 = new verfyappvr2.appnew(page);
+    for (let n = 0; n < validApprovers2.length; n++) {
+      const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
+    }
     await page.locator('[aria-label="Assessment #"]').click();
     await page.locator('[aria-label="Assessment #"]').press('Control+Alt+k');
     var rowid3 = await page.locator('[aria-label="Row #"]').textContent();
@@ -381,8 +396,18 @@ await page.pause();
     await page.getByRole('textbox', { name: 'Direct Resales Suggest Price Calculator Field' }).fill('90000');
     await page.getByRole('textbox', { name: 'Direct Resales Suggest Price Calculator Field' }).press('Control+s');
     await page.getByRole('button', { name: 'Temporary Resale Price List Applet:Generate Approvals' }).click();
-    await page.getByText('Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1').click();
-    await page.getByRole('region').filter({ hasText: 'Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1Create Temporary Resale ' }).press('Alt+Control+k');
+    
+    //Approver function start to validate Approver
+  const validApprovers3 = ["SCHQ-Sales-UV-Mgr","HQ-TAJ-Fleet-SnrMgr"];
+  const verfyappvr3 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff3 = new verfyappvr3.appnew(page);
+  for (let n = 0; n < validApprovers3.length; n++) {
+    const isApproverValid = await SalesGPStaff3.isValidApprover(validApprovers3[n],n);
+  }
+  //Approver function end to validate Approver
+    
+    
     // await page.locator('#\31 _s_3_l_MF_Status').click()
     // await page.locator('[id="1_MF_Dealer_Resale_Price"]').press('Control+Alt+k');
     var rowid4 = await page.locator('[aria-label="Row #"]').textContent();

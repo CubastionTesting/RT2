@@ -1,5 +1,5 @@
 class appnew{
-    constructor(page) { 
+  constructor(page) { 
 
         this.position = page.locator('[aria-roledescription="Position"]');
     }

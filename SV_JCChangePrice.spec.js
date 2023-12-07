@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: true
+    headless: false
 
   });
   const context = await browser.newContext();
@@ -25,7 +25,7 @@ test('record demo', async () => {
 
   // const pageApp3 = await context3.newpage();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?');
- await page.locator('#userid').fill('D8FDFO24');
+  await page.locator('#userid').fill('D8FDFO24');
   await page.click('#next-btn');
   await page.locator('#password').fill('Snakamura@1');
   await page.click('#loginSubmitButton');
@@ -45,6 +45,7 @@ test('record demo', async () => {
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
   await page.getByRole('link', { name: 'FY54JY-540054' }).click();
+<<<<<<< HEAD
 
   // ---------------------
 
@@ -60,12 +61,24 @@ test('record demo', async () => {
   }
   
   //await pageApp.locator('[name="Action"]').press('Control+s');
+=======
+//job card creation
+  await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
+
+  await page.getByRole('button', { name: 'ジョブカード リストアプレット:ジョブカード作成' }).click();
+
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   page.on('dialog', dialog => dialog.accept());
 
   await page.locator('[id="\\31 _s_1_l_INS_Product"]').click();
 
+<<<<<<< HEAD
   await page.locator('[id="1_INS_Product"]').click(); //received Detail column
 
+=======
+  await page.locator('[id="1_INS_Product"]').click();
+//job card type 
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   await page.locator('[id="1_INS_Product"]').fill('11：一般整備');
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
@@ -82,7 +95,7 @@ test('record demo', async () => {
   await page.getByPlaceholder('請求先コード').click(); //Bill to Basic Account Code column
 
   await page.getByPlaceholder('請求先コード').fill('0000002810');
-
+//work order creation
   await page.locator('tr:nth-child(17) > td:nth-child(10)').click();
 
   await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click(); //Plus button
@@ -128,24 +141,35 @@ test('record demo', async () => {
   }
   console.log("Parts Internal Order created successfully");
 
-  
 
+
+<<<<<<< HEAD
   await page.locator('[class="drilldown"]').first().click(); //Parts Order# column
   
   
+=======
+  await page.locator('[class="drilldown"]').first().click();
+
+
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   const myInternalOrder1 = await page.locator('[aria-labelledby="OrderNumber_Label_1"]').inputValue();
   console.log('Internal Order create and Internal order id is :->' + myInternalOrder1);
 
   await page.goBack();
   await page.waitForTimeout(3000);
-  
 
+<<<<<<< HEAD
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click(); //Create/Sync Quote button
   if (await validation.isVisible() == true){
     console.log('error in Create/Sync Quote button in Work Order');
   }
   console.log("Service Quote created successfully");
   await page.locator('[name="Name"]').nth(0).click(); //Name Column 
+=======
+// Quote creation
+  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
+  await page.locator('[name="Name"]').nth(0).click();
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Service+Quote+Line+Items+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Quote+Form+Applet&');
   await page.getByRole('button', { name: '見積り フォームアプレット:承認依頼' }).click(); //Generatr Approval button
   if (await validation.isVisible() == true){
@@ -158,30 +182,42 @@ test('record demo', async () => {
 
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
+<<<<<<< HEAD
   console.log("Quatation status successfully Changed to Customer Approved");
+=======
+  //Quote Approval done
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
 
-  //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
   await page.getByPlaceholder('引取開始予定日時').click();
+  //Planned Pickup Start Date/Time
   await page.locator('#s_2_1_153_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  // Planned Arrival Date/Time
   await page.locator('#s_2_1_66_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Arrival Date/Time
   await page.locator('#s_2_1_20_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  // Planned Delivery Start Date/Tim
   await page.locator('#s_2_1_154_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  // Planned Delivery Date/Time
   await page.locator('#s_2_1_67_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  //Planned Work Start Date
   await page.locator('#s_2_1_126_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Planned Courtesy Vehicle Date
   await page.locator('#s_2_1_119_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
@@ -214,7 +250,7 @@ test('record demo', async () => {
   await Part1.getByRole('button', { name: 'Orders List Applet:Query' }).click();
   await Part1.locator('[name="Order_Number"]').fill(myInternalOrder1);
   await Part1.locator('[aria-roledescription="Status"]').click();
-  
+
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click(); //Fullfill All buton
@@ -236,6 +272,7 @@ test('record demo', async () => {
 
   await page.bringToFront()
 
+<<<<<<< HEAD
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click(); //Stop button
   if (await validation.isVisible() == true){
@@ -249,7 +286,16 @@ test('record demo', async () => {
   await page.goto(jcurl);
   console.log("Work Order Status Successfully changed to Set Acceptance Inspection Completed");
   
+=======
+  //work order 'Stop' button
+  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click();
 
+  //work order 'set acceptance' button
+  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click();
+  await page.goto(jcurl);
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
+
+  //Delivery date/time
   await page.locator('#s_2_1_35_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click(); //Delivery date/time column
   await page.getByRole('button', { name: '完了' }).click();
@@ -269,16 +315,26 @@ test('record demo', async () => {
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   console.log("JC Closed");
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+<<<<<<< HEAD
   await page.getByRole('link', { name: '関連オーダー' }).click(); //Related Orders tab
    
+=======
+  await page.getByRole('link', { name: '関連オーダー' }).click();
+
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   await page.getByRole('button', { name: '関連オーダー リストアプレット:クエリー' }).click();
   await page.getByRole('gridcell', { name: 'コンボボックスフィールド' }).first().click();
   await page.getByPlaceholder('<大文字と小文字を区別する>').fill('Job Card Order');
   await page.getByRole('button', { name: '関連オーダー リストアプレット:ジャンプ' }).click();
   await page.locator('[class="drilldown"]').click();
+<<<<<<< HEAD
   const Changeurl = page.url();
   
   await page.getByPlaceholder('変更理由').click(); //Change Reson column
+=======
+  //change order with price change
+  await page.getByPlaceholder('変更理由').click();
+>>>>>>> 859738c3109be59a39c57ca9ef702218f821e9a0
   await page.locator('[aria-label="変更理由"]').click();
   await page.locator('[aria-label="変更理由"]').fill('価格の変更');
   await page.locator('[aria-label="変更理由"]').press('Control+s');
@@ -301,26 +357,25 @@ test('record demo', async () => {
     console.log('error in Generate Approval button in Job Card Order');
   }
 
-  //Change order Approval flow
+  const Changeurl = page.url();
+
+  //Change order Approval flow start
 
   await page.locator('[aria-label="整備契約商品"]').click();
 
   await page.locator('[aria-label="整備契約商品"]').press('Control+Alt+k');
 
-  //var rowid3 = await page.locator('[aria-label="整備契約商品"]').textContent();
   var rowid3 = await page.locator('[aria-label="ロウ番号"]').textContent();
 
-    await page.locator('[aria-label="ロウ番号"]').press("Control+c");
+  await page.locator('[aria-label="ロウ番号"]').press("Control+c");
 
   console.log(rowid3);
 
-  console.log('Change order Row id is : '+rowid3);
+  console.log('Change order Row id is : ' + rowid3);
 
-  //const context2 = await browser.newContext();
-  //const approv5 = await context2.newPage();
-
+  //Approval 1.................
   const approval = await context2.newPage();
-  
+
   await approval.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
 
   await approval.locator('[id="userid"]').click();
@@ -339,12 +394,6 @@ test('record demo', async () => {
 
   await approval.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
 
- 
-
- 
-
-  //from Sc uat
-
   await approval.locator('[aria-label="Inbox Items List Applet:Query"]').click();
   await approval.locator('[id="1_s_2_l_Name"]').click();
 
@@ -361,7 +410,7 @@ test('record demo', async () => {
 
   //Approval 2.................
   const approva = await context3.newPage();
-  
+
   await approva.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
 
   await approva.locator('[id="userid"]').click();
@@ -410,7 +459,7 @@ test('record demo', async () => {
   await approv.locator('[id="loginSubmitButton"]').click();
   await approv.waitForTimeout(3000);
   await approv.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
-  
+
   await approv.locator('[aria-label="Inbox Items List Applet:Query"]').click();
   await approv.locator('[id="1_s_2_l_Name"]').click();
   await approv.locator('[name="Name"]').fill(rowid3);
@@ -423,7 +472,13 @@ test('record demo', async () => {
   console.log("JC Change Order Approved");
 
   await page.goto(Changeurl);
-  //await page.bringToFront()
 
+  const myChangeOrder1 = await page.locator('[name="s_3_1_143_0"]').inputValue();
+  console.log('Change Order Approved for Price change and order id is :->' + myChangeOrder1);
+  await page.bringToFront()
+  await page.goto(jcurl);
+  
+  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
+  console.log('Change order with price change created and Job card no. :->' + Jobcardno);
 
 })

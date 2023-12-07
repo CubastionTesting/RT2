@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: true
+    headless: false
 
   });
   const context = await browser.newContext();
@@ -22,7 +22,7 @@ test('record demo', async () => {
 
   // const pageApp3 = await context3.newpage();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?');
- await page.locator('#userid').fill('D8FDFO24');
+  await page.locator('#userid').fill('D8FDFO24');
   await page.click('#next-btn');
   await page.locator('#password').fill('Snakamura@1');
   await page.click('#loginSubmitButton');
@@ -32,7 +32,6 @@ test('record demo', async () => {
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=eAuto+All+Vehicle+View');
   await page.waitForLoadState();
   await page.waitForTimeout(3000);
-
   await page.getByRole('button', { name: '車両 リストアプレット:クエリー' }).click();
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
@@ -74,6 +73,7 @@ test('record demo', async () => {
 
   const jcurl = page.url();
 
+
   await page.getByRole('cell', { name: '整備担当者コード' }).filter({ hasText: '整備担当者コード' }).locator('div').click();
 
   await page.getByPlaceholder('請求先コード').click(); //Bill to Basic Account Code column
@@ -82,10 +82,7 @@ test('record demo', async () => {
 
   await page.locator('tr:nth-child(17) > td:nth-child(10)').click();
 
-  await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click(); //Plus button
-  if (await validation.isVisible() == true){
-    console.log('error in Plus button in Job Card');
-  }
+  await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click();
 
   await page.locator('[class="drilldown"]').click();
   console.log("Work Order created successfully");
@@ -103,10 +100,10 @@ test('record demo', async () => {
 
   await page.getByRole('gridcell', { name: '計算機フィールド' }).first().click();
 
-  await page.locator('[aria-roledescription="数量"]').click(); //Labor Quantity
+  await page.locator('[aria-roledescription="数量"]').click();
   await page.locator('[name="Recommended_Quantity"]').fill('1');
 
-  await page.locator('[aria-roledescription="純作業時間"]').click(); //Net Operation Time
+  await page.locator('[aria-roledescription="純作業時間"]').click();
   await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
   await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
   console.log("Labor added successfully");
@@ -125,9 +122,9 @@ test('record demo', async () => {
   }
   console.log("Parts Internal Order created successfully");
 
-  
 
-  await page.locator('[class="drilldown"]').first().click(); //Parts Order# column
+
+  await page.locator('[class="drilldown"]').first().click();
   
   
   const myInternalOrder1 = await page.locator('[aria-labelledby="OrderNumber_Label_1"]').inputValue();
@@ -157,44 +154,67 @@ test('record demo', async () => {
   await page.getByPlaceholder('見積状況').press('Control+s');
   console.log("Quatation status successfully Changed to Customer Approved");
 
+  //Approver function start
+  await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Service+Quote+Approval+View');
+  await page.locator('[aria-label="承認 選択済み"]').click();
+  const validApprovers1 = ["Branch-Service-Mgr,Branch-Head,SCHQ-CS-Service-Mgr,SCHQ-CS-Snr-Mgr,HQ-Finance-GMgr"];
+  const verfyappvr1 = require('./approverfunction');
+  //initiating the constructor
+  const SVStaff1 = new verfyappvr1.appnew(page);
+  for (let n = 0; n < validApprovers1.length; n++) {
+    const isApproverValid = await SVStaff1.isValidApproverJPN(validApprovers1[n], n);
+  }
+  console.log('Approver is correct for Quote');
+  //Approver function end
+
+
+  // Quote Approved
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
+  await page.reload();
   await page.getByPlaceholder('引取開始予定日時').click();
+  //Planned Pickup Start Date/Time
   await page.locator('#s_2_1_153_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  // Planned Arrival Date/Time
   await page.locator('#s_2_1_66_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Arrival Date/Time
   await page.locator('#s_2_1_20_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  // Planned Delivery Start Date/Tim
   await page.locator('#s_2_1_154_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  // Planned Delivery Date/Time
   await page.locator('#s_2_1_67_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+
+  //Planned Work Start Date
   await page.locator('#s_2_1_126_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
+  //Planned Courtesy Vehicle Date
   await page.locator('#s_2_1_119_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
-
+  // Planned Work Completion Date/Time
   await page.locator('#s_2_1_68_0_icon').click();
+  await page.getByRole('button', { name: '現在' }).click();
+  await page.getByRole('button', { name: '完了' }).click();
+
   await page.getByPlaceholder('工事完了予定日時').press('Control+s');
-  console.log("Job Card Status successfully changed to Vehicle Arrived");
-  await page.locator('[class="drilldown"]').first().click(); //Work Order# column
+  await page.locator('[class="drilldown"]').first().click();
 
-  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click(); //Start button
-  if (await validation.isVisible() == true){
-    console.log('error in Start button in Work Order');
-  }
-  console.log("Work Started successfully");
+  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click();
 
-  
+
   //Part Staff Process
   const Part1 = await context1.newPage();
   await Part1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
@@ -210,7 +230,7 @@ test('record demo', async () => {
   await Part1.getByRole('button', { name: 'Orders List Applet:Query' }).click();
   await Part1.locator('[name="Order_Number"]').fill(myInternalOrder1);
   await Part1.locator('[aria-roledescription="Status"]').click();
-  
+
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click(); //Fullfill All buton
@@ -233,18 +253,9 @@ test('record demo', async () => {
   await page.bringToFront()
 
 
-  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click(); //Stop button
-  if (await validation.isVisible() == true){
-    console.log('error in Stop button in Work Order');
-  }
-  console.log("Work Order Status changed to Work Completed");
-  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click(); //set Acceptance Inspection button
-  if (await validation.isVisible() == true){
-    console.log('error in Set Acceptance Inspection button in Work Order');
-  }
+  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click();
+  await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click();
   await page.goto(jcurl);
-  console.log("Work Order Status Successfully changed to Set Acceptance Inspection Completed");
-
   
 
   await page.locator('#s_2_1_35_0_icon').click();
@@ -255,15 +266,26 @@ test('record demo', async () => {
   await page.getByPlaceholder('JC状況').click(); //JC Status column
   await page.getByPlaceholder('JC状況').fill('引渡完了');
   await page.getByPlaceholder('JC状況').press('Control+s');
-  console.log("JC Status Successfully changed to Delivery Completed");
-
-  await page.getByRole('button', { name: 'ジョブカード フォームアプレット:承認依頼' }).click(); //Generate Approval buton
-  if (await validation.isVisible() == true){
-    console.log('error in Generate Approval button in Job Card');
-  }
-  console.log("Successfully clicked on Generate Approval button");
+  await page.getByRole('button', { name: 'ジョブカード フォームアプレット:承認依頼' }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   console.log("JC Closed");
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
-  })
+
+  //Approver Function 
+  await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Job+Card+Approval+View');
+  await page.locator('[aria-label="承認 選択済み"]').click();
+  const validApprovers = ["Branch-Service-Mgr,Branch-Head,SCHQ-CS-Service-Mgr,SCHQ-CS-Snr-Mgr,HQ-Finance-GMgr"];
+  const verfyappvr = require('./approverfunction');
+  //initiating the constructor
+  const SVStaff = new verfyappvr.appnew(page);
+  for (let n = 0; n < validApprovers.length; n++) {
+    const isApproverValid = await SVStaff.isValidApproverJPN(validApprovers[n], n);
+  }
+  console.log('Approver is correct for Job card');
+  //Approver function end
+
+  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
+  console.log('3-Month inspec Job card created and Job card no. :->' + Jobcardno);
+
+})
