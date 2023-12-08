@@ -108,6 +108,7 @@ test('record demo', async () => {
   await page.locator('[name="Product_Name"]').press('Control+s');
   await page.getByRole('button', { name: 'パーツ リストアプレット:部品オーダー' }).click();
 
+  await page.pause();
 
 
   await page.locator('[class="drilldown"]').first().click();

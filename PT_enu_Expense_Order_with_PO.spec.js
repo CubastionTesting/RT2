@@ -9,7 +9,7 @@ test.describe.serial("Siebel Page Test", () => {
    
 test.only("Parts Expense Order with PO" , async() => {const browser = await chromium.launch({
 
-  headless: true
+  headless: false
 
 });
     page = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -116,7 +116,9 @@ await page.waitForLoadState()
         console.log('error in Generate Approval button in Part Expense Order');
       }
       console.log("Generate Approvals button clicked successfully");
+      await page.waitForTimeout(2000);
     
+      await page.pause()
     //copy row id
     await page.locator('[placeholder="Order #"]').press("Control+Alt+k");
     await page.locator('[aria-label="Row #"]').click();
@@ -218,13 +220,15 @@ await page.waitForLoadState()
 
     //Search for PO
     await page.reload();
+    await page.locator('[aria-label="Shipments List Applet:Query"]').click();
 
+    await page.reload();
     await page.locator('[aria-label="Shipments List Applet:Query"]').click();
 
     //Paste PO Number
     await page.locator('[id="1_s_3_l_MF_Order_Number"]').click();
 
-    const PONumber = JSON.parse(JSON.stringify(require("./PONUMBER.json")));
+    const PONumber = JSON.parse(JSON.stringify(require("../PONUMBER.json")));
 
     await page.locator('[id="1_MF_Order_Number"]').fill(PONumber.ORD_N);
     await page.locator('[id="s_3_1_6_0_Ctrl"]').click();
@@ -244,7 +248,7 @@ await page.waitForLoadState()
     //Search for Expense Order
     await page.locator('[id="s_1_1_21_0_Ctrl"]').click();
 
-    const ExpNum = JSON.parse(JSON.stringify(require("./Expense.json")));
+    const ExpNum = JSON.parse(JSON.stringify(require("../Expense.json")));
 
     //Paste Order number
     await page.locator('[id="1_Order_Number"]').fill(ExpNum.Exp_Num);
