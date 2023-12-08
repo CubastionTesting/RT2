@@ -6,7 +6,7 @@ const fs = require('fs');
 test('record demo 1', async () => {
   test.setTimeout(900000);
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters = '0123456789';
 

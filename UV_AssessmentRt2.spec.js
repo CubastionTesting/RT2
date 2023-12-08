@@ -5,7 +5,7 @@ const fs = require('fs');
 test('record demo 1', async () => {
    test.setTimeout(1200000);
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters ='0123456789';
 
@@ -238,20 +238,6 @@ await page.pause();
     await page.locator('body').press('Alt+Enter');
     await page.getByRole('button', { name: 'Purchase Quote Form Applet:Generate Approvals' }).click();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Purchase+Quote+Approval+View',{ waitUntil: 'networkidle' });
-
-    
-
-  //Approver function start to validate Approver
-  const validApprovers1 = ["SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr", "SCHQ-Sales-NV-Mgr"];
-  const verfyappvr1 = require('./approverfunction');
-  //initiating the constructor
-  const SalesGPStaff1 = new verfyappvr1.appnew(page);
-  for (let n = 0; n < validApprovers1.length; n++) {
-    const isApproverValid = await SalesGPStaff1.isValidApprover(validApprovers1[n],n);
-  }
-  //Approver function end to validate Approver
-
-
    // await page.waitForNavigation('domcontentloaded');
     await page.locator('[aria-label="Assessment #"]').click();
     await page.locator('[aria-label="Assessment #"]').press('Control+Alt+k');
@@ -339,17 +325,18 @@ await page.pause();
     const requestId = await page.locator('[aria-label="Request #"]').inputValue();
     console.log('RequestId :-> ' + requestId);
     await page.getByRole('button', { name: 'Stock In Verification Form Applet:Generate Approvals' }).click();
-    //Approver function start to validate Approver
-  const validApprovers2 = ["SCHQ-Sales-UV-Mgr"];
-  const verfyappvr2 = require('./approverfunction');
-  //initiating the constructor
-  const SalesGPStaff2 = new verfyappvr2.appnew(page);
-  for (let n = 0; n < validApprovers2.length; n++) {
-    const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
-  }
+
   //Approver function end to validate Approver
     
     await page.getByRole('link', { name: 'Approval History' }).click();
+
+    const validApprovers2 = ["SCHQ-Sales-UV-Mgr"];
+    const verfyappvr2 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff2 = new verfyappvr2.appnew(page);
+    for (let n = 0; n < validApprovers2.length; n++) {
+      const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
+    }
     await page.locator('[aria-label="Assessment #"]').click();
     await page.locator('[aria-label="Assessment #"]').press('Control+Alt+k');
     var rowid3 = await page.locator('[aria-label="Row #"]').textContent();
@@ -420,8 +407,7 @@ await page.pause();
   }
   //Approver function end to validate Approver
     
-    await page.getByText('Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1').click();
-    await page.getByRole('region').filter({ hasText: 'Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1Create Temporary Resale ' }).press('Alt+Control+k');
+    
     // await page.locator('#\31 _s_3_l_MF_Status').click()
     // await page.locator('[id="1_MF_Dealer_Resale_Price"]').press('Control+Alt+k');
     var rowid4 = await page.locator('[aria-label="Row #"]').textContent();
