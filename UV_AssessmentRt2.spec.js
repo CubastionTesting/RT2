@@ -400,7 +400,7 @@ await page.pause();
     
     
     // await page.locator('#\31 _s_3_l_MF_Status').click()
-    // await page.locator('[id="1_MF_Dealer_Resale_Price"]').press('Control+Alt+k');
+    await page.locator('[id="1_s_3_l_MF_Activity__"]').press('Control+Alt+k');
     var rowid4 = await page.locator('[aria-label="Row #"]').textContent();
     console.log(rowid4);
 
