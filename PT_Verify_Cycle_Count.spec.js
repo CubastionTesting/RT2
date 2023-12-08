@@ -7,7 +7,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: false
+    headless: true
 
   });
   
