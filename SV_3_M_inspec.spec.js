@@ -108,6 +108,7 @@ test('record demo', async () => {
   await page.locator('[name="Product_Name"]').press('Control+s');
   await page.getByRole('button', { name: 'パーツ リストアプレット:部品オーダー' }).click();
 
+  await page.pause();
 
 
   await page.locator('[class="drilldown"]').first().click();
@@ -132,143 +133,136 @@ await page.pause();
   await page.locator('[aria-label="印刷状況"]').press('Control+Alt+k');
   var rowid = await page.locator('[aria-label="ロウ番号"]').textContent();
   
-  const context3 = await browser.newContext();
-  const pageappvr = await context3.newPage();
-  await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-  await pageappvr.getByLabel('User ID').click();
-  await pageappvr.getByLabel('User ID').fill('D8FORF25');
-  await pageappvr.getByRole('button', { name: 'Next' }).click();
-  await pageappvr.getByLabel('Password').fill('Snakamura@1');
-  await pageappvr.getByRole('button', { name: 'Log on' }).click();
-  await pageappvr.waitForLoadState('domcontentloaded');
-  // await pageappvr.pause()
-  await pageappvr.waitForTimeout(3000);
-  await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
-  await pageappvr.waitForTimeout(3000);
-  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid);
-  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // const context3 = await browser.newContext();
+  // const pageappvr = await context3.newPage();
+  // await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+  // await pageappvr.getByLabel('User ID').click();
+  // await pageappvr.getByLabel('User ID').fill('D8FORF25');
+  // await pageappvr.getByRole('button', { name: 'Next' }).click();
+  // await pageappvr.getByLabel('Password').fill('Snakamura@1');
+  // await pageappvr.getByRole('button', { name: 'Log on' }).click();
+  // await pageappvr.waitForLoadState('domcontentloaded');
+  // // await pageappvr.pause()
+  // await pageappvr.waitForTimeout(3000);
+  // await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
+  // await pageappvr.waitForTimeout(3000);
+  // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid);
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
   
-  await pageappvr.locator('[name="Action"]').fill('Approved');
-  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr.waitForLoadState('networkidle');
+  // await pageappvr.locator('[name="Action"]').fill('Approved');
+  // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr.waitForLoadState('networkidle');
   
-  await page.bringToFront();
-  await page.reload('domcontentloaded');
+  // await page.bringToFront();
+  // await page.reload('domcontentloaded');
   
   
-  //Quote  2nd Approval 
+  // //Quote  2nd Approval 
   
-  const context4 = await browser.newContext();
-  const pageappvr2 = await context4.newPage();
-  await pageappvr2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-  await pageappvr2.getByLabel('User ID').click();
-  await pageappvr2.getByLabel('User ID').fill('D8FDFO25');
-  await pageappvr2.getByRole('button', { name: 'Next' }).click();
-  await pageappvr2.getByLabel('Password').fill('Snakamura@1');
-  await pageappvr2.getByRole('button', { name: 'Log on' }).click();
-  await pageappvr2.waitForLoadState('domcontentloaded');
-  // await pageappvr.pause()
-  await pageappvr2.waitForTimeout(3000);
-  await pageappvr2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
-  await pageappvr2.waitForTimeout(3000);
-  await pageappvr2.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr2.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr2.getByPlaceholder('<Case Sensitive>').fill(rowid);
-  await pageappvr2.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr2.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // const context4 = await browser.newContext();
+  // const pageappvr2 = await context4.newPage();
+  // await pageappvr2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+  // await pageappvr2.getByLabel('User ID').click();
+  // await pageappvr2.getByLabel('User ID').fill('D8FDFO25');
+  // await pageappvr2.getByRole('button', { name: 'Next' }).click();
+  // await pageappvr2.getByLabel('Password').fill('Snakamura@1');
+  // await pageappvr2.getByRole('button', { name: 'Log on' }).click();
+  // await pageappvr2.waitForLoadState('domcontentloaded');
+  // // await pageappvr.pause()
+  // await pageappvr2.waitForTimeout(3000);
+  // await pageappvr2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
+  // await pageappvr2.waitForTimeout(3000);
+  // await pageappvr2.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr2.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr2.getByPlaceholder('<Case Sensitive>').fill(rowid);
+  // await pageappvr2.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr2.getByRole('gridcell', { name: 'Combobox Field' }).click();
   
-  await pageappvr2.locator('[name="Action"]').fill('Approved');
-  await pageappvr2.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr2.waitForLoadState('networkidle');2
-  await page.bringToFront();
-  await page.reload('domcontentloaded');
+  // await pageappvr2.locator('[name="Action"]').fill('Approved');
+  // await pageappvr2.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr2.waitForLoadState('networkidle');2
+  // await page.bringToFront();
+  // await page.reload('domcontentloaded');
   
-  //3rd Approval of Quote
+  // //3rd Approval of Quote
   
-  const context5 = await browser.newContext();
-  const pageappvr3 = await context5.newPage();
-  await pageappvr3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-  await pageappvr3.getByLabel('User ID').click();
-  await pageappvr3.getByLabel('User ID').fill('D8FFDP20');
-  await pageappvr3.getByRole('button', { name: 'Next' }).click();
-  await pageappvr3.getByLabel('Password').fill('Snakamura@1');
-  await pageappvr3.getByRole('button', { name: 'Log on' }).click();
-  await pageappvr3.waitForLoadState('domcontentloaded');
-  // await pageappvr.pause()
-  await pageappvr3.waitForTimeout(3000);
-  await pageappvr3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
-  await pageappvr3.waitForTimeout(3000);
-  await pageappvr3.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr3.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr3.getByPlaceholder('<Case Sensitive>').fill(rowid);
-  await pageappvr3.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr3.getByRole('gridcell', { name: 'Combobox Field' }).click();2
-  await pageappvr3.locator('[name="Action"]').fill('Approved');
-  await pageappvr3.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr3.waitForLoadState('networkidle');2
-  await page.bringToFront();
-  await page.reload('domcontentloaded');
+  // const context5 = await browser.newContext();
+  // const pageappvr3 = await context5.newPage();
+  // await pageappvr3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+  // await pageappvr3.getByLabel('User ID').click();
+  // await pageappvr3.getByLabel('User ID').fill('D8FFDP20');
+  // await pageappvr3.getByRole('button', { name: 'Next' }).click();
+  // await pageappvr3.getByLabel('Password').fill('Snakamura@1');
+  // await pageappvr3.getByRole('button', { name: 'Log on' }).click();
+  // await pageappvr3.waitForLoadState('domcontentloaded');
+  // // await pageappvr.pause()
+  // await pageappvr3.waitForTimeout(3000);
+  // await pageappvr3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
+  // await pageappvr3.waitForTimeout(3000);
+  // await pageappvr3.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr3.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr3.getByPlaceholder('<Case Sensitive>').fill(rowid);
+  // await pageappvr3.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr3.getByRole('gridcell', { name: 'Combobox Field' }).click();2
+  // await pageappvr3.locator('[name="Action"]').fill('Approved');
+  // await pageappvr3.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr3.waitForLoadState('networkidle');2
+  // await page.bringToFront();
+  // await page.reload('domcontentloaded');
   
-  // 4th Approval of Quote 
+  // // 4th Approval of Quote 
   
-  const context6 = await browser.newContext();
-  const pageappvr4 = await context6.newPage();
-  await pageappvr4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-  await pageappvr4.getByLabel('User ID').click();
-  await pageappvr4.getByLabel('User ID').fill('D8FDPF20');
-  await pageappvr4.getByRole('button', { name: 'Next' }).click();
-  await pageappvr4.getByLabel('Password').fill('Snakamura@1');
-  await pageappvr4.getByRole('button', { name: 'Log on' }).click();
-  await pageappvr4.waitForLoadState('domcontentloaded');
-  // await pageappvr.pause()
-  await pageappvr4.waitForTimeout(3000);
-  await pageappvr4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
-  await pageappvr4.waitForTimeout(3000);
-  await pageappvr4.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr4.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr4.getByPlaceholder('<Case Sensitive>').fill(rowid);
-  await pageappvr4.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr4.getByRole('gridcell', { name: 'Combobox Field' }).click();2
-  await pageappvr4.locator('[name="Action"]').fill('Approved');
-  await pageappvr4.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr4.waitForLoadState('networkidle');2
-  await page.bringToFront();
-  await page.reload('domcontentloaded');
+  // const context6 = await browser.newContext();
+  // const pageappvr4 = await context6.newPage();
+  // await pageappvr4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+  // await pageappvr4.getByLabel('User ID').click();
+  // await pageappvr4.getByLabel('User ID').fill('D8FDPF20');
+  // await pageappvr4.getByRole('button', { name: 'Next' }).click();
+  // await pageappvr4.getByLabel('Password').fill('Snakamura@1');
+  // await pageappvr4.getByRole('button', { name: 'Log on' }).click();
+  // await pageappvr4.waitForLoadState('domcontentloaded');
+  // // await pageappvr.pause()
+  // await pageappvr4.waitForTimeout(3000);
+  // await pageappvr4.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
+  // await pageappvr4.waitForTimeout(3000);
+  // await pageappvr4.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr4.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr4.getByPlaceholder('<Case Sensitive>').fill(rowid);
+  // await pageappvr4.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr4.getByRole('gridcell', { name: 'Combobox Field' }).click();2
+  // await pageappvr4.locator('[name="Action"]').fill('Approved');
+  // await pageappvr4.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr4.waitForLoadState('networkidle');2
+  // await page.bringToFront();
+  // await page.reload('domcontentloaded');
   
-  // 5th Approval of Quote
-  const context7 = await browser.newContext();
-  const pageappvr5 = await context7.newPage();
-  await pageappvr5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-  await pageappvr5.getByLabel('User ID').click();
-  await pageappvr5.getByLabel('User ID').fill('D8FDFO19');
-  await pageappvr5.getByRole('button', { name: 'Next' }).click();
-  await pageappvr5.getByLabel('Password').fill('Snakamura@1');
-  await pageappvr5.getByRole('button', { name: 'Log on' }).click();
-  await pageappvr5.waitForLoadState('domcontentloaded');
-  await pageappvr5.waitForTimeout(3000);
-  await pageappvr5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
-  await pageappvr5.waitForTimeout(3000);
-  await pageappvr5.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr5.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr5.getByPlaceholder('<Case Sensitive>').fill(rowid);
-  await pageappvr5.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr5.getByRole('gridcell', { name: 'Combobox Field' }).click();2
-  await pageappvr5.locator('[name="Action"]').fill('Approved');
-  await pageappvr5.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr5.waitForLoadState('networkidle');2
-  await page.bringToFront();
-  await page.reload('domcontentloaded');
-//bring to Quote page for customer Approve
-  await page.locator('#s_2_1_130_0_icon').click();
-  await page.getByRole('button', { name: '担当者を選択 リストアプレット:OK' }).click();
-  await page.getByPlaceholder('見積状況').click();
-
-  await page.getByPlaceholder('見積状況').fill('お客様了解');
-  await page.getByPlaceholder('見積状況').press('Control+s');
-
+  // // 5th Approval of Quote
+  // const context7 = await browser.newContext();
+  // const pageappvr5 = await context7.newPage();
+  // await pageappvr5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+  // await pageappvr5.getByLabel('User ID').click();
+  // await pageappvr5.getByLabel('User ID').fill('D8FDFO19');
+  // await pageappvr5.getByRole('button', { name: 'Next' }).click();
+  // await pageappvr5.getByLabel('Password').fill('Snakamura@1');
+  // await pageappvr5.getByRole('button', { name: 'Log on' }).click();
+  // await pageappvr5.waitForLoadState('domcontentloaded');
+  // await pageappvr5.waitForTimeout(3000);
+  // await pageappvr5.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View', { waitUntil: 'networkidle' });
+  // await pageappvr5.waitForTimeout(3000);
+  // await pageappvr5.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr5.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr5.getByPlaceholder('<Case Sensitive>').fill(rowid);
+  // await pageappvr5.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr5.getByRole('gridcell', { name: 'Combobox Field' }).click();2
+  // await pageappvr5.locator('[name="Action"]').fill('Approved');
+  // await pageappvr5.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr5.waitForLoadState('networkidle');2
+  // await page.bringToFront();
+  // await page.reload('domcontentloaded');
+  await page.reload()
   //Approver function start
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Service+Quote+Approval+View');
   await page.locator('[aria-label="承認 選択済み"]').click();
@@ -281,6 +275,15 @@ await page.pause();
   }
   console.log('Approver is correct for Quote');
   //Approver function end
+  
+//bring to Quote page for customer Approve
+  await page.locator('[aria-label="了解者"]').click();
+  await page.locator('[aria-label="了解者"]').fill('2810渋江');
+  await page.getByPlaceholder('見積状況').click();
+  await page.getByPlaceholder('見積状況').fill('お客様了解');
+  await page.getByPlaceholder('見積状況').press('Control+s');
+
+  
 
 
   // Quote Approved
