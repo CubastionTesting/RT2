@@ -3,6 +3,8 @@ class appnew{
     this.page = page;
 
         this.position = page.locator('[aria-roledescription="Position"]');
+        this.positionjpn = page.locator('[aria-roledescription="役職"]');
+
     }
         async isValidApprover(validApprovers,n) {
             const approverElement = await this.position.nth(n).textContent();
