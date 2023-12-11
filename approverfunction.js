@@ -42,7 +42,6 @@ class appnew{
             await this.page.waitForLoadState('networkidle');          
  
     }
-
     async correctApproverJPN(rowid){
       await this.page.locator('[id="s_2_1_10_0_Ctrl"]').click();
       await this.page.locator('[id="1_s_2_l_Name"]').click();
@@ -52,7 +51,7 @@ class appnew{
       await this.page.locator('[id="1_Action"]').fill('承認');
       await this.page.locator('[id="1_Action"]').press('Control+s');
       await this.page.waitForLoadState('networkidle');          
-
+ 
 }
   }
 module.exports = {appnew};
