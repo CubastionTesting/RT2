@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: true
+    headless: false
 
   });
   const context = await browser.newContext();
@@ -196,13 +196,13 @@ console.log('Approver is correct for Quote');
   // await page.pause();
   //Quote Approval done
 
-  await page.locator('#s_2_1_130_0_icon').click();
-  await page.getByRole('button', { name: '担当者を選択 リストアプレット:OK' }).click();
-  await page.getByPlaceholder('見積状況').click();
+  await page.getByRole('cell', { name: '了解者 Press F2 for 選択フィールド' }).getByLabel('Press F2 for 選択フィールド').click();
+  await page.getByRole('gridcell', { name: '2810渋江' }).click();
+  await page.getByLabel('担当者を選択 リストアプレット:OK').click();
+  await page.getByPlaceholder('了解者').press('Control+s');
 
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
-
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
@@ -346,6 +346,7 @@ await SVApprover.correctApprover(rowid1);
 
 console.log('Approver is correct for Job card');
   await page.goto(jcurl);
+  await page.reload();
   await page.waitForTimeout(3000);
   const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
   console.log('inspection Job card created and Job card no. :->' + Jobcardno);
