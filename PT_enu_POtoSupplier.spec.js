@@ -145,6 +145,8 @@ await page023.waitForTimeout(2000);
      await page023.locator('[placeholder="Order #"]').press("Control+Alt+k");
      var rowid = await page023.locator('[aria-label="Row #"]').textContent();
      await page023.locator('[aria-label="Row #"]').press("Control+c");
+     await page023.reload();
+     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Purchase+Return+Approval+History+Flow+View")
     //  go to approval
     pagePF23 = await browser.newPage({ ignoreHTTPSErrors: true });
     await pagePF23.goto(
@@ -160,7 +162,7 @@ await page023.waitForTimeout(2000);
     const ExpApproveruser = [pagePF23]
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
-    const SalesGPStaff = new verfyappvr.appnew(pagePF23);
+    const SalesGPStaff = new verfyappvr.appnew(page023);
     for (let n = 0; n < validApprovers.length; n++) {
       const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
     }
