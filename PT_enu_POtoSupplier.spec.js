@@ -10,7 +10,7 @@ test.describe.serial("Siebel Page Test", () => {
     test("Purchase Order (PO to Supplier)", async() =>
   { const browser = await chromium.launch({
 
-    headless: false
+    headless: true
   
   });
 
@@ -132,7 +132,6 @@ await page023.waitForTimeout(2000);
     console.log("Return Order Created Successfully");
     //open return order
     await page023.locator('[class="drilldown"]').click();
-    await page023.pause()
     //generate approval
     await page023.locator('[aria-label="Orders Form Applet:Generate Approval"]').click(); //Generate Approval button
     if (await validation.isVisible() == true){
@@ -153,7 +152,6 @@ await page023.waitForTimeout(2000);
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View"
     );
     const LoginuserF23 = new FusoLogin(pagePF23);
-    await pagePF23.pause()
     await LoginuserF23.loginFDP("D8FDPF23", "Snakamura@1");
     await pagePF23.waitForLoadState("domcontentloaded");
 

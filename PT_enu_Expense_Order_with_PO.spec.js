@@ -118,7 +118,6 @@ await page.waitForLoadState()
       console.log("Generate Approvals button clicked successfully");
       await page.waitForTimeout(2000);
     
-      await page.pause()
     //copy row id
     await page.locator('[placeholder="Order #"]').press("Control+Alt+k");
     await page.locator('[aria-label="Row #"]').click();
