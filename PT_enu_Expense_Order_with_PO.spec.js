@@ -145,24 +145,6 @@ await page.waitForLoadState()
 
       }
     }
-    
-
-    // //approval user link
-    // await pageF23.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View");
-    // await pageF23.waitForLoadState("domcontentloaded");
-
-    // //search for order number
-    // await pageF23.locator('[id="s_2_1_10_0_Ctrl"]').click();
-
-    // //paste order number
-    // await pageF23.locator('[id="1_s_2_l_Name"]').click();
-    // await pageF23.locator('[id="1_Name"]').fill(rowid);
-    // await pageF23.locator('[id="1_Name"]').press("Enter");
-
-    // //approve the approval
-    // await pageF23.locator('[id="1_s_2_l_Action"]').click();
-    // await pageF23.locator('[id="1_Action"]').fill("Approved"); //Action Column
-    // await pageF23.locator('[id="1_Action"]').press("Control+s");
 
     //back to 56 and check status should be changed
     await page.bringToFront();
