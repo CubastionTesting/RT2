@@ -7,7 +7,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: false
+    headless: true
 
   });
   
@@ -29,8 +29,7 @@ test('record demo', async () => {
 //Cycle count
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+FS+Branch+Cycle+Counts+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Cycle+Counting+Branch+List+Applet');
    //Plus button
-await page.pause()
-await page.waitForTimeout(4000);
+await page.waitForTimeout(7000);
   const loc = '[id="s_1_1_2_0_Ctrl"]'
   // Wait for the locator to appear on the page
   await page.waitForSelector(loc);
