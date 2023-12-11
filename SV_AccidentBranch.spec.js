@@ -204,6 +204,8 @@ console.log('Approver is correct for Quote');
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
 
+  await page.waitForTimeout(3000);
+
    
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
@@ -271,25 +273,33 @@ console.log('Approver is correct for Quote');
   await Part1.getByPlaceholder('Status', { exact: true }).press('Alt+Enter');
   await page.bringToFront()
 
-  //work order 'Stop' button
+
+
+
+
+  await page.bringToFront()
+
+//work order stop
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click();
-  //work order 'set acceptance' button
+  //work order set accpentance
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click();
   await page.goto(jcurl);
 
-  //Delivery date/time
+//delivery date/time
   await page.locator('#s_2_1_35_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
   await page.getByPlaceholder('受領日(納車)日').press('Control+s');
+  await page.getByPlaceholder('受領日(納車)日').press('Alt+Enter');
+
 
   await page.getByPlaceholder('JC状況').click();
   await page.getByPlaceholder('JC状況').fill('引渡完了');
   await page.getByPlaceholder('JC状況').press('Control+s');
-  //generate Approval button for job card 
   await page.getByRole('button', { name: 'ジョブカード フォームアプレット:承認依頼' }).click();
-
-    //new approver function 
+  await page.getByPlaceholder('拠点名', { exact: true }).click();
+  await page.getByPlaceholder('拠点名', { exact: true }).click();
+ //new approver function 
 
 //Approver function Start
 await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Job+Card+Approval+View');
@@ -330,9 +340,14 @@ await SVApprover.correctApprover(rowid1);
 
 }
 //inbox function end
-  await page.getByPlaceholder('拠点名', { exact: true }).click();
-  await page.getByPlaceholder('拠点名', { exact: true }).click();
-  await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
+
+
+//job card Approvl
+
+  await page.goto(jcurl);
+  await page.reload();
+  await page.waitForTimeout(3000);
  
   console.log('Approver is correct for Job card');
   //Approver function end
