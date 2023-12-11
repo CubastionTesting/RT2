@@ -372,7 +372,7 @@ test('record demo 1', async () => {
   //approver process start
 
   for(let n=0;n<validApprovers.length;n++){
-    if(NVApproveruser[n] == pageappvr ){
+    if(NVApproveruser[n] == approver1 || NVApproveruser[n] == approverX  ){
   const UVApprover = new verfyappvr.appnew(NVApproveruser[n]);
     await NVApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
   await NVApproveruser[n].bringToFront();
@@ -557,7 +557,7 @@ test('record demo 1', async () => {
   console.log('My Row ID is :-> ' + rowid1);
 
   for(let n=0;n<validApprovers.length;n++){
-    if(NVApproveruser1[n] == pageappvr ){
+    if(NVApproveruser1[n] == approver1 || NVApproveruser1[n] == approverX ){
   const UVApprover = new verfyappvr.appnew(NVApproveruser1[n]);
     await NVApproveruser1[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
   await NVApproveruser1[n].bringToFront();
@@ -854,17 +854,14 @@ const NVApproveruser2 = [approver3]
   for (let n = 0; n < validApprovers2.length; n++) {
     const isApproverValid = await SalesGPStaff2.isValidApproverJPN(validApprovers2[n],n);
   }
-
-
   // await myVecPage.waitForTimeout(5000);
-
   await myVecPage.getByPlaceholder('発注番号').click();
   await myVecPage.locator('[aria-label="発注番号"]').press('Control+Alt+k');
   var bb_rowid =  await myVecPage.locator('[aria-label="ロウ番号"]').textContent();
   console.log(bb_rowid);
 
   for(let n=0;n<validApprovers.length;n++){
-    if(NVApproveruser2[n] == pageappvr ){
+    if(NVApproveruser2[n] == approver3 ){
   const UVApprover = new verfyappvr.appnew(NVApproveruser2[n]);
     await NVApproveruser2[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
   await NVApproveruser2[n].bringToFront();
@@ -1127,7 +1124,7 @@ const NVApproveruser2 = [approver3]
   console.log('My Row ID is :-> ' + rowidH);
 
   for(let n=0;n<validApprovers.length;n++){
-    if(NVApproveruser3[n] == pageappvr ){
+    if(NVApproveruser3[n] == approver1 ){
   const UVApprover = new verfyappvr.appnew(NVApproveruser3[n]);
     await NVApproveruser3[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
   await NVApproveruser3[n].bringToFront();
@@ -1311,7 +1308,7 @@ await myVecPage.locator('[class="drilldown"]').click();
   console.log(rowid5);
 
   for(let n=0;n<validApprovers.length;n++){
-    if(NVApproveruser4[n] == pageappvr ){
+    if(NVApproveruser4[n] == approver1 ){
   const UVApprover = new verfyappvr.appnew(NVApproveruser4[n]);
     await NVApproveruser4[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
   await NVApproveruser4[n].bringToFront();
