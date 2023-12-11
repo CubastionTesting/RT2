@@ -354,6 +354,8 @@ test('record demo 1', async () => {
   await page.getByRole('link', { name: '承認履歴' }).click();
 
   const validApprovers = ["Branch-Sales-Mgr", "Branch-Head"];
+  const NVApproveruser = [approver1,approverX]
+
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
     const SalesGPStaff = new verfyappvr.appnew(page);
@@ -369,29 +371,40 @@ test('record demo 1', async () => {
   //await approver1.waitForTimeout(5000);
   //approver process start
 
-  await approver1.bringToFront();
+  for(let n=0;n<validApprovers.length;n++){
+    if(NVApproveruser[n] == pageappvr ){
+  const UVApprover = new verfyappvr.appnew(NVApproveruser[n]);
+    await NVApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser[n].bringToFront();
+  await UVApprover.correctApprover(rowid);
 
-  await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
-  await approver1.waitForLoadState('domcontentloaded');
-  await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approver1.getByRole('gridcell', { name: 'リンク' }).click();
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
-  await approver1.locator('[id="1_s_1_l_Action"]').click();
-  await approver1.locator('[id="1_Action"]').fill('承認');
-  await approver1.locator('[id="1_Action"]').press('Control+s');
+    }
+  }
+  
+
+  // await approver1.bringToFront();
+
+  // await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+  // await approver1.waitForLoadState('domcontentloaded');
+  // await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approver1.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  // await approver1.locator('[id="1_s_1_l_Action"]').click();
+  // await approver1.locator('[id="1_Action"]').fill('承認');
+  // await approver1.locator('[id="1_Action"]').press('Control+s');
 //Approval by me
-  await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approver1.getByRole('gridcell', { name: 'リンク' }).click();
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
-  await approver1.locator('[id="1_s_1_l_Action"]').click();
-  await approver1.locator('[id="1_Action"]').fill('承認');
-  await approver1.locator('[id="1_Action"]').press('Control+s');
-  await approver1.waitForLoadState('networkidle');
-  await approver1.waitForTimeout(5000);
+  // await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approver1.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  // await approver1.locator('[id="1_s_1_l_Action"]').click();
+  // await approver1.locator('[id="1_Action"]').fill('承認');
+  // await approver1.locator('[id="1_Action"]').press('Control+s');
+  // await approver1.waitForLoadState('networkidle');
+  // await approver1.waitForTimeout(5000);
   //  await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
   //  await approver1.getByRole('gridcell', { name: 'リンク' }).click();
   //  await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
@@ -429,21 +442,21 @@ test('record demo 1', async () => {
   //approver process start
 
   // await approverX.waitForTimeout(5000);
-  await approverX.bringToFront();
+  // await approverX.bringToFront();
 
-  await approverX.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
-  await approverX.waitForLoadState('domcontentloaded');
-  await approverX.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approverX.getByRole('gridcell', { name: 'リンク' }).click();
-  await approverX.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
-  await approverX.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  // await approverX.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
-  await approverX.locator('[id="1_s_1_l_Action"]').click();
-  await approverX.locator('[id="1_Action"]').fill('承認');
-  await approverX.locator('[id="1_Action"]').press('Control+s');
-  await approverX.waitForLoadState('networkidle');
+  // await approverX.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+  // await approverX.waitForLoadState('domcontentloaded');
+  // await approverX.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approverX.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approverX.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid);
+  // await approverX.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // // await approverX.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  // await approverX.locator('[id="1_s_1_l_Action"]').click();
+  // await approverX.locator('[id="1_Action"]').fill('承認');
+  // await approverX.locator('[id="1_Action"]').press('Control+s');
+  // await approverX.waitForLoadState('networkidle');
 
-  await approverX.waitForTimeout(5000);
+  // await approverX.waitForTimeout(5000);
 
   //    await approverX.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
   //    await approverX.getByRole('gridcell', { name: 'リンク' }).click();
@@ -529,6 +542,8 @@ test('record demo 1', async () => {
   await page.getByRole('button', { name: '販売オーダー フォームアプレット:承認依頼' }).click();
   await page.getByRole('link', { name: '承認', exact: true }).click();
   const validApprovers1 = ["Branch-Sales-Mgr", "Branch-Head"];
+  const NVApproveruser1 = [approver1,approverX]
+
   const verfyappvr1 = require('./approverfunction');
   //initiating the constructor
   const SalesGPStaff1 = new verfyappvr1.appnew(page);
@@ -541,23 +556,33 @@ test('record demo 1', async () => {
   var rowid1 = await page.locator('[aria-label="ロウ番号"]').textContent();
   console.log('My Row ID is :-> ' + rowid1);
 
+  for(let n=0;n<validApprovers.length;n++){
+    if(NVApproveruser1[n] == pageappvr ){
+  const UVApprover = new verfyappvr.appnew(NVApproveruser1[n]);
+    await NVApproveruser1[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser1[n].bringToFront();
+  await UVApprover.correctApprover(rowid1);
+
+    }
+  }
+
 
 
   //approver process start
 
-  await approver1.bringToFront();
-  // await approver1.waitForTimeout(5000);
-  await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
-  await approver1.waitForLoadState('domcontentloaded');
-  await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approver1.getByRole('gridcell', { name: 'リンク' }).click();
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid1);
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
-  await approver1.locator('[id="1_s_1_l_Action"]').click();
-  await approver1.locator('[id="1_Action"]').fill('承認');
-  await approver1.locator('[id="1_Action"]').press('Control+s');
-  await approver1.waitForLoadState('networkidle');
+  // await approver1.bringToFront();
+  // // await approver1.waitForTimeout(5000);
+  // await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+  // await approver1.waitForLoadState('domcontentloaded');
+  // await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approver1.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid1);
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  // await approver1.locator('[id="1_s_1_l_Action"]').click();
+  // await approver1.locator('[id="1_Action"]').fill('承認');
+  // await approver1.locator('[id="1_Action"]').press('Control+s');
+  // await approver1.waitForLoadState('networkidle');
 
 
   // approving process completed ************
@@ -588,20 +613,20 @@ test('record demo 1', async () => {
 
   //approver process start
 
-  await approverX.bringToFront();
-  // await approverX.waitForTimeout(5000);
+  // await approverX.bringToFront();
+  // // await approverX.waitForTimeout(5000);
 
-  await approverX.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
-  await approverX.waitForLoadState('domcontentloaded');
-  await approverX.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approverX.getByRole('gridcell', { name: 'リンク' }).click();
-  await approverX.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid1);
-  await approverX.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  // await approverX.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
-  await approverX.locator('[id="1_s_1_l_Action"]').click();
-  await approverX.locator('[id="1_Action"]').fill('承認');
-  await approverX.locator('[id="1_Action"]').press('Control+s');
-  await approverX.waitForLoadState('networkidle');
+  // await approverX.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+  // await approverX.waitForLoadState('domcontentloaded');
+  // await approverX.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approverX.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approverX.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid1);
+  // await approverX.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // // await approverX.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  // await approverX.locator('[id="1_s_1_l_Action"]').click();
+  // await approverX.locator('[id="1_Action"]').fill('承認');
+  // await approverX.locator('[id="1_Action"]').press('Control+s');
+  // await approverX.waitForLoadState('networkidle');
 
 
   // approving process completed ************
@@ -821,6 +846,8 @@ test('record demo 1', async () => {
 
 
 const validApprovers2 = ["SCHQ-Sales-Vehicle-Mgr"];
+const NVApproveruser2 = [approver3]
+
   const verfyappvr2 = require('./approverfunction');
   //initiating the constructor
   const SalesGPStaff2 = new verfyappvr2.appnew(myVecPage);
@@ -836,20 +863,29 @@ const validApprovers2 = ["SCHQ-Sales-Vehicle-Mgr"];
   var bb_rowid =  await myVecPage.locator('[aria-label="ロウ番号"]').textContent();
   console.log(bb_rowid);
 
+  for(let n=0;n<validApprovers.length;n++){
+    if(NVApproveruser2[n] == pageappvr ){
+  const UVApprover = new verfyappvr.appnew(NVApproveruser2[n]);
+    await NVApproveruser2[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser2[n].bringToFront();
+  await UVApprover.correctApprover(bb_rowid);
+
+    }
+  }
   await approver3.bringToFront();
 
   //await approver3.pause();
 
-  await approver3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
-  await approver3.waitForLoadState('domcontentloaded');
-  await approver3.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approver3.getByRole('gridcell', { name: 'リンク' }).click();
-  await approver3.getByPlaceholder('<大文字と小文字を区別する>').fill(bb_rowid);
-  await approver3.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  await approver3.locator('[id="1_s_1_l_Action"]').click();
-  await approver3.locator('[id="1_Action"]').fill('承認');
-  await approver3.locator('[id="1_Action"]').press('Control+s');
-  await approver3.waitForLoadState('networkidle');
+  // await approver3.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+  // await approver3.waitForLoadState('domcontentloaded');
+  // await approver3.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approver3.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approver3.getByPlaceholder('<大文字と小文字を区別する>').fill(bb_rowid);
+  // await approver3.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // await approver3.locator('[id="1_s_1_l_Action"]').click();
+  // await approver3.locator('[id="1_Action"]').fill('承認');
+  // await approver3.locator('[id="1_Action"]').press('Control+s');
+  // await approver3.waitForLoadState('networkidle');
   
 
   //await myVecPage.pause();
@@ -1076,6 +1112,8 @@ const validApprovers2 = ["SCHQ-Sales-Vehicle-Mgr"];
   await page.getByRole('link', { name: '承認' }).click();
 
   const validApprovers3 = ["Branch-Sales-Mgr"];
+  const NVApproveruser3 = [approver1]
+
   const verfyappvr3 = require('./approverfunction');
   //initiating the constructor
   const SalesGPStaff3 = new verfyappvr3.appnew(page);
@@ -1088,21 +1126,30 @@ const validApprovers2 = ["SCHQ-Sales-Vehicle-Mgr"];
   var rowidH = await page.locator('[aria-label="ロウ番号"]').textContent();
   console.log('My Row ID is :-> ' + rowidH);
 
+  for(let n=0;n<validApprovers.length;n++){
+    if(NVApproveruser3[n] == pageappvr ){
+  const UVApprover = new verfyappvr.appnew(NVApproveruser3[n]);
+    await NVApproveruser3[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser3[n].bringToFront();
+  await UVApprover.correctApprover(rowidH);
+
+    }
+  }
   //approver process start
 
-  await approver1.bringToFront();
+  // await approver1.bringToFront();
 
-  await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
-  await approver1.waitForLoadState('domcontentloaded');
-  await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approver1.getByRole('gridcell', { name: 'リンク' }).click();
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowidH);
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
-  await approver1.locator('[id="1_s_1_l_Action"]').click();
-  await approver1.locator('[id="1_Action"]').fill('承認');
-  await approver1.locator('[id="1_Action"]').press('Control+s');
-  await approver1.waitForLoadState('networkidle');
+  // await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+  // await approver1.waitForLoadState('domcontentloaded');
+  // await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approver1.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowidH);
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  // await approver1.locator('[id="1_s_1_l_Action"]').click();
+  // await approver1.locator('[id="1_Action"]').fill('承認');
+  // await approver1.locator('[id="1_Action"]').press('Control+s');
+  // await approver1.waitForLoadState('networkidle');
 
   // approving process completed ************
 
@@ -1249,6 +1296,8 @@ await myVecPage.locator('[class="drilldown"]').click();
   await page.getByRole('link', { name: '承認', exact: true }).click();
 
   const validApprovers4 = ["Branch-Sales-Mgr"];
+  const NVApproveruser4 = [approver1]
+
   const verfyappvr4 = require('./approverfunction');
   //initiating the constructor
   const SalesGPStaff4 = new verfyappvr4.appnew(page);
@@ -1261,21 +1310,30 @@ await myVecPage.locator('[class="drilldown"]').click();
   var rowid5 = await page.locator('[aria-label="ロウ番号"]').textContent();
   console.log(rowid5);
 
+  for(let n=0;n<validApprovers.length;n++){
+    if(NVApproveruser4[n] == pageappvr ){
+  const UVApprover = new verfyappvr.appnew(NVApproveruser4[n]);
+    await NVApproveruser4[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser4[n].bringToFront();
+  await UVApprover.correctApprover(rowid5);
+
+    }
+  }
   //approver process start
 
-  await approver1.bringToFront();
+  // await approver1.bringToFront();
 
-  await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
-  await approver1.waitForLoadState('domcontentloaded');
-  await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
-  await approver1.getByRole('gridcell', { name: 'リンク' }).click();
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid5);
-  await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
-  //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
-  await approver1.locator('[id="1_s_1_l_Action"]').click();
-  await approver1.locator('[id="1_Action"]').fill('承認');
-  await approver1.locator('[id="1_Action"]').press('Control+s');
-  await approver1.waitForLoadState('networkidle');
+  // await approver1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+  // await approver1.waitForLoadState('domcontentloaded');
+  // await approver1.getByRole('button', { name: '受信箱の項目 リストアプレット:クエリー' }).click();
+  // await approver1.getByRole('gridcell', { name: 'リンク' }).click();
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').fill(rowid5);
+  // await approver1.getByPlaceholder('<大文字と小文字を区別する>').press('Enter');
+  // //await approver1.getByRole('gridcell', { name: 'コンボボックスフィールド' }).click();
+  // await approver1.locator('[id="1_s_1_l_Action"]').click();
+  // await approver1.locator('[id="1_Action"]').fill('承認');
+  // await approver1.locator('[id="1_Action"]').press('Control+s');
+  // await approver1.waitForLoadState('networkidle');
 
   await page.bringToFront();
   // await page.reload();
