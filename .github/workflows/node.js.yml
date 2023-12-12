@@ -26,7 +26,7 @@ jobs:
       - name: Install Playwright
         run: npx playwright install
       - name: Running tests
-        run: npx playwright test NVwithPTandSV
+        run: npx playwright test NV_withPTandSV
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v3
