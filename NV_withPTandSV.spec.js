@@ -366,6 +366,7 @@ test('record demo 1', async () => {
   await part.getByRole('gridcell', { name: '日付タイムゾーンフィールド' }).click();
   await part.locator('[class="drilldown"]').first().click();
   await part.getByRole('button', { name: '明細項目 リストアプレット:新規' }).click();
+  await part.pause()
   await part.waitForTimeout(2000)
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).fill('#M134');
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).press('Enter');
@@ -373,6 +374,7 @@ test('record demo 1', async () => {
   await page.locator('[name="s_1_1_7_0"]').click();
   await part.reload()
   await part.locator('[name="s_4_1_10_0"]').click();
+  await part.waitForTimeout(3000)
   await part.locator('[name="s_4_1_16_0"]').click();
   await part.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Internal)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Form+Applet+Dashboard+(Internal)")
   await part.locator('[name="s_3_1_3_0"]').click();
@@ -380,16 +382,16 @@ test('record demo 1', async () => {
 
   await page.bringToFront();
   await page.reload();
-  await page.getByRole('button', { name: '明細項目 リストアプレット:出荷依頼' }).click();
-  await part.bringToFront();
-  await part.locator('[aria-roledescription="部品問合せ"]').click();
-  await part.locator('[aria-label="明細項目 リストアプレット:再計算"]').click();
-  await part.locator('[aria-label="明細項目 リストアプレット:引当(全件)"]').click();
-  await part.locator('[aria-label="オーダー フォームアプレット:発注"]').click();
-  await part.reload();
-  await part.getByRole('link', { name: '出荷', exact: true }).click();
-  await part.locator('[aria-label="出荷 選択済み"]').click();
-  await part.locator('[data-display="出荷済"]').click();
+  // await page.getByRole('button', { name: '明細項目 リストアプレット:出荷依頼' }).click();
+  // await part.bringToFront();
+  // await part.locator('[aria-roledescription="部品問合せ"]').click();
+  // await part.locator('[aria-label="明細項目 リストアプレット:再計算"]').click();
+  // await part.locator('[aria-label="明細項目 リストアプレット:引当(全件)"]').click();
+  // await part.locator('[aria-label="オーダー フォームアプレット:発注"]').click();
+  // await part.reload();
+  // await part.getByRole('link', { name: '出荷', exact: true }).click();
+  // await part.locator('[aria-label="出荷 選択済み"]').click();
+  // await part.locator('[data-display="出荷済"]').click();
   
   await myVecPage.waitForTimeout(5000);
   await myVecPage.bringToFront();
