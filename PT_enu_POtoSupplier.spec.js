@@ -138,6 +138,17 @@ await page023.waitForTimeout(2000);
       console.log('error in Generate Approval button in Part Purchase Return Order');
     }
     console.log("Clicked on Generate Approval Button");
+
+    //function
+    await page023.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Purchase+Return+Approval+History+Flow+View');
+    const validApprovers = ["Branch-Parts-Mgr"];
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page023);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
+  
     
     //go to approval
     pagePF23 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -158,7 +169,6 @@ await page023.waitForTimeout(2000);
     await page023.locator('[name="s_1_1_72_0"]').press('Alt+Enter');
     await page023.waitForTimeout(2000);
     console.log("Successfully Approved");
-    await page023.pause();
     await page023.locator('[aria-label="Orders Form Applet:Ordered"]').click(); //Ordered button
     console.log("Successefully clicked on orderd button ");
     //await page0
