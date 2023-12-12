@@ -345,8 +345,17 @@ test('record demo 1', async () => {
   await page.locator('[aria-roledescription="タイプ"]').click();
   await page.locator('[id="1_Order_Type"]').fill('Trailer & Forklift');
   await page.locator('[id="1_Order_Type"]').press('Enter');
+  await page.pause();
   const bbo = await page.locator('[name="Order Number"]').textContent();
   console.log('Body Building Order : ' + bbo);
+  await page.getByRole('button', { name: '購入オーダー リストアプレット:クエリー' }).click();
+  await page.locator('[aria-roledescription="タイプ"]').click();
+  await page.locator('[id="1_Order_Type"]').fill('Parts Internal Order');
+  await page.locator('[id="1_Order_Type"]').press('Enter');
+ 
+  await page.locator('[class="drilldown"]').first().click();
+  const partInternalOrder = await page.locator('[placeholder="オーダー番号"]').inputValue();
+  console.log('Part Internal Order ID : ' + partInternalOrder);
   await part.bringToFront();
   await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+FDP+Orders+View+(Internal)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+List+Applet+(Internal)');
   await part.waitForTimeout(3000);
@@ -360,10 +369,15 @@ test('record demo 1', async () => {
   await part.waitForTimeout(2000)
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).fill('#M134');
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).press('Enter');
-  await part.locator('[aria-roledescription="説明"]').click();
-  await part.locator('[placeholder="<大文字と小文字を区別する>"]').press('Enter');
-  await part.locator('[aria-label="製品を選択 リストアプレット:OK"]').click();
-  await part.waitForTimeout(4000);
+  await page.reload()
+  await page.locator('[name="s_1_1_7_0"]').click();
+  await part.reload()
+  await part.locator('[name="s_4_1_10_0"]').click();
+  await part.locator('[name="s_4_1_16_0"]').click();
+  await part.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Internal)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Form+Applet+Dashboard+(Internal)")
+  await part.locator('[name="s_3_1_3_0"]').click();
+  await part.reload()
+
   await page.bringToFront();
   await page.reload();
   await page.getByRole('button', { name: '明細項目 リストアプレット:出荷依頼' }).click();
