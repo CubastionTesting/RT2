@@ -138,19 +138,15 @@ await page023.waitForTimeout(2000);
       console.log('error in Generate Approval button in Part Purchase Return Order');
     }
     console.log("Clicked on Generate Approval Button");
+    await page023.waitForTimeout(2000)
 
-    //function
-    await page023.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Purchase+Return+Approval+History+Flow+View');
-    const validApprovers = ["Branch-Parts-Mgr"];
-    const verfyappvr = require('./approverfunction');
-    //initiating the constructor
-    const SalesGPStaff = new verfyappvr.appnew(page023);
-    for (let n = 0; n < validApprovers.length; n++) {
-      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
-    }
-  
-    
-    //go to approval
+     //copy row id
+     await page023.locator('[placeholder="Order #"]').press("Control+Alt+k");
+     var rowid = await page023.locator('[aria-label="Row #"]').textContent();
+     await page023.locator('[aria-label="Row #"]').press("Control+c");
+     await page023.reload();
+     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Purchase+Return+Approval+History+Flow+View")
+    //  go to approval
     pagePF23 = await browser.newPage({ ignoreHTTPSErrors: true });
     await pagePF23.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View"
@@ -158,11 +154,30 @@ await page023.waitForTimeout(2000);
     const LoginuserF23 = new FusoLogin(pagePF23);
     await LoginuserF23.loginFDP("D8FDPF23", "Snakamura@1");
     await pagePF23.waitForLoadState("domcontentloaded");
-    //take approval
-    await pagePF23.locator('[id="1_s_2_l_Action"]').click();
-    await pagePF23.locator('[id="1_Action"]').click(); //Action column
-    await pagePF23.locator('[id="1_Action"]').fill("Approved");
-    await pagePF23.locator('[id="1_Action"]').press('Control+s');
+
+    //function
+    const validApprovers = ["Branch-Parts-Mgr"];
+    const ExpApproveruser = [pagePF23]
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page023);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
+    for(let n=0;n<validApprovers.length;n++){
+      if(ExpApproveruser[n] == pagePF23){
+    const ExpApprover = new verfyappvr.appnew(ExpApproveruser[n]);
+      await ExpApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await ExpApproveruser[n].bringToFront();
+    await ExpApprover.correctApprover(rowid);
+      }
+    }
+    
+    // //take approval
+    // await pagePF23.locator('[id="1_s_2_l_Action"]').click();
+    // await pagePF23.locator('[id="1_Action"]').click(); //Action column
+    // await pagePF23.locator('[id="1_Action"]').fill("Approved");
+    // await pagePF23.locator('[id="1_Action"]').press('Control+s');
     //order PO
     await page023.waitForTimeout(2000);
     await page023.locator('[name="s_1_1_72_0"]').click();

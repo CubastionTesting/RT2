@@ -296,7 +296,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
   
     //paste order
     await page023.locator('[id="1_MF_Order_Number"]').fill(Wsnum);
-  
     //click on go
     await page023.locator('[aria-label="Shipments List Applet:Go"]').click();
   
@@ -328,13 +327,22 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
       console.log('error in Generate Approval button in Part Change Order');
     }
     console.log("Clicked on Generate Approval button");
+    await page023.waitForTimeout(2000)
+
+    //copy row id
+    await page023.locator('[placeholder="Order #"]').press("Control+Alt+k");
+    var wporowid = await page023.locator('[aria-label="Row #"]').textContent();
+    // console.log(wporowid);
+    await page023.locator('[aria-label="Row #"]').press("Control+c");
 
     //function
-    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Parts+Change+Order+Approval+History+View');
+    await page023.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Parts+Change+Order+Approval+History+View');
     const validApprovers = ["SCHQ-CS-Parts-Mgr"];
+    const ExpApproveruser = [pageF23]
+
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
-    const SalesGPStaff = new verfyappvr.appnew(page);
+    const SalesGPStaff = new verfyappvr.appnew(page023);
     for (let n = 0; n < validApprovers.length; n++) {
       const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
     }
@@ -342,21 +350,21 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     //go to  approval
     pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });
     await pageF23.goto(
-      "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View"
+      "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?"
     );
     const Loginuser021 = new FusoLogin(pageF23);
     await Loginuser021.loginFDP("D8FFOR21", "Snakamura@1");
     await pageF23.waitForLoadState("domcontentloaded");
-  
-  
-    //take approval
-    await pageF23.locator('[id="1_s_2_l_Action"]').click();
-    await pageF23.locator('[id="1_Action"]').click();
-    await pageF23.locator('[id="1_Action"]').fill("Approved");
-    await pageF23.locator('[id="1_Action"]').press('Control+s');
-    console.log("Change Order Approved Successfully");
-  
-  
+
+    for(let n=0;n<validApprovers.length;n++){
+      if(ExpApproveruser[n] == pageF23){
+    const ExpApprover = new verfyappvr.appnew(ExpApproveruser[n]);
+      await ExpApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await ExpApproveruser[n].bringToFront();
+    await ExpApprover.correctApprover(wporowid);
+
+      }
+    }
   
     //////RETURN ORDER/////
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Sales)");
