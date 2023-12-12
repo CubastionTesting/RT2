@@ -100,7 +100,6 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     await page027.locator('[id="1_Order_Number"]').press('Tab');
     await page027.locator('[class="drilldown"]').click();
   //open order, fulfill all  
-    //await page027.pause()
     await page023.waitForTimeout(3000);
     console.log("Clicked on Fullfill All button");
     await page027.locator('[id="s_2_1_15_0_Ctrl"]').click(); //Fullfill All buton
@@ -118,7 +117,6 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
       console.log('error in Shipped button in Part Purchase Order');
     }
     console.log("Clicked on Shipped button");
-    //await page023.pause();
     await page023.waitForTimeout(3000);
 
     //back to 23 user
@@ -157,7 +155,6 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     await page023.locator('[aria-label="Purchase Order List Applet:Go"]').click();
     await page023.locator('[id="1_Order_Number"]').press('Tab');
    // await page023.waitForTimeout(3000);
-    //await page023.pause()
     await page023.locator('[class="drilldown"]').click();
     //Return reason
     await page023.waitForTimeout(3000);

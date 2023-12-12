@@ -190,25 +190,6 @@ await page.pause();
 
     await page.pause();
 
-
-
-    //approver process start
-    // for(let n=0;n<validApprovers.length;n++){
-    //   await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
-    // await pageappvr.bringToFront();
-    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    // await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-    // await pageappvr.locator('[id="1_Name"]').fill(rowid);
-    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    // await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-    // await pageappvr.locator('[id="1_Action"]').fill('Approved');
-    // await pageappvr.locator('[id="1_Action"]').press('Control+s');
-    // await pageappvr.waitForLoadState('networkidle');
-      
-    // }
-    // approving process completed ************
-
-    //Create purchase Contract process start ******
      await page.bringToFront();
      await page.reload('domcontententloaded');
      await page.waitForTimeout(3000);

@@ -11,6 +11,7 @@ test('record demo 1', async () => {
 
   const browser = await chromium.launch({
     headless: false
+    headless: false
   });
   const characters = '0123456789';
 
@@ -222,7 +223,6 @@ test('record demo 1', async () => {
   await part.getByLabel('見積り フォームアプレット:回答').click();
   await page.bringToFront();
   await page.reload();
-  await page.pause();
   await page.waitForTimeout(4000);
   await page.getByRole('link', { name: '関連見積' }).click();
   await page.waitForTimeout(4000);
