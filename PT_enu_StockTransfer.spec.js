@@ -65,13 +65,14 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     console.log("Line Item added");
 
     //Part added
-    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('##00020');
+    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('#101235470');
     console.log("Part added on Line Item"); //Part# column
+    await page023.waitForTimeout(3000);
     await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').press('Enter');
 
-    await page023.locator('[name="s_4_1_14_0"]').click();
-    await page023.locator('[id="1_s_4_l_Name"]').click();
-    await page023.locator('[id="s_4_1_246_0_Ctrl"]').click();
+    // await page023.locator('[name="s_4_1_14_0"]').click();
+    // await page023.locator('[id="1_s_4_l_Name"]').click();
+    // await page023.locator('[id="s_4_1_246_0_Ctrl"]').click();
 
 
 
