@@ -167,6 +167,7 @@ await page023.waitForTimeout(2000);
     for(let n=0;n<validApprovers.length;n++){
       if(ExpApproveruser[n] == pagePF23){
     const ExpApprover = new verfyappvr.appnew(ExpApproveruser[n]);
+    await pagePF23.waitForTimeout(2000)
       await ExpApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
     await ExpApproveruser[n].bringToFront();
     await ExpApprover.correctApprover(rowid);

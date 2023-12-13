@@ -10,7 +10,7 @@ test('record demo 1', async () => {
 
 
   const browser = await chromium.launch({
-    headless: false
+    headless: true
   });
   const characters = '0123456789';
 
@@ -345,7 +345,6 @@ test('record demo 1', async () => {
   await page.locator('[aria-roledescription="タイプ"]').click();
   await page.locator('[id="1_Order_Type"]').fill('Trailer & Forklift');
   await page.locator('[id="1_Order_Type"]').press('Enter');
-  await page.pause();
   const bbo = await page.locator('[name="Order Number"]').textContent();
   console.log('Body Building Order : ' + bbo);
   await page.getByRole('button', { name: '購入オーダー リストアプレット:クエリー' }).click();
@@ -366,17 +365,51 @@ test('record demo 1', async () => {
   await part.getByRole('gridcell', { name: '日付タイムゾーンフィールド' }).click();
   await part.locator('[class="drilldown"]').first().click();
   await part.getByRole('button', { name: '明細項目 リストアプレット:新規' }).click();
-  await part.pause()
   await part.waitForTimeout(2000)
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).fill('#M134');
   await part.getByRole('textbox', { name: '部品番号 選択フィールド' }).press('Enter');
   await page.reload()
+  await page.waitForTimeout(2000)
+  await page.locator('[name="s_1_1_7_0"]').click();
+  await page.waitForTimeout(2000)
+  await page.locator('[name="s_1_1_7_0"]').click();
+  await page.waitForTimeout(2000)
+  await page.locator('[name="s_1_1_7_0"]').click();
+  await page.waitForTimeout(2000)
   await page.locator('[name="s_1_1_7_0"]').click();
   await part.reload()
   await part.locator('[name="s_4_1_10_0"]').click();
   await part.waitForTimeout(3000)
-  await part.locator('[name="s_4_1_16_0"]').click();
-  await part.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Internal)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Order+Entry+-+Order+Form+Applet+Dashboard+(Internal)")
+  await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
+  await part.locator('[name="s_4_1_10_0"]').click();
+  await part.waitForTimeout(3000)
+  await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
+  await part.locator('[name="s_4_1_10_0"]').click();
+  await part.waitForTimeout(3000)
+  await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
+  await part.locator('[name="s_4_1_10_0"]').click();
+  await part.waitForTimeout(3000)
+  await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
+
+  await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Internal)')
+  await part.locator('[id="s_2_1_21_0_Ctrl"]').click();
+  await part.locator('[id="1_Order_Number"]').fill(partInternalOrder);
+  await part.locator('[id="1_Order_Number"]').press('Enter');
+  await part.locator('[aria-labelledby="s_2_l_Order_Number"]').press('Tab');
+  await part.locator('[class="drilldown"]').click();
+  await part.waitForLoadState('domcontentloaded')
+
+  // await part.locator('[name="s_4_1_10_0"]').click();
+  // await part.waitForTimeout(3000)
+  // await part.locator('[name="s_4_1_16_0"]').click();
+  // await part.waitForLoadState('domcontentloaded');
+
+  // await page.reload()
+  // await page.locator('[name="s_1_1_7_0"]').click();
+
+  await part.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Purchase+Order+View(Internal)")
+  await part.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Internal)")
+  await part.reload()
   await part.locator('[name="s_3_1_3_0"]').click();
   await part.reload()
 
@@ -395,7 +428,6 @@ test('record demo 1', async () => {
   
   await myVecPage.waitForTimeout(5000);
   await myVecPage.bringToFront();
-  await myVecPage.pause();
   await myVecPage.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Chassis+Order+View');
   await myVecPage.waitForTimeout(4000);
   await myVecPage.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+All+Body+Building+Order+across+HQ+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Body+Building+Order+List+Applet');

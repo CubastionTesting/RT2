@@ -327,7 +327,8 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
       console.log('error in Generate Approval button in Part Change Order');
     }
     console.log("Clicked on Generate Approval button");
-    await page023.waitForTimeout(2000)
+    await page023.waitForTimeout(2000);
+    await page023.waitForLoadState("domcontentloaded")
 
     //copy row id
     await page023.locator('[placeholder="Order #"]').press("Control+Alt+k");
