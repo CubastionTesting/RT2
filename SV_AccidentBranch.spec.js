@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: false
+    headless: true
 
   });
   const context = await browser.newContext();
@@ -37,19 +37,9 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
   await page.waitForTimeout(3000);
-  // await page.pause();
-
-
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
   await page.getByRole('link', { name: 'FY54JY-540054' }).click();
-
-  // ---------------------
-
-  //await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
-
-
-
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
 
   const context3 = await browser.newContext();
@@ -60,9 +50,7 @@ test('record demo', async () => {
   await pageappvr.getByRole('button', { name: 'Next' }).click();
   await pageappvr.getByLabel('Password').fill('Snakamura@1');
   await pageappvr.getByRole('button', { name: 'Log on' }).click();
-  await pageappvr.waitForLoadState('domcontentloaded');
-  // await pageappvr.pause()
-   
+  await pageappvr.waitForLoadState('domcontentloaded');   
   await page.bringToFront();
   await page.reload('domcontentloaded');
 
@@ -82,7 +70,6 @@ test('record demo', async () => {
 
   await page.locator('[id="\\31 _s_1_l_INS_Product"]').click();
   await page.locator('[id="1_INS_Product"]').click();
-  //await page.pause();
   //fill job card type
   await page.locator('[id="1_INS_Product"]').fill('35：構内事故');
   await page.locator('[id="1_INS_Product"]').press('Control+s');
@@ -123,8 +110,6 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="純作業時間"]').click();
   await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
   await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
-
-  //await page.pause();
   await page.getByRole('link', { name: 'パーツ' }).click();
   await page.getByRole('button', { name: 'パーツ リストアプレット:新規' }).click();
   await page.locator('[id="1_s_2_l_Product_Name"]').click();
@@ -142,15 +127,10 @@ test('record demo', async () => {
 
   await page.goBack();
   await page.waitForTimeout(3000);
-
   // Quote created
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
   await page.locator('[name="Name"]').nth(0).click();
   //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Service+Quote+Line+Items+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Quote+Form+Applet&');
-
-
-await page.pause();
-
   await page.getByRole('button', { name: '見積り フォームアプレット:承認依頼' }).click();
   
 //new function start
@@ -189,27 +169,25 @@ console.log('Approver is correct for Quote');
 
     //inbox function end
   }
-
   await page.bringToFront();
   await page.reload('domcontentloaded');
-
- // await page.pause();
-  //Quote Approval done
-
   await page.getByRole('cell', { name: '了解者 Press F2 for 選択フィールド' }).getByLabel('Press F2 for 選択フィールド').click();
-  await page.getByRole('gridcell', { name: '2810渋江' }).click();
+  //await page.getByRole('gridcell', { name: '2810渋江' }).click();
   await page.getByLabel('担当者を選択 リストアプレット:OK').click();
   await page.getByPlaceholder('了解者').press('Control+s');
-
+  //Approver process ends you damn
+  await page.waitForTimeout(3000)
+  await page.locator('[aria-label="見積有効期限"]').press('Alt+Enter');
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
+  await page.waitForTimeout(3000)
+  await page.getByPlaceholder('見積状況').press('Alt+Enter');
 
-  await page.waitForTimeout(3000);
+  console.log('Quote Approved');
 
    
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
-  await page.reload();
   await page.waitForTimeout(3000);
   await page.getByPlaceholder('引取開始予定日時').click();
   //Planned Pickup Start Date/Time
@@ -241,7 +219,7 @@ console.log('Approver is correct for Quote');
   await page.getByRole('button', { name: '現在' }).click();
   await page.getByRole('button', { name: '完了' }).click();
   //Planned Courtesy Vehicle Date
-  await page.pause();
+
   await page.locator('#s_2_1_68_0_icon').click();
   await page.getByPlaceholder('工事完了予定日時').press('Control+s');
  await page.locator('[class="drilldown"]').first().click();
@@ -264,7 +242,6 @@ console.log('Approver is correct for Quote');
   await Part1.locator('[aria-roledescription="Status"]').click();
 
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
-  //await pa1ge.pause();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
   await Part1.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();
@@ -317,8 +294,6 @@ const isApproverValid = await SVStaff.isValidApproverJPN(validApprovers[n], n);
 }
 //Approver function end
 
-await page.pause()
-
 //Quote 1nd Approval start
 
 await page.locator('[aria-label="印刷状況"]').click();
@@ -346,7 +321,6 @@ await SVApprover.correctApprover(rowid1);
 //job card Approvl
 
   await page.goto(jcurl);
-  await page.reload();
   await page.waitForTimeout(3000);
  
   console.log('Approver is correct for Job card');

@@ -183,7 +183,6 @@ test('record demo', async () => {
   await Part1.locator('[aria-roledescription="Status"]').click();
   
   await Part1.getByRole('button', { name: 'Orders List Applet:Go' }).click();
-  //await pa1ge.pause();
   await Part1.locator('[name="Order Number"]').click();
   await Part1.getByRole('button', { name: 'Line Items List Applet:Fulfill All' }).click();
   await Part1.getByRole('navigation', { name: 'Third Level View Bar' }).getByRole('link', { name: 'Shipment' }).click();
