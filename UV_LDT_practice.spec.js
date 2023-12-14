@@ -6,7 +6,7 @@ const fs = require('fs');
 test('record demo 1', async () => {
   test.setTimeout(900000);
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters = '0123456789';
 
@@ -46,7 +46,6 @@ test('record demo 1', async () => {
 
     //login process starting
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-    // await page.pause();
     await page.getByLabel('User ID').click();
     await page.getByLabel('User ID').fill('D8FOFD22');
     await page.getByRole('button', { name: 'Next' }).click();
@@ -60,7 +59,6 @@ test('record demo 1', async () => {
     await pageappvr.getByRole('button', { name: 'Next' }).click();
     await pageappvr.getByLabel('Password').fill('Snakamura@1');
     await pageappvr.getByRole('button', { name: 'Log on' }).click();
-    // await pageappvr.pause();
 
     //login process starting
     await myPage.bringToFront();
@@ -82,7 +80,7 @@ test('record demo 1', async () => {
     await myPage1.getByRole('button', { name: 'Log on' }).click();
 
     await pageQuote.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-    await pageQuote.pause();
+    // await pageQuote.pause();
     await pageQuote.getByLabel('User ID').click();
     await pageQuote.getByLabel('User ID').fill('D8FFOR24');
     await pageQuote.getByRole('button', { name: 'Next' }).click();
@@ -107,7 +105,7 @@ test('record demo 1', async () => {
 
     await page.bringToFront();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Opportunity');
-    await page.pause();
+    // await page.pause();
     // await page.locator('div').filter({ hasText: 'File Auto Application Call List [Alt+I] Call Report [Alt+P] Create Bookmark... S' }).nth(3).click();
   console.log("creating opportunity");
     await page.getByLabel('Opportunities List Applet:New').click();
@@ -354,7 +352,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[id="\\31 _s_1_l_MF_Labor_Code"]').click();
   await pageActivity.locator('#s_1_2_64_0_icon').click();
   await pageActivity.getByLabel('Pick Labor Code List Applet:OK').click();
-  await pageActivity.pause();
+  // await pageActivity.pause();
   await pageActivity.getByTitle('0', { exact: true }).click();
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).fill('1');
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).press('Control+s');
@@ -368,7 +366,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   // await page.getByRole('link', { name: '1-1K49UK' }).click();
   await pageActivity.locator('[name="Name"]').click();
   await pageActivity.getByLabel('Quote Form Applet:Update Sale Quote').click();
-  await pageActivity.pause();
+  // await pageActivity.pause();
   // ---------------------
 
   await page.bringToFront();
@@ -404,7 +402,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
   await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid11);
   await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr.pause();
+  // await pageappvr.pause();
   
   await pageappvr.locator('[aria-roledescription="Action"]').click();
   await pageappvr.locator('[name="Action"]').fill('Approved');
@@ -421,7 +419,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await myPage.getByRole('gridcell', { name: 'Link' }).click();
   await myPage.getByPlaceholder('<Case Sensitive>').fill(rowid11);
   await myPage.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await myPage.pause();
+  // await myPage.pause();
   await myPage.locator('[aria-roledescription="Action"]').click();
   await myPage.locator('[name="Action"]').fill('Approved');
   await myPage.getByRole('gridcell', { name: 'Combobox Field' }).click();
@@ -458,7 +456,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await myPage1.getByRole('gridcell', { name: 'Link' }).click();
   await myPage1.getByPlaceholder('<Case Sensitive>').fill(rowid11);
   await myPage1.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await myPage1.pause();
+  // await myPage1.pause();
   await myPage1.locator('[aria-roledescription="Action"]').click();
   await myPage1.locator('[name="Action"]').fill('Approved');
   await myPage1.getByRole('gridcell', { name: 'Combobox Field' }).click();
@@ -642,7 +640,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   console.log("body building order created");
   await pageBB.getByPlaceholder('<Case Sensitive>').fill(bodyPO);
   await pageBB.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageBB.pause();
+  // await pageBB.pause();
   // await pageBB.getByRole('gridcell', { name: 'Other' }).nth(0).click();
   await pageBB.locator('[id="1_s_1_l_Body_Building_Type"]').click();
   // await pageBB.locator('[aria-roledescription="PO#"]').click();
@@ -708,7 +706,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageBB.waitForTimeout(6000);
   await pageBB.getByRole('link', { name: 'UV Body Building Order' }).click();
   await pageBB.waitForTimeout(3000);
-  await pageBB.pause();
+  // await pageBB.pause();
 
   await pageBB.getByLabel('UV Body Building Order List Applet:Query').click();
   await pageBB.getByPlaceholder('<Case Sensitive>').fill(bodyPO);
@@ -762,7 +760,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
   //=======================Parts PO end
 
- await pageActivity.pause();
+//  await pageActivity.pause();
   //========================Service PO Starts
   //await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Service+Actual+Expense+Items+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Actual+Expense+Items+List+Applet');
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Internal+Work+Request+View&SWERF=1&SWEHo=&SWEBU=1');
@@ -778,7 +776,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.waitForTimeout(2000)
   const JC= await pageActivity.locator('[aria-roledescription="Job Card #"]').textContent();
   console.log(JC)
-  await pageActivity.pause()
+  // await pageActivity.pause()
   await pageActivity.getByLabel('Internal Work Request List Applet:Query').click();
   await pageActivity.locator('[aria-roledescription="Job Card #"]').click();
   await pageActivity.locator('[id="1_SR_Number"]').fill(JC);
@@ -937,7 +935,7 @@ await pageActivity.waitForTimeout(3000)
     await page.waitForTimeout(3000);
     // await page.pause();
     
-    await page.pause();
+    // await page.pause();
     await page.locator('[aria-label="Payment Term Type"]').click();
     await page.locator('[aria-label="Payment Term Type"]').press('Control+Alt+k');
     var rowid8 = await page.locator('[aria-label="Row #"]').textContent();
