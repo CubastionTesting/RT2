@@ -21,7 +21,6 @@ test('record demo 1', async () => {
     }
 
     console.log(generateString(4));
-
     const context = await browser.newContext();
     const context2 = await browser.newContext();
     // const context3 = await browser.newContext();
@@ -46,6 +45,7 @@ test('record demo 1', async () => {
 
     //login process starting
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+    // await page.pause();
     await page.getByLabel('User ID').click();
     await page.getByLabel('User ID').fill('D8FOFD22');
     await page.getByRole('button', { name: 'Next' }).click();
@@ -59,6 +59,7 @@ test('record demo 1', async () => {
     await pageappvr.getByRole('button', { name: 'Next' }).click();
     await pageappvr.getByLabel('Password').fill('Snakamura@1');
     await pageappvr.getByRole('button', { name: 'Log on' }).click();
+    // await pageappvr.pause();
 
     //login process starting
     await myPage.bringToFront();
@@ -80,7 +81,7 @@ test('record demo 1', async () => {
     await myPage1.getByRole('button', { name: 'Log on' }).click();
 
     await pageQuote.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
-    // await pageQuote.pause();
+    await pageQuote.pause();
     await pageQuote.getByLabel('User ID').click();
     await pageQuote.getByLabel('User ID').fill('D8FFOR24');
     await pageQuote.getByRole('button', { name: 'Next' }).click();
@@ -105,21 +106,23 @@ test('record demo 1', async () => {
 
     await page.bringToFront();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Opportunity');
-    // await page.pause();
+    await page.pause();
     // await page.locator('div').filter({ hasText: 'File Auto Application Call List [Alt+I] Call Report [Alt+P] Create Bookmark... S' }).nth(3).click();
   console.log("creating opportunity");
     await page.getByLabel('Opportunities List Applet:New').click();
-  await page.locator('[id="\\31 _s_1_l_MF_Sales_Type"]').click();
-  await page.locator('#s_1_2_26_0_icon').click();
-  await page.locator('#ui-id-108').click();
-  await page.locator('#s_1_l_scroll [id="\\31 "]').getByRole('gridcell', { name: 'Selection Field', exact: true }).click();
-  await page.getByRole('textbox', { name: 'Customer Name Selection Field' }).click();
-  await page.locator('#s_1_2_13_0_icon').click();
-  await page.locator('#s_3_1_27_0_icon').click();
-  await page.locator('#ui-id-142').click();
-  await page.getByLabel('Starting with').click();
-  await page.getByLabel('Starting with').fill('0000001341');
-  await page.getByRole('button', { name: 'Pick Account List Applet:Go' }).click();
+    await page.locator('[id="\\31 _s_1_l_MF_Sales_Type"]').click();
+    await page.getByRole('gridcell', { name: 'Sales Type Combobox Field' }).click();
+    await page.getByRole('combobox', { name: 'Sales Type Combobox Field' }).fill('Direct Sales');
+    await page.getByRole('combobox', { name: 'Sales Type Combobox Field' }).press('Enter');
+    await page.locator('#s_1_l_scroll [id="\\31 "]').getByRole('gridcell', { name: 'Selection Field', exact: true }).click();
+    await page.getByRole('textbox', { name: 'Customer Name Selection Field' }).click();
+    await page.getByRole('textbox', { name: 'Customer Name Selection Field' }).fill('akm');
+    await page.getByRole('textbox', { name: 'Customer Name Selection Field' }).press('Enter');
+    await page.getByLabel('Pick Account List Applet:Query').click();
+    await page.locator('[id="1_s_3_l_Location"]').click();
+    await page.getByLabel('Account Number', { exact: true }).fill('0000001341');
+    await page.getByLabel('Account Number', { exact: true }).press('Enter');
+    await page.getByLabel('Pick Account List Applet:OK').click();
   
   // await page.locator('[id="1_s_1_l_Expected_Delivery_Date"]').click();
   // await page.getByRole('textbox', { name: 'Expected Delivery Date Date Field' }).fill('2023/10/30');
@@ -352,7 +355,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.locator('[id="\\31 _s_1_l_MF_Labor_Code"]').click();
   await pageActivity.locator('#s_1_2_64_0_icon').click();
   await pageActivity.getByLabel('Pick Labor Code List Applet:OK').click();
-  // await pageActivity.pause();
+  await pageActivity.pause();
   await pageActivity.getByTitle('0', { exact: true }).click();
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).fill('1');
   await pageActivity.getByLabel('Net Operation Time', { exact: true }).press('Control+s');
@@ -366,7 +369,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   // await page.getByRole('link', { name: '1-1K49UK' }).click();
   await pageActivity.locator('[name="Name"]').click();
   await pageActivity.getByLabel('Quote Form Applet:Update Sale Quote').click();
-  // await pageActivity.pause();
+  await pageActivity.pause();
   // ---------------------
 
   await page.bringToFront();
@@ -389,83 +392,101 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByRole('link', { name: 'Approval History' }).click();
 
   await page.waitForTimeout(3000);
+
+  const validApprovers1 = ["Branch-Sales-Mgr", "Branch-Head", "SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr"];
+  const UVApproveruser1 = [pageappvr, myPage, pageappvr, myPage1]
+  const verfyappvr1 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff1 = new verfyappvr1.appnew(page);
+  for (let n = 0; n < validApprovers1.length; n++) {
+    const isApproverValid = await SalesGPStaff1.isValidApprover(validApprovers1[n],n);
+  }
   
   await page.getByPlaceholder('MD Classification').click();
   await page.waitForTimeout(3000);
   await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
   await page.waitForTimeout(3000);
   var rowid11=await page.locator('[aria-label="Row #"]').textContent();
+
+  for(let n=0;n<validApprovers1.length;n++){
+    if(UVApproveruser1[n] == pageappvr || UVApproveruser1[n] == myPage || UVApproveruser1[n] == myPage1){
+  const UVApprover = new verfyappvr1.appnew(UVApproveruser1[n]);
+    await UVApproveruser1[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await UVApproveruser1[n].bringToFront();
+  await UVApprover.correctApprover(rowid11);
+
+    }
+  }
     // await page.bringToFront();
   
-  await pageappvr.getByRole('link', { name: 'Inbox' }).nth(0).click();
-  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid11);
-  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr.getByRole('link', { name: 'Inbox' }).nth(0).click();
+  // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid11);
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
   // await pageappvr.pause();
   
-  await pageappvr.locator('[aria-roledescription="Action"]').click();
-  await pageappvr.locator('[name="Action"]').fill('Approved');
-  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr.waitForLoadState('networkidle');
+  // await pageappvr.locator('[aria-roledescription="Action"]').click();
+  // await pageappvr.locator('[name="Action"]').fill('Approved');
+  // await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr.waitForLoadState('networkidle');
 
-    await page.bringToFront();
-    await page.reload('domcontentloaded');
+    // await page.bringToFront();
+    // await page.reload('domcontentloaded');
     // await page.pause();
-    await myPage.bringToFront();
-    await myPage.getByRole('link', { name: 'Inbox' }).nth(0).click();
-  await myPage.getByLabel('Inbox Items List Applet:Query').click();
-  await myPage.getByRole('gridcell', { name: 'Link' }).click();
-  await myPage.getByPlaceholder('<Case Sensitive>').fill(rowid11);
-  await myPage.getByPlaceholder('<Case Sensitive>').press('Enter');
+  //   await myPage.bringToFront();
+  //   await myPage.getByRole('link', { name: 'Inbox' }).nth(0).click();
+  // await myPage.getByLabel('Inbox Items List Applet:Query').click();
+  // await myPage.getByRole('gridcell', { name: 'Link' }).click();
+  // await myPage.getByPlaceholder('<Case Sensitive>').fill(rowid11);
+  // await myPage.getByPlaceholder('<Case Sensitive>').press('Enter');
   // await myPage.pause();
-  await myPage.locator('[aria-roledescription="Action"]').click();
-  await myPage.locator('[name="Action"]').fill('Approved');
-  await myPage.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await myPage.getByLabel('Action', { exact: true }).press('Control+s');
-  await myPage.waitForLoadState('networkidle');
+  // await myPage.locator('[aria-roledescription="Action"]').click();
+  // await myPage.locator('[name="Action"]').fill('Approved');
+  // await myPage.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await myPage.getByLabel('Action', { exact: true }).press('Control+s');
+  // await myPage.waitForLoadState('networkidle');
     
-    await page.bringToFront();
-    await page.reload('domcontentloaded');
+    // await page.bringToFront();
+    // await page.reload('domcontentloaded');
     // await page.pause();
     //3rd level appr
     
 
-    await pageappvr.bringToFront();
-    await pageappvr.getByRole('link', { name: 'Inbox' }).nth(0).click();
-  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid11);
-  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  // await pageappvr.pause();
-  await pageappvr.locator('[aria-roledescription="Action"]').click();
-  await pageappvr.locator('[name="Action"]').fill('Approved');
-  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr.waitForLoadState('networkidle');
+  //   await pageappvr.bringToFront();
+  //   await pageappvr.getByRole('link', { name: 'Inbox' }).nth(0).click();
+  // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid11);
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // // await pageappvr.pause();
+  // await pageappvr.locator('[aria-roledescription="Action"]').click();
+  // await pageappvr.locator('[name="Action"]').fill('Approved');
+  // await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr.waitForLoadState('networkidle');
     
-    await page.bringToFront();
-    await page.reload('domcontentloaded');
+    // await page.bringToFront();
+    // await page.reload('domcontentloaded');
     // await page.pause();
 
     //myPage1
-    await myPage1.bringToFront();
-    await myPage1.getByRole('link', { name: 'Inbox' }).nth(0).click();
-  await myPage1.getByLabel('Inbox Items List Applet:Query').click();
-  await myPage1.getByRole('gridcell', { name: 'Link' }).click();
-  await myPage1.getByPlaceholder('<Case Sensitive>').fill(rowid11);
-  await myPage1.getByPlaceholder('<Case Sensitive>').press('Enter');
+  //   await myPage1.bringToFront();
+  //   await myPage1.getByRole('link', { name: 'Inbox' }).nth(0).click();
+  // await myPage1.getByLabel('Inbox Items List Applet:Query').click();
+  // await myPage1.getByRole('gridcell', { name: 'Link' }).click();
+  // await myPage1.getByPlaceholder('<Case Sensitive>').fill(rowid11);
+  // await myPage1.getByPlaceholder('<Case Sensitive>').press('Enter');
   // await myPage1.pause();
-  await myPage1.locator('[aria-roledescription="Action"]').click();
-  await myPage1.locator('[name="Action"]').fill('Approved');
-  await myPage1.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await myPage1.getByLabel('Action', { exact: true }).press('Control+s');
-  await myPage1.waitForLoadState('networkidle');
+  // await myPage1.locator('[aria-roledescription="Action"]').click();
+  // await myPage1.locator('[name="Action"]').fill('Approved');
+  // await myPage1.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await myPage1.getByLabel('Action', { exact: true }).press('Control+s');
+  // await myPage1.waitForLoadState('networkidle');
 
-    await page.bringToFront();
-
-    await page.reload('domcontentloaded');
+    // await page.bringToFront();
+    // await page.reload('domcontentloaded');
     // await page.pause();
     
 
@@ -508,9 +529,9 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
   // await pageappvr.waitForLoadState('networkidle');
 
-  // await page.bringToFront();
-  // await page.reload('domcontentloaded');
-  // await page.pause();
+  await page.bringToFront();
+  await page.reload('domcontentloaded');
+  await page.pause();
 
 
     await page.getByLabel('UV Quotes Form Applet:Create Order').click();
@@ -529,12 +550,20 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
     await page.getByLabel('Sales Order Form Applet:Generate Approvals').click();
     await page.getByRole('link', { name: 'Approval History' }).click();
-    await page.getByRole('link', { name: 'Approval History' }).click();
     // await page.pause();
     
     //1st approver
     // await page.getByPlaceholder('MD Classification').click();
     await page.waitForTimeout(3000);
+
+    const validApprovers2 = ["Branch-Sales-Mgr", "Branch-Head"];
+    const UVApproveruser2 = [pageappvr, myPage]
+    const verfyappvr2 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff2 = new verfyappvr2.appnew(page);
+    for (let n = 0; n < validApprovers2.length; n++) {
+      const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
+    }
   
     await page.getByPlaceholder('MD Classification').click();
     await page.waitForTimeout(3000);
@@ -542,52 +571,45 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
     await page.waitForTimeout(3000);
     var rowid5 = await page.locator('[aria-label="Row #"]').textContent();
 
-    // await page.pause();
-  await pageappvr.bringToFront();
-  // await pageappvr.pause();
-  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid5);
-  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await pageappvr.locator('#s_2_2_24_0_icon').click();
-  await pageappvr.locator('[name="Action"]').fill('Approved');
-  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr.waitForLoadState('networkidle');
-
-    await page.bringToFront();
-    await page.reload('domcontentloaded');
-    // await page.pause();
-
-    //2nd approver
-    await page.locator('tr:nth-child(27) > td:nth-child(7)').click();
-    await page.getByText('Pending for Approval').click();
-    await page.locator('[aria-label="Ownership Change Completed Date"]').click();
-    await page.waitForTimeout(3000);
+    for(let n=0;n<validApprovers2.length;n++){
+      if(UVApproveruser2[n] == pageappvr || UVApproveruser2[n] == myPage || UVApproveruser2[n] == myPage1){
+    const UVApprover = new verfyappvr2.appnew(UVApproveruser2[n]);
+      await UVApproveruser2[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await UVApproveruser2[n].bringToFront();
+    await UVApprover.correctApprover(rowid5);
   
-    await page.getByPlaceholder('MD Classification').click();
-    await page.waitForTimeout(3000);
-    await page.getByPlaceholder('MD Classification').press('Alt+Control+k');
-    await page.waitForTimeout(3000);
-    var rowid6 = await page.locator('[aria-label="Row #"]').textContent();
+      }
+    }
 
-    await myPage.bringToFront();
-    //await myPage.getByRole('link', { name: 'Inbox' }).click();
-    await myPage.getByLabel('Inbox Items List Applet:Query').click();
-    await myPage.getByRole('gridcell', { name: 'Link' }).click();
-    await myPage.getByPlaceholder('<Case Sensitive>').fill(rowid6);
-    await myPage.getByPlaceholder('<Case Sensitive>').press('Enter');
-    await myPage.getByRole('gridcell', { name: 'Combobox Field' }).click();
-    // await myPage.locator('#s_2_2_24_0_icon').click();
-    // await myPage.locator('#ui-id-149').click();
-    await myPage.locator('[name="Action"]').fill('Approved');
-    await myPage.getByLabel('Action', { exact: true }).press('Control+s');
-    await myPage.waitForLoadState('networkidle');
+
+  // await pageappvr.bringToFront();
+  // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid5);
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await pageappvr.locator('#s_2_2_24_0_icon').click();
+  // await pageappvr.locator('[name="Action"]').fill('Approved');
+  // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr.waitForLoadState('networkidle');
+
+    // await page.bringToFront();
+    // await page.reload('domcontentloaded');
+    // await page.pause();
+
+    // await myPage.bringToFront();
+    // await myPage.getByLabel('Inbox Items List Applet:Query').click();
+    // await myPage.getByRole('gridcell', { name: 'Link' }).click();
+    // await myPage.getByPlaceholder('<Case Sensitive>').fill(rowid5);
+    // await myPage.getByPlaceholder('<Case Sensitive>').press('Enter');
+    // await myPage.getByRole('gridcell', { name: 'Combobox Field' }).click();
+    // await myPage.locator('[name="Action"]').fill('Approved');
+    // await myPage.getByLabel('Action', { exact: true }).press('Control+s');
+    // await myPage.waitForLoadState('networkidle');
 
     await page.bringToFront();
     await page.reload('domcontentloaded');
     console.log("sales order approved");
-    //PO mapping and Invoice
     console.log("PO mapping and Invoice");
 
     await page.getByRole('link', { name: 'Purchase Order' }).click();
@@ -619,7 +641,6 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await page.getByPlaceholder('<Case Sensitive>').fill('Labor');
   // await page.getByPlaceholder('<Case Sensitive>').press('Enter');
   await page.locator('[aria-labelledby="s_3_l_altpick"]').press('Enter');
-
   await page.getByLabel('Parts Internal Line Items List Applet:Create Activity').click();
   await page.getByRole('link', { name: 'Purchase Order' }).click();
 
@@ -640,61 +661,73 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   console.log("body building order created");
   await pageBB.getByPlaceholder('<Case Sensitive>').fill(bodyPO);
   await pageBB.getByPlaceholder('<Case Sensitive>').press('Enter');
-  // await pageBB.pause();
-  // await pageBB.getByRole('gridcell', { name: 'Other' }).nth(0).click();
+  await pageBB.pause();
   await pageBB.locator('[id="1_s_1_l_Body_Building_Type"]').click();
-  // await pageBB.locator('[aria-roledescription="PO#"]').click();
   await pageBB.locator('[name="Order Number"]').nth(0).click();
-  // await page.getByRole('link', { name: 'F000012446' }).click();
-  // await pageBB.locator('[name="Order Number"]').click();
   await pageBB.locator('[id="1_s_1_l_Body_Building_Name_PO_"]').click();
   await pageBB.locator('[name="Body_Building_Name_PO_"]').click();
-  //await pageBB.getByLabel('AdditionalBody', { exact: true }).fill('ABCD');
   await pageBB.locator('[name="Body_Building_Name_PO_"]').fill('ABCD');
   await pageBB.getByLabel('Body Building Order Form Applet:Generate Approvals').click();
   await pageBB.getByRole('link', { name: 'Approvals' }).click();
+
+  const validApprovers3 = ["Branch-Sales-Mgr", "SCHQ-Sales-UV-Mgr"];
+  const UVApproveruser3 = [pageappvr, pageappvr]
+  const verfyappvr3 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff3 = new verfyappvr3.appnew(pageBB);
+  for (let n = 0; n < validApprovers3.length; n++) {
+    const isApproverValid = await SalesGPStaff3.isValidApprover(validApprovers3[n],n);
+  }
+
   await pageBB.getByPlaceholder('Requested Registration Date').click();
   await pageBB.getByPlaceholder('Requested Registration Date').press('Alt+Control+K');
   var rowid12 = await pageBB.locator('[aria-label="Row #"]').textContent();
 
-  await pageappvr.bringToFront();
-  // await pageappvr.pause();
-  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
-  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await pageappvr.locator('#s_2_2_24_0_icon').click();
-  await pageappvr.locator('[name="Action"]').fill('Approved');
-  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr.waitForLoadState('networkidle');
+  for(let n=0;n<validApprovers3.length;n++){
+    if(UVApproveruser3[n] == pageappvr || UVApproveruser3[n] == myPage || UVApproveruser3[n] == myPage1){
+  const UVApprover = new verfyappvr3.appnew(UVApproveruser3[n]);
+    await UVApproveruser3[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await UVApproveruser3[n].bringToFront();
+  await UVApprover.correctApprover(rowid12);
 
-  await pageappvr.getByRole('link', { name: 'Inbox' }).nth(0).click();
-  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
-  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  // await pageappvr.pause();
-  
-  await pageappvr.locator('[aria-roledescription="Action"]').click();
-  await pageappvr.locator('[name="Action"]').fill('Approved');
-  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr.waitForLoadState('networkidle');
+    }
+  }
 
-  await pageBB.bringToFront();
-  await pageBB.reload('domcontentloaded');
   // await pageappvr.bringToFront();
-  // await pageappvr.pause();
-  await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-  await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-  await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
-  await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-  await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
-  await pageappvr.locator('#s_2_2_24_0_icon').click();
-  await pageappvr.locator('[name="Action"]').fill('Approved');
-  await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-  await pageappvr.waitForLoadState('networkidle');
+  // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await pageappvr.locator('#s_2_2_24_0_icon').click();
+  // await pageappvr.locator('[name="Action"]').fill('Approved');
+  // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr.waitForLoadState('networkidle');
+
+  // await pageappvr.getByRole('link', { name: 'Inbox' }).nth(0).click();
+  // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr.locator('[aria-roledescription="Action"]').click();
+  // await pageappvr.locator('[name="Action"]').fill('Approved');
+  // await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr.waitForLoadState('networkidle');
+
+  // await pageBB.bringToFront();
+  // await pageBB.reload('domcontentloaded');
+  // // await pageappvr.bringToFront();
+  // // await pageappvr.pause();
+  // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+  // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid12);
+  // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+  // await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
+  // await pageappvr.locator('#s_2_2_24_0_icon').click();
+  // await pageappvr.locator('[name="Action"]').fill('Approved');
+  // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+  // await pageappvr.waitForLoadState('networkidle');
 
   await pageBB.bringToFront();
   await pageBB.reload('domcontentloaded');
@@ -706,7 +739,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageBB.waitForTimeout(6000);
   await pageBB.getByRole('link', { name: 'UV Body Building Order' }).click();
   await pageBB.waitForTimeout(3000);
-  // await pageBB.pause();
+  await pageBB.pause();
 
   await pageBB.getByLabel('UV Body Building Order List Applet:Query').click();
   await pageBB.getByPlaceholder('<Case Sensitive>').fill(bodyPO);
@@ -760,7 +793,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
 
   //=======================Parts PO end
 
-//  await pageActivity.pause();
+ await pageActivity.pause();
   //========================Service PO Starts
   //await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Service+Actual+Expense+Items+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Actual+Expense+Items+List+Applet');
   await pageActivity.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Internal+Work+Request+View&SWERF=1&SWEHo=&SWEBU=1');
@@ -776,7 +809,7 @@ await page.getByPlaceholder('Maker', { exact: true }).press('Enter');
   await pageActivity.waitForTimeout(2000)
   const JC= await pageActivity.locator('[aria-roledescription="Job Card #"]').textContent();
   console.log(JC)
-  // await pageActivity.pause()
+  await pageActivity.pause()
   await pageActivity.getByLabel('Internal Work Request List Applet:Query').click();
   await pageActivity.locator('[aria-roledescription="Job Card #"]').click();
   await pageActivity.locator('[id="1_SR_Number"]').fill(JC);
@@ -933,28 +966,43 @@ await pageActivity.waitForTimeout(3000)
     await page.waitForTimeout(3000);
     await page.getByRole('link', { name: 'Approvals' }).click();
     await page.waitForTimeout(3000);
+
+    const validApprovers4 = ["Branch-Sales-Mgr"];
+    const UVApproveruser4 = [pageappvr]
+    const verfyappvr4 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff4 = new verfyappvr4.appnew(page);
+    for (let n = 0; n < validApprovers4.length; n++) {
+      const isApproverValid = await SalesGPStaff4.isValidApprover(validApprovers4[n],n);
+    }
     // await page.pause();
     
-    // await page.pause();
+    await page.pause();
     await page.locator('[aria-label="Payment Term Type"]').click();
     await page.locator('[aria-label="Payment Term Type"]').press('Control+Alt+k');
     var rowid8 = await page.locator('[aria-label="Row #"]').textContent();
      console.log(rowid8);
+
+     for(let n=0;n<validApprovers4.length;n++){
+      if(UVApproveruser4[n] == pageappvr || UVApproveruser4[n] == myPage || UVApproveruser4[n] == myPage1){
+    const UVApprover = new verfyappvr4.appnew(UVApproveruser4[n]);
+      await UVApproveruser4[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await UVApproveruser4[n].bringToFront();
+    await UVApprover.correctApprover(rowid8);
+  
+      }
+    }
     // await page.pause();
-    await pageappvr.bringToFront();
-    await pageappvr.reload('domcontentloaded');
-    
-    //
-    await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-    await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-    await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid8);
-    await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-    //  name="Action"
-    // await pageappvr.locator('[name="Action"]').click();
-    await pageappvr.locator('[aria-roledescription="Action"]').click();
-    await pageappvr.locator('[name="Action"]').fill('Approved');
-    await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-    await pageappvr.waitForLoadState('networkidle');
+    // await pageappvr.bringToFront();
+    // await pageappvr.reload('domcontentloaded');
+    // await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
+    // await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
+    // await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid8);
+    // await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
+    // await pageappvr.locator('[aria-roledescription="Action"]').click();
+    // await pageappvr.locator('[name="Action"]').fill('Approved');
+    // await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
+    // await pageappvr.waitForLoadState('networkidle');
     
     await page.bringToFront();
     await page.reload('domcontentloaded');
@@ -1081,18 +1129,16 @@ await pageActivity.waitForTimeout(3000)
     var rowid10 = await page.locator('[aria-label="Row #"]').textContent();
 
     await pageappvr.bringToFront();
-    await pageappvr.getByLabel('Inbox Items List Applet:Query').click();
-    await pageappvr.getByRole('gridcell', { name: 'Link' }).click();
-    await pageappvr.getByPlaceholder('<Case Sensitive>').fill(rowid10);
-    await pageappvr.getByPlaceholder('<Case Sensitive>').press('Enter');
-    await pageappvr.getByRole('gridcell', { name: 'Combobox Field' }).click();
-    await pageappvr.locator('#s_2_2_24_0_icon').click();
-    await pageappvr.locator('[name="Action"]').fill('Approved');
-    await pageappvr.getByLabel('Action', { exact: true }).press('Control+s');
-    await pageappvr.waitForLoadState('networkidle');
+    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+    await pageappvr.locator('[id="1_Name"]').fill(rowid10);
+    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+    await pageappvr.locator('[id="1_Action"]').fill('Approved');
+    await pageappvr.locator('[id="1_Action"]').press('Control+s');
+    await pageappvr.waitForLoadState('networkidle');        
 
     await page.bringToFront();
-    // await page.pause();
     await page.close();
     await pageappvr.close();
     await myPage.close();
