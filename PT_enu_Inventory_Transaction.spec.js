@@ -4,12 +4,14 @@ const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
 
 test.describe.serial("Siebel Page Test", () => {
+  test.setTimeout(1500000);
+
     let page;
  
 //Inventory Transition
 test("Inventory Transition", async () => { const browser = await chromium.launch({
 
-  headless: false
+  headless: true
 
 });
   page = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -20,9 +22,7 @@ test("Inventory Transition", async () => { const browser = await chromium.launch
   await Loginuser.loginFDP("D8FFOR24", "Snakamura@1");
   await page.waitForLoadState("domcontentloaded");
  await page.waitForTimeout(2000)
- await page.goto(
-  "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Inventory+Transactions+View"
-);
+
 
 const validation = page.locator('[id="Close_dialog_btn_close"]');
 
@@ -31,6 +31,9 @@ const validation = page.locator('[id="Close_dialog_btn_close"]');
 await page.pause()
 const parts = ['##0464','#10JCT001','#10JCT002','#10JCT003','#10JCT004','#10JCT005','#10JCT006','#10JCT007','#10JCT008','#10JCT009','#10JCT010','#10JCT011','#10JCT012','#10JCT013','#10JCT014','#10JCT015']
 for(let n=0;n<parts.length;n++){
+  await page.goto(
+    "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=FS+Inventory+Transactions+View"
+  );
   await page.locator('[id="s_2_1_0_0_Ctrl"]').click(); //Plus button
 if (await validation.isVisible() == true){
   console.log('error in plus button in inventory Transactions');

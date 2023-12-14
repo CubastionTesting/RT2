@@ -1,34 +1,82 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Node.js CI
-
-on:
+'on':
   schedule:
-    - cron: "25 1 * * *"
-
+    - cron: 25 1 * * *
+  push:
+    branches:
+      - githubtrigger
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [14.x]
-
+        node-version:
+          - 14.x
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: 'Use Node.js ${{ matrix.node-version }}'
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '${{ matrix.node-version }}'
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
         run: npx playwright install
-      - name: Running tests
+      - name: NV_withPTandSV.spec
         run: npx playwright test NV_withPTandSV
+      - name: PT_enu_Inventory_Transaction.spec
+        run: npx playwright test PT_enu_Inventory_Transaction
+      - name: PT_enu_POtoSupplier.spec
+        run: npx playwright test PT_enu_POtoSupplier
+      - name: PT_enu_Sales_Order_With_PO.spec
+        run: npx playwright test PT_enu_Sales_Order_With_PO
+      - name: PT_enu_Sales_Order_Without_PO.spec
+        run: npx playwright test PT_enu_Sales_Order_Without_PO
+      - name: PT_enu_StockTransfer.spec
+        run: npx playwright test PT_enu_StockTransfer
+      - name: PT_LPP_RT2.spec
+        run: npx playwright test PT_LPP_RT2
+      - name: PT_Quote_copy_cancel_revise.spec
+        run: npx playwright test PT_Quote_copy_cancel_revise
+      - name: PT_Verify_Cycle_Count.spec
+        run: npx playwright test PT_Verify_Cycle_Count
+      - name: SV_3_M_inspec.spec
+        run: npx playwright testSV_3_M_inspec
+      - name: SV_6_M_inspec.spec
+        run: npx playwright test SV_6_M_inspec
+      - name: SV_12_M_inspec.spec
+        run: npx playwright test SV_12_M_inspec
+      - name: SV_24_M_inspec.spec
+        run: npx playwright test SV_24_M_inspec
+      - name: SV_AccidentBranch.spec
+        run: npx playwright test SV_AccidentBranch
+      - name: SV_chargeble.spec
+        run: npx playwright test SV_chargeble
+      - name: SV_Fieldfix.spec
+        run: npx playwright test SV_Fieldfix
+      - name: SV_Inspection.spec
+        run: npx playwright test SV_Inspection
+      - name: SV_JCChangePrice.spec
+        run: npx playwright test SV_JCChangePrice
+      - name: SV_PayerChangewith_print.spec
+        run: npx playwright test SV_PayerChangewith_print
+      - name: SV_Reworking.spec
+        run: npx playwright test SV_Reworking
+      - name: SV_SPOexternalwith_print.spec
+        run: npx playwright test SV_SPOexternalwith_print
+      - name: UV_AssessmentRt2.spec
+        run: npx playwright test UV_AssessmentRt2
+      - name: UV_LDT_practice.spec
+        run: npx playwright test UV_LDT_practice
+      - name: UV_LDTwithBPS.spec
+        run: npx playwright testUV_LDTwithBPS
+      - name: InsuranceLiability.spec
+        run: npx playwright test InsuranceLiability
+      - name: FDPRT2Insurance.spec
+        run: npx playwright testFDPRT2Insuranc
       - name: Upload test results
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v3
         with:
           name: playwright-report
