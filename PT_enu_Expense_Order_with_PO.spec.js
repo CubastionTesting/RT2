@@ -11,7 +11,7 @@ test.describe.serial("Siebel Page Test", () => {
    
 test.only("Parts Expense Order with PO" , async() => {const browser = await chromium.launch({
 
-  headless: false
+  headless: true
 
 });
     page = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -119,7 +119,6 @@ await page.waitForLoadState()
       }
       console.log("Generate Approvals button clicked successfully");
       await page.waitForTimeout(2000);
-      await page.pause()
     
     //copy row id
     await page.locator('[placeholder="Order #"]').press("Control+Alt+k");
