@@ -9,7 +9,7 @@ test.describe.serial("Siebel Page Test", () => {
 //Inventory Transition
 test("Inventory Transition", async () => { const browser = await chromium.launch({
 
-  headless: true
+  headless: false
 
 });
   page = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -26,14 +26,19 @@ test("Inventory Transition", async () => { const browser = await chromium.launch
 
 const validation = page.locator('[id="Close_dialog_btn_close"]');
 
-await page.locator('[id="s_2_1_0_0_Ctrl"]').click(); //Plus button
+
+
+await page.pause()
+const parts = ['##0464','#10JCT001','#10JCT002','#10JCT003','#10JCT004','#10JCT005','#10JCT006','#10JCT007','#10JCT008','#10JCT009','#10JCT010','#10JCT011','#10JCT012','#10JCT013','#10JCT014','#10JCT015']
+for(let n=0;n<parts.length;n++){
+  await page.locator('[id="s_2_1_0_0_Ctrl"]').click(); //Plus button
 if (await validation.isVisible() == true){
   console.log('error in plus button in inventory Transactions');
 }
 console.log("Inventory transaction created successfully");
-await page.locator('[id="1_s_2_l_Part__"]').click();
+  await page.locator('[id="1_s_2_l_Part__"]').click();
 await page.locator('[id="1_Part__"]').click();
-await page.locator('[id="1_Part__"]').fill("##0464"); //Part# column
+await page.locator('[id="1_Part__"]').fill(parts[n]); //Part# column
 await page.locator('[id="1_s_2_l_Quantity"]').click();
 await page.locator('[id="1_Quantity"]').click();
 await page.locator('[id="1_Quantity"]').fill('20'); //Qty column
@@ -71,6 +76,9 @@ await page.locator('[aria-labelledby="Commit_Label_1"]').click(); //Commit flag
 console.log("Successfully clicked on Commit");
 await page.locator('[aria-labelledby="Commit_Label_1"]').press('Control+s');
 console.log("Inventory Transaction Completed successfully");
+
+}
+
  })
 
 });
