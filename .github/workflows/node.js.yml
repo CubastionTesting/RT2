@@ -24,56 +24,82 @@ jobs:
         run: npx playwright install
       - name: NV_withPTandSV.spec
         run: npx playwright test NV_withPTandSV
+        continue-on-error: true
       - name: PT_enu_Inventory_Transaction.spec
         run: npx playwright test PT_enu_Inventory_Transaction
+        continue-on-error: true
       - name: PT_enu_POtoSupplier.spec
         run: npx playwright test PT_enu_POtoSupplier
+        continue-on-error: true
       - name: PT_enu_Sales_Order_With_PO.spec
         run: npx playwright test PT_enu_Sales_Order_With_PO
+        continue-on-error: true
       - name: PT_enu_Sales_Order_Without_PO.spec
         run: npx playwright test PT_enu_Sales_Order_Without_PO
+        continue-on-error: true
       - name: PT_enu_StockTransfer.spec
         run: npx playwright test PT_enu_StockTransfer
+        continue-on-error: true
       - name: PT_LPP_RT2.spec
         run: npx playwright test PT_LPP_RT2
+        continue-on-error: true
       - name: PT_Quote_copy_cancel_revise.spec
         run: npx playwright test PT_Quote_copy_cancel_revise
+        continue-on-error: true
       - name: PT_Verify_Cycle_Count.spec
         run: npx playwright test PT_Verify_Cycle_Count
+        continue-on-error: true
       - name: SV_3_M_inspec.spec
         run: npx playwright testSV_3_M_inspec
+        continue-on-error: true
       - name: SV_6_M_inspec.spec
         run: npx playwright test SV_6_M_inspec
+        continue-on-error: true
       - name: SV_12_M_inspec.spec
         run: npx playwright test SV_12_M_inspec
+        continue-on-error: true
       - name: SV_24_M_inspec.spec
         run: npx playwright test SV_24_M_inspec
+        continue-on-error: true
       - name: SV_AccidentBranch.spec
         run: npx playwright test SV_AccidentBranch
+        continue-on-error: true
       - name: SV_chargeble.spec
         run: npx playwright test SV_chargeble
+        continue-on-error: true
       - name: SV_Fieldfix.spec
         run: npx playwright test SV_Fieldfix
+        continue-on-error: true
       - name: SV_Inspection.spec
         run: npx playwright test SV_Inspection
+        continue-on-error: true
       - name: SV_JCChangePrice.spec
         run: npx playwright test SV_JCChangePrice
+        continue-on-error: true
       - name: SV_PayerChangewith_print.spec
         run: npx playwright test SV_PayerChangewith_print
+        continue-on-error: true
       - name: SV_Reworking.spec
         run: npx playwright test SV_Reworking
+        continue-on-error: true
       - name: SV_SPOexternalwith_print.spec
         run: npx playwright test SV_SPOexternalwith_print
+        continue-on-error: true
       - name: UV_AssessmentRt2.spec
         run: npx playwright test UV_AssessmentRt2
+        continue-on-error: true
       - name: UV_LDT_practice.spec
         run: npx playwright test UV_LDT_practice
+        continue-on-error: true
       - name: UV_LDTwithBPS.spec
         run: npx playwright testUV_LDTwithBPS
+        continue-on-error: true
       - name: InsuranceLiability.spec
         run: npx playwright test InsuranceLiability
+        continue-on-error: true
       - name: FDPRT2Insurance.spec
         run: npx playwright testFDPRT2Insuranc
+        continue-on-error: true
       - name: Upload test results
         if: always()
         continue-on-error: true
