@@ -76,6 +76,7 @@ jobs:
         run: npx playwright testFDPRT2Insuranc
       - name: Upload test results
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v3
         with:
           name: playwright-report
