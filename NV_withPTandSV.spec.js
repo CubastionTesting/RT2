@@ -10,7 +10,7 @@ test('record demo 1', async () => {
 
 
   const browser = await chromium.launch({
-    headless: true
+    headless: false
   });
   const characters = '0123456789';
 
@@ -378,15 +378,21 @@ test('record demo 1', async () => {
   await page.waitForTimeout(2000)
   await page.locator('[name="s_1_1_7_0"]').click();
   await part.reload()
+  await part.pause()
   await part.locator('[name="s_4_1_10_0"]').click();
   await part.waitForTimeout(3000)
   await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
+  await part.waitForLoadState('domcontentloaded')
   await part.locator('[name="s_4_1_10_0"]').click();
   await part.waitForTimeout(3000)
   await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
+  await part.waitForLoadState('domcontentloaded')
+
   await part.locator('[name="s_4_1_10_0"]').click();
   await part.waitForTimeout(3000)
   await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
+  await part.waitForLoadState('domcontentloaded')
+
   await part.locator('[name="s_4_1_10_0"]').click();
   await part.waitForTimeout(3000)
   await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
@@ -408,7 +414,9 @@ test('record demo 1', async () => {
   // await page.locator('[name="s_1_1_7_0"]').click();
 
   await part.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Purchase+Order+View(Internal)")
+  await part.waitForLoadState('domcontentloaded')
   await part.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Shipment+Line+Detail+View+(Internal)")
+  await part.waitForLoadState('domcontentloaded')
   await part.reload()
   await part.locator('[name="s_3_1_3_0"]').click();
   await part.reload()
