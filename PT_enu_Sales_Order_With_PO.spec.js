@@ -11,7 +11,7 @@ test.describe.serial("Siebel Page Test", () => {
 
 test("Sales Order with PO", async () => {const browser = await chromium.launch({
 
-  headless: true
+  headless: false
 
 });
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
@@ -163,6 +163,7 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
 
 
       console.log("Clicked on Generate Approval Button");
+      await page023.pause()
   
     // Accept/Process
     await page023
@@ -203,11 +204,11 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     //Copy sales order number
     var Wsonumber =await page023.title();
     var Wsnum = Wsonumber.substr(22);
-    console.log('sales with po',Wsnum);
-    fs.writeFileSync("Sales.json",'{"SORD_N"' + ' : "' + Wsnum + '"}',
-    function (err) {
-      if (err) throw err;
-    })
+    console.log('sales order',Wsnum);
+    // fs.writeFileSync("Sales.json",'{"SORD_N"' + ' : "' + Wsnum + '"}',
+    // function (err) {
+    //   if (err) throw err;
+    // })
     // Go to Purchase order
     await page023.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Purchase+Order+View(Sales)"
@@ -225,11 +226,11 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     var PO_Number = await page023.title();
     var PO_Order = PO_Number.substr(15);
     console.log("sales with po, PO :  ",PO_Order);
-    fs.writeFileSync("PurchaseOrderNUMBER.json",'{"Purchase_Order"' + ' : "' + PO_Order + '"}',
-      function (err) {
-        if (err) throw err;
-      }
-    );
+    // fs.writeFileSync("PurchaseOrderNUMBER.json",'{"Purchase_Order"' + ' : "' + PO_Order + '"}',
+    //   function (err) {
+    //     if (err) throw err;
+    //   }
+    // );
   
     //receive generated PO
     await page023.goto(
@@ -242,9 +243,9 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
   
     //Paste PO Number
     await page023.locator('[id="1_s_3_l_MF_Order_Number"]').click();
-    const Purchase = JSON.parse(JSON.stringify(require("../PurchaseOrderNUMBER.json")));
+    // const Purchase = JSON.parse(JSON.stringify(require("../PurchaseOrderNUMBER.json")));
   
-    await page023.locator('[id="1_MF_Order_Number"]').fill(Purchase.Purchase_Order);
+    await page023.locator('[id="1_MF_Order_Number"]').fill(PO_Order);
     await page023.locator('[id="s_3_1_6_0_Ctrl"]').click();
   
     //Click on receive button
@@ -258,13 +259,14 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.goto(
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Sales)"
     );
+
+    await page023.waitForLoadState("domcontentloaded")
     //Search for Sales Order
     await page023.locator('[id="s_1_1_21_0_Ctrl"]').click();
-  
-    const SalesNum = JSON.parse(JSON.stringify(require("../Sales.json")));
+    // const SalesNum = JSON.parse(JSON.stringify(require("../Sales.json")));
   
     //Paste Order number 
-    await page023.locator('[id="1_Order_Number"]').fill(SalesNum.SORD_N);
+    await page023.locator('[id="1_Order_Number"]').fill(Wsnum);
     await page023.locator('[id="s_1_1_3_0_Ctrl"]').click();
     await page023.waitForLoadState("domcontentloaded");
     await page023.locator('[aria-labelledby="s_1_l_Order_Number"]').press('Tab');
@@ -334,6 +336,7 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
 
     //copy row id
     await page023.locator('[placeholder="Order #"]').press("Control+Alt+k");
+    await page023.waitForTimeout(2000)
     var wporowid = await page023.locator('[aria-label="Row #"]').textContent();
     // console.log(wporowid);
     await page023.locator('[aria-label="Row #"]').press("Control+c");
