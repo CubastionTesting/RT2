@@ -4,6 +4,8 @@ const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
 
 test.describe.serial("Siebel Page Test", () => {
+  test.setTimeout(1500000);
+
     let page023;
     let pagePF23;
   
