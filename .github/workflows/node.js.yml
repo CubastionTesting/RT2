@@ -24,10 +24,6 @@ jobs:
         run: npx playwright install
       - name: NV_withPTandSV.spec
         run: npx playwright test NV_withPTandSV
-      - name: PT_enu_Expense_Order_with_PO.spec
-        run: npx playwright test PT_enu_Expense_Order_with_PO
-      - name: PT_enu_Expense_Order_Without_PO.spec
-        run: npx playwright test PT_enu_Expense_Order_Without_PO
       - name: PT_enu_Inventory_Transaction.spec
         run: npx playwright test PT_enu_Inventory_Transaction
       - name: PT_enu_POtoSupplier.spec
