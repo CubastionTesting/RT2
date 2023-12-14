@@ -130,6 +130,10 @@ test('record demo', async () => {
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
+
+  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
+  console.log('Chargeble Job card created and Job card no. :->' + Jobcardno);
+
   await page.getByPlaceholder('引取開始予定日時').click();
   await page.locator('#s_2_1_153_0_icon').click();
   await page.getByRole('button', { name: '現在' }).click();
@@ -211,9 +215,6 @@ test('record demo', async () => {
   await page.reload()
   await page.waitForTimeout(2000)
   //await page.pause()
-  
-  const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
-  console.log('Chargeble Job card created and Job card no. :->' + Jobcardno);
  
   //Copy job card
   await page.getByRole('link', { name: '整備履歴' }).click();
