@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: false
+    headless: true
 
   });
   const context = await browser.newContext();
@@ -192,7 +192,7 @@ await page.bringToFront();
   await page.waitForTimeout(3000);
 
   // Quote Creation
-await page.pause();
+
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:見積作成/同期' }).click();
   await page.locator('[name="Name"]').nth(0).click();
   //await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+Service+Quote+Line+Items+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=MF+Service+Quote+Form+Applet&');
@@ -216,8 +216,6 @@ await page.pause();
   console.log('Approver is correct for Quote');
   //Approver function end
 
-await page.pause()
-
   //Quote 1nd Approval start
 
   await page.locator('[aria-label="印刷状況"]').click();
@@ -236,32 +234,26 @@ await page.pause()
 
     //inbox function end
   }
-  await page.bringToFront();
   await page.reload('domcontentloaded');
-  await page.pause();
-//bring to Quote page for customer Approve
-
-
-await page.getByRole('cell', { name: '了解者 Press F2 for 選択フィールド' }).getByLabel('Press F2 for 選択フィールド').click();
-  await page.getByRole('gridcell', { name: '2810渋江' }).click();
+  await page.getByRole('cell', { name: '了解者 Press F2 for 選択フィールド' }).getByLabel('Press F2 for 選択フィールド').click();
+  //await page.getByRole('gridcell', { name: '2810渋江' }).click();
   await page.getByLabel('担当者を選択 リストアプレット:OK').click();
   await page.getByPlaceholder('了解者').press('Control+s');
-
-  //await page.locator['(aria-labelledby="MF_Approved_By_Label_1")'].click();
-  //await page.locator['(aria-labelledby="MF_Approved_By_Label_1")'].fill('2810渋江');
-  //await page.locator['(aria-labelledby="MF_Approved_By_Label_1")'].press('Control+s');
-//
-
-
+  //Approver process ends you damn
+  await page.waitForTimeout(3000)
+  await page.locator('[aria-label="見積有効期限"]').press('Alt+Enter');
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
+  await page.waitForTimeout(3000)
+  await page.getByPlaceholder('見積状況').press('Alt+Enter');
+
+  console.log('Quote Approved');
 
   
   // Quote Approved
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
-  await page.reload();
   await page.getByPlaceholder('引取開始予定日時').click();
   //Planned Pickup Start Date/Time
   await page.locator('#s_2_1_153_0_icon').click();
@@ -374,7 +366,6 @@ const isApproverValid = await SVStaff.isValidApproverJPN(validApprovers[n], n);
 }
 //Approver function end
 
-await page.pause()
 
 //Quote 1nd Approval start
 

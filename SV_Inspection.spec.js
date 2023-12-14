@@ -12,7 +12,7 @@ test('record demo', async () => {
   test.setTimeout(1500000);
   const browser = await chromium.launch({
 
-    headless: false
+    headless: true
 
   });
   const context = await browser.newContext();
@@ -190,19 +190,21 @@ console.log('Approver is correct for Quote');
     //inbox function end
   }
 
-
   await page.bringToFront();
   await page.reload('domcontentloaded');
-  // await page.pause();
-  //Quote Approval done
-
   await page.getByRole('cell', { name: '了解者 Press F2 for 選択フィールド' }).getByLabel('Press F2 for 選択フィールド').click();
-  await page.getByRole('gridcell', { name: '2810渋江' }).click();
+  //await page.getByRole('gridcell', { name: '2810渋江' }).click();
   await page.getByLabel('担当者を選択 リストアプレット:OK').click();
   await page.getByPlaceholder('了解者').press('Control+s');
-
+  //Approver process ends you damn
+  await page.waitForTimeout(3000)
+  await page.locator('[aria-label="見積有効期限"]').press('Alt+Enter');
   await page.getByPlaceholder('見積状況').fill('お客様了解');
   await page.getByPlaceholder('見積状況').press('Control+s');
+  await page.waitForTimeout(3000)
+  await page.getByPlaceholder('見積状況').press('Alt+Enter');
+
+  console.log('Quote Approved');
   //const value = await page.locator('[placeholder="JC番号"]').inputValue();
   await page.goto(jcurl);
   await page.waitForTimeout(3000);
@@ -246,6 +248,7 @@ console.log('Approver is correct for Quote');
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click();
   //Part Staff Process
+  console.log('Part process start');
   const Part1 = await context1.newPage();
   await Part1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
   await Part1.locator('[id="userid"]').fill('D8FDPF23');
@@ -277,6 +280,9 @@ console.log('Approver is correct for Quote');
   await page.bringToFront()
 
 //work order stop
+  console.log('work order stop');
+  
+
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:終了' }).click();
   //work order set accpentance
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:検収完了' }).click();
@@ -314,7 +320,7 @@ const isApproverValid = await SVStaff.isValidApproverJPN(validApprovers[n], n);
 }
 //Approver function end
 
-await page.pause()
+//await page.pause()
 
 //Quote 1nd Approval start
 
@@ -340,13 +346,9 @@ await SVApprover.correctApprover(rowid1);
    await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
 
 
-//job card Approvl
-
-
-
-console.log('Approver is correct for Job card');
+//job card Approval
+  console.log('Approver is correct for Job card');
   await page.goto(jcurl);
-  await page.reload();
   await page.waitForTimeout(3000);
   const Jobcardno = await page.locator('[aria-labelledby="SRNumber_Label_2"]').inputValue();
   console.log('inspection Job card created and Job card no. :->' + Jobcardno);

@@ -40,9 +40,6 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
   await page.waitForTimeout(3000);
- // await page.pause();
-
-
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
   await page.getByRole('link', { name: 'FY54JY-540054' }).click();
@@ -62,7 +59,6 @@ test('record demo', async () => {
   await page.locator('[id="1_INS_Product"]').press('Control+s');
   await page.waitForTimeout(3000);
   await page.locator('[name="SR Number"]').nth(0).click();
-  //await page.pause();
   await page.getByPlaceholder('取引先コード').click();
 
   await page.getByPlaceholder('取引先コード').fill('0000002810');
@@ -74,8 +70,6 @@ test('record demo', async () => {
   await page.getByPlaceholder('請求先コード').click();
 
   await page.getByPlaceholder('請求先コード').fill('0000002810');
-  //await page.pause();
-
   await page.locator('tr:nth-child(17) > td:nth-child(10)').click();
 
   await page.getByRole('button', { name: 'ワークオーダー リストアプレット:新規' }).click();
@@ -91,7 +85,6 @@ test('record demo', async () => {
   await page.getByRole('button', { name: 'ピック労働コード リストアプレット:OK' }).click();
 
   await page.getByRole('gridcell', { name: '計算機フィールド' }).first().click();
-  //await page.pause();
 
   await page.locator('[aria-roledescription="数量"]').click();
   await page.locator('[name="Recommended_Quantity"]').fill('1');
@@ -99,8 +92,6 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="純作業時間"]').click();
   await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
   await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
-
-  //await page.pause();
   await page.getByRole('link', { name: 'パーツ' }).click();
   await page.getByRole('button', { name: 'パーツ リストアプレット:新規' }).click();
   await page.locator('[id="1_s_2_l_Product_Name"]').click();
@@ -173,10 +164,6 @@ test('record demo', async () => {
 
   await page.getByRole('button', { name: 'ワークオーダー フォームアプレット:開始' }).click();
 
-  //await page.pause();
-
-
-
   //Part Staff Process
   const Part1 = await context1.newPage();
   await Part1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
@@ -228,7 +215,6 @@ test('record demo', async () => {
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
-  //await page.pause();
   await page.getByRole('link', { name: '関連オーダー' }).click();
    
   await page.getByRole('button', { name: '関連オーダー リストアプレット:クエリー' }).click();
@@ -236,10 +222,7 @@ test('record demo', async () => {
   await page.getByPlaceholder('<大文字と小文字を区別する>').fill('Job Card Order');
   await page.getByRole('button', { name: '関連オーダー リストアプレット:ジャンプ' }).click();
   
-
   await page.locator('[class="drilldown"]').click();
-  
-  
   await page.getByPlaceholder('変更理由').click();
   await page.locator('[aria-label="変更理由"]').click();
   await page.locator('[aria-label="変更理由"]').fill('支払人の変更');
@@ -247,8 +230,7 @@ test('record demo', async () => {
   await page.getByRole('button', { name: 'ジョブカードの注文 フォームアプレット:受注変更' }).click();
   await page.getByRole('link', { name: '見積り' }).click();
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: '受注変更' }).click();
-  
-  
+ 
   //Change order created 
   await page.locator('[class="drilldown"]').click();
   await page.locator('[aria-label="請求先名"]').click();
