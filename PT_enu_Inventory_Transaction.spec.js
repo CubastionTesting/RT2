@@ -11,7 +11,7 @@ test.describe.serial("Siebel Page Test", () => {
 //Inventory Transition
 test("Inventory Transition", async () => { const browser = await chromium.launch({
 
-  headless: false
+  headless: true
 
 });
   page = await browser.newPage({ ignoreHTTPSErrors: true });
