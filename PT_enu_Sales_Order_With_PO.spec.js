@@ -11,7 +11,7 @@ test.describe.serial("Siebel Page Test", () => {
 
 test("Sales Order with PO", async () => {const browser = await chromium.launch({
 
-  headless: false
+  headless: true
 
 });
     page023 = await browser.newPage({ ignoreHTTPSErrors: true });
