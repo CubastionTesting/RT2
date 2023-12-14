@@ -378,7 +378,6 @@ test('record demo 1', async () => {
   await page.waitForTimeout(2000)
   await page.locator('[name="s_1_1_7_0"]').click();
   await part.reload()
-  await part.pause()
   await part.locator('[name="s_4_1_10_0"]').click();
   await part.waitForTimeout(3000)
   await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
