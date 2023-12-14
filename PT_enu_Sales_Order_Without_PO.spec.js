@@ -327,14 +327,14 @@ test("Sales Order without PO", async () => {const browser = await chromium.launc
     }
     console.log("Clicked on Generate Approval");
     
-    await page023.reload();
+    // await page023.reload();
 
     //function
-    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Parts+Change+Order+Approval+History+View');
+    await page023.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Parts+Change+Order+Approval+History+View');
     const validApprovers = ["SCHQ-CS-Parts-Mgr"];
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
-    const SalesGPStaff = new verfyappvr.appnew(page);
+    const SalesGPStaff = new verfyappvr.appnew(page023);
     for (let n = 0; n < validApprovers.length; n++) {
       const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
     }

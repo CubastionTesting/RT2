@@ -65,13 +65,14 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     console.log("Line Item added");
 
     //Part added
-    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('##00020');
+    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('#101235470');
     console.log("Part added on Line Item"); //Part# column
+    await page023.waitForTimeout(3000);
     await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').press('Enter');
 
-    await page023.locator('[name="s_4_1_14_0"]').click();
-    await page023.locator('[id="1_s_4_l_Name"]').click();
-    await page023.locator('[id="s_4_1_246_0_Ctrl"]').click();
+    // await page023.locator('[name="s_4_1_14_0"]').click();
+    // await page023.locator('[id="1_s_4_l_Name"]').click();
+    // await page023.locator('[id="s_4_1_246_0_Ctrl"]').click();
 
 
 
@@ -100,7 +101,6 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     await page027.locator('[id="1_Order_Number"]').press('Tab');
     await page027.locator('[class="drilldown"]').click();
   //open order, fulfill all  
-    //await page027.pause()
     await page023.waitForTimeout(3000);
     console.log("Clicked on Fullfill All button");
     await page027.locator('[id="s_2_1_15_0_Ctrl"]').click(); //Fullfill All buton
@@ -118,7 +118,6 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
       console.log('error in Shipped button in Part Purchase Order');
     }
     console.log("Clicked on Shipped button");
-    //await page023.pause();
     await page023.waitForTimeout(3000);
 
     //back to 23 user
@@ -157,7 +156,6 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     await page023.locator('[aria-label="Purchase Order List Applet:Go"]').click();
     await page023.locator('[id="1_Order_Number"]').press('Tab');
    // await page023.waitForTimeout(3000);
-    //await page023.pause()
     await page023.locator('[class="drilldown"]').click();
     //Return reason
     await page023.waitForTimeout(3000);

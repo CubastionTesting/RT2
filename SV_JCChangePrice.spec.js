@@ -48,6 +48,60 @@ test('record demo', async () => {
 //job card creation
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
 
+
+  const approval = await context2.newPage();
+
+  await approval.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
+
+  await approval.locator('[id="userid"]').click();
+
+  await approval.locator('[id="userid"]').fill('D8FORF25');
+
+  await approval.locator('[id="next-btn"]').click();
+
+  await approval.locator('[name="password"]').click();
+
+  await approval.locator('[name="password"]').fill('Snakamura@1');
+
+  await approval.locator('[id="loginSubmitButton"]').click();
+
+  await approval.waitForTimeout(3000);
+
+  //Approval 2.................
+  const approva = await context3.newPage();
+
+  await approva.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
+
+  await approva.locator('[id="userid"]').click();
+
+  await approva.locator('[id="userid"]').fill('D8FFDP20');
+
+  await approva.locator('[id="next-btn"]').click();
+
+  await approva.locator('[name="password"]').click();
+
+  await approva.locator('[name="password"]').fill('Snakamura@1');
+
+  await approva.locator('[id="loginSubmitButton"]').click();
+
+  await approva.waitForTimeout(3000);
+
+//Aprroval 3 login
+const approv = await context4.newPage();
+
+await approv.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
+await approv.locator('[id="userid"]').click();
+await approv.locator('[id="userid"]').fill('D8FDPF20');
+await approv.locator('[id="next-btn"]').click();
+await approv.locator('[name="password"]').click();
+await approv.locator('[name="password"]').fill('Snakamura@1');
+await approv.locator('[id="loginSubmitButton"]').click();
+await approv.waitForTimeout(3000);
+
+  await page.bringToFront();
+
+  //job card creation
+
   await page.getByRole('button', { name: 'ジョブカード リストアプレット:ジョブカード作成' }).click();
 
   page.on('dialog', dialog => dialog.accept());
@@ -244,115 +298,44 @@ test('record demo', async () => {
   const Changeurl = page.url();
 
   //Change order Approval flow start
-
-  await page.locator('[aria-label="整備契約商品"]').click();
-
-  await page.locator('[aria-label="整備契約商品"]').press('Control+Alt+k');
-
-  var rowid3 = await page.locator('[aria-label="ロウ番号"]').textContent();
-
-  await page.locator('[aria-label="ロウ番号"]').press("Control+c");
-
-  console.log(rowid3);
-
-  console.log('Change order Row id is : ' + rowid3);
-
-  //Approval 1.................
-  const approval = await context2.newPage();
-
-  await approval.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
-
-  await approval.locator('[id="userid"]').click();
-
-  await approval.locator('[id="userid"]').fill('D8FORF25');
-
-  await approval.locator('[id="next-btn"]').click();
-
-  await approval.locator('[name="password"]').click();
-
-  await approval.locator('[name="password"]').fill('Snakamura@1');
-
-  await approval.locator('[id="loginSubmitButton"]').click();
-
-  await approval.waitForTimeout(3000);
-
-  await approval.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
-
-  await approval.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-  await approval.locator('[id="1_s_2_l_Name"]').click();
-
-  await approval.locator('[name="Name"]').fill(rowid3);
-
-  await approval.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-
-  await approval.locator('[aria-roledescription="Action"]').click();
-
-  await approval.locator('[id="1_Action"]').fill('Approved');
-
-  await approval.locator('[id="1_Action"]').press('Control+s');
+ //Approver function Start
+ await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+JC+Change+Order+Approval+History+View');
+ await page.locator('[aria-label="承認 選択済み"]').click();
+ const verfyappvr1 = require('./approverfunction');
 
 
-  //Approval 2.................
-  const approva = await context3.newPage();
+ //initiating the constructor
+ const validApprovers1 = ["Branch-Service-Mgr","SCHQ-CS-Service-Mgr","SCHQ-CS-Snr-Mgr"];
+ const SVApproveruser1 = [approval,approva,approv]
+  
+ const SVStaff1 = new verfyappvr1.appnew(page);
+ for (let n = 0; n < validApprovers1.length; n++) {
+   const isApproverValid = await SVStaff1.isValidApproverJPN(validApprovers1[n], n);
+ }
+ console.log('Approver is correct for Change Order');
+ //Approver function end
 
-  await approva.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
+ //Change order 1nd Approval start
 
-  await approva.locator('[id="userid"]').click();
+ await page.locator('[aria-label="整備契約商品"]').click();
+ await page.locator('[aria-label="整備契約商品"]').press('Control+Alt+k');
+ var rowid = await page.locator('[aria-label="ロウ番号"]').textContent();
+await page.locator('[aria-label="ロウ番号"]').press("Control+c");
+ console.log(rowid);
 
-  await approva.locator('[id="userid"]').fill('D8FFDP20');
+ console.log('Change order Row id is : ' + rowid);
 
-  await approva.locator('[id="next-btn"]').click();
+//inbox function start
+ for(let n=0;n<validApprovers1.length;n++){
+   if(SVApproveruser1[n] == approval || SVApproveruser1[n] == approva || SVApproveruser1[n] == approv || SVApproveruser1[n] == pageappvr4 || SVApproveruser1[n] == pageappvr5){
+ const SVApprover1 = new verfyappvr1.appnew(SVApproveruser1[n]);
+   await SVApproveruser1[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+ await SVApproveruser1[n].bringToFront();
+ await SVApprover1.correctApprover(rowid);
+}
 
-  await approva.locator('[name="password"]').click();
-
-  await approva.locator('[name="password"]').fill('Snakamura@1');
-
-  await approva.locator('[id="loginSubmitButton"]').click();
-
-  await approva.waitForTimeout(3000);
-
-  await approva.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
-
-
-
-  await approva.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-  await approva.locator('[id="1_s_2_l_Name"]').click();
-
-  await approva.locator('[name="Name"]').fill(rowid3);
-
-  await approva.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-
-  await approva.locator('[aria-roledescription="Action"]').click();
-
-  await approva.locator('[id="1_Action"]').fill('Approved');
-
-  await approva.locator('[id="1_Action"]').press('Control+s');
-
-  await page.goto(Changeurl);
-  //await page.bringToFront()
-
-  //Approval 3..............
-  const approv = await context4.newPage();
-
-  await approv.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?');
-  await approv.locator('[id="userid"]').click();
-  await approv.locator('[id="userid"]').fill('D8FDPF20');
-  await approv.locator('[id="next-btn"]').click();
-  await approv.locator('[name="password"]').click();
-  await approv.locator('[name="password"]').fill('Snakamura@1');
-  await approv.locator('[id="loginSubmitButton"]').click();
-  await approv.waitForTimeout(3000);
-  await approv.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View');
-
-  await approv.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-  await approv.locator('[id="1_s_2_l_Name"]').click();
-  await approv.locator('[name="Name"]').fill(rowid3);
-  await approv.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-  await approv.locator('[aria-roledescription="Action"]').click();
-
-  await approv.locator('[id="1_Action"]').fill('Approved');
-
-  await approv.locator('[id="1_Action"]').press('Control+s');
+//inbox function end
+}
 
   await page.goto(Changeurl);
 
