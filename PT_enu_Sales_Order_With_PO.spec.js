@@ -163,7 +163,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
 
 
       console.log("Clicked on Generate Approval Button");
-      await page023.pause()
   
     // Accept/Process
     await page023
