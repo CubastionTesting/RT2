@@ -101,13 +101,13 @@ await page.waitForLoadState()
     //Copy Expense Order
     var Exp_Order = await page.locator('[id="s_3_1_149_0_Label"]').textContent();
     var Expense_order = Exp_Order.substr(16);
-    console.log("expense order with po" , Expense_order);
-    fs.writeFileSync("Expense.json",'{"Exp_Num"' + ' : "' + Expense_order + '"}',
-      function (err) {
-        if (err) throw err;
-        console.log("Exp_Order");
-      }
-    );
+    console.log("expense order " , Expense_order);
+    // fs.writeFileSync("Expense.json",'{"Exp_Num"' + ' : "' + Expense_order + '"}',
+    //   function (err) {
+    //     if (err) throw err;
+    //     console.log("Exp_Order");
+    //   }
+    // );
 
     await page.waitForLoadState("domcontentloaded");
 
@@ -199,11 +199,11 @@ await page.waitForLoadState()
     var PNM = await page.locator('[id="s_1_1_183_0_Label"]').textContent();
     var PO_NUM = PNM.substr(18);
     console.log("expense po", PO_NUM);
-    fs.writeFileSync("PONUMBER.json",'{"ORD_N"' + ' : "' + PO_NUM + '"}',
-      function (err) {
-        if (err) throw err;
-      }
-    );
+    // fs.writeFileSync("PONUMBER.json",'{"ORD_N"' + ' : "' + PO_NUM + '"}',
+    //   function (err) {
+    //     if (err) throw err;
+    //   }
+    // );
 
     //receive generated PO
     await page.goto(
@@ -222,9 +222,9 @@ await page.waitForLoadState()
     //Paste PO Number
     await page.locator('[id="1_s_3_l_MF_Order_Number"]').click();
 
-    const PONumber = JSON.parse(JSON.stringify(require("../PONUMBER.json")));
+    // const PONumber = JSON.parse(JSON.stringify(require("../PONUMBER.json")));
 
-    await page.locator('[id="1_MF_Order_Number"]').fill(PONumber.ORD_N);
+    await page.locator('[id="1_MF_Order_Number"]').fill(PO_NUM);
     await page.locator('[id="s_3_1_6_0_Ctrl"]').click();
     await page.waitForLoadState("domcontentloaded");
     //Click on receive button
@@ -242,10 +242,10 @@ await page.waitForLoadState()
     //Search for Expense Order
     await page.locator('[id="s_1_1_21_0_Ctrl"]').click();
 
-    const ExpNum = JSON.parse(JSON.stringify(require("../Expense.json")));
+    // const ExpNum = JSON.parse(JSON.stringify(require("../Expense.json")));
 
     //Paste Order number
-    await page.locator('[id="1_Order_Number"]').fill(ExpNum.Exp_Num);
+    await page.locator('[id="1_Order_Number"]').fill(Expense_order);
     await page.locator('[id="s_1_1_3_0_Ctrl"]').click();
     await page.waitForLoadState("domcontentloaded");
     await page.locator('[id="1_s_1_l_Status"]').click();
