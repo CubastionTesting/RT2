@@ -3,7 +3,7 @@ import { test } from '@playwright/test';
 const { chromium } = require('@playwright/test');
 
 test('record demo', async () => {
-  test.setTimeout(1500000);
+  test.setTimeout(1000000);
   const browser = await chromium.launch({
 
     headless: true
