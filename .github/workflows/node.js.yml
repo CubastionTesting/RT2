@@ -50,7 +50,7 @@ jobs:
         run: npx playwright test PT_Verify_Cycle_Count
         continue-on-error: true
       - name: SV_3_M_inspec.spec
-        run: npx playwright testSV_3_M_inspec
+        run: npx playwright test SV_3_M_inspec
         continue-on-error: true
       - name: SV_6_M_inspec.spec
         run: npx playwright test SV_6_M_inspec
@@ -92,13 +92,13 @@ jobs:
         run: npx playwright test UV_LDT_practice
         continue-on-error: true
       - name: UV_LDTwithBPS.spec
-        run: npx playwright testUV_LDTwithBPS
+        run: npx playwright test UV_LDTwithBPS
         continue-on-error: true
       - name: InsuranceLiability.spec
         run: npx playwright test InsuranceLiability
         continue-on-error: true
       - name: FDPRT2Insurance.spec
-        run: npx playwright testFDPRT2Insuranc
+        run: npx playwright test FDPRT2Insuranc
         continue-on-error: true
       - name: Upload test results
         if: always()
