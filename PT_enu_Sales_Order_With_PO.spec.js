@@ -39,7 +39,7 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('input[role="textbox"]').press("Control+s");
     await page023.locator('input[role="textbox"]').press("Tab");
     await page023.waitForLoadState("networkidle");
-    await page023.waitForTimeout(3000);
+    await page023.waitForTimeout(1000);
     console.log("Quote Created Successfully");
     await page023.locator('[aria-labelledby="s_2_l_altLink"]').first().click();
   
@@ -196,7 +196,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     }
     console.log("Clicked on Generate PO button");
 
-    await page023.waitForTimeout(4000);
     console.log("Purchase Order Created Successfully");
   
     //Copy sales order number
@@ -297,7 +296,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
   
     //paste order
     await page023.locator('[id="1_MF_Order_Number"]').fill(Wsnum);
-  
     //click on go
     await page023.locator('[aria-label="Shipments List Applet:Go"]').click();
   
@@ -329,26 +327,44 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
       console.log('error in Generate Approval button in Part Change Order');
     }
     console.log("Clicked on Generate Approval button");
+    await page023.waitForTimeout(2000)
+
+    //copy row id
+    await page023.locator('[placeholder="Order #"]').press("Control+Alt+k");
+    var wporowid = await page023.locator('[aria-label="Row #"]').textContent();
+    // console.log(wporowid);
+    await page023.locator('[aria-label="Row #"]').press("Control+c");
+
+    //function
+    await page023.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Parts+Change+Order+Approval+History+View');
+    const validApprovers = ["SCHQ-CS-Parts-Mgr"];
+    const ExpApproveruser = [pageF23]
+
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page023);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
   
     //go to  approval
     pageF23 = await browser.newPage({ ignoreHTTPSErrors: true });
     await pageF23.goto(
-      "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View"
+      "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?"
     );
     const Loginuser021 = new FusoLogin(pageF23);
     await Loginuser021.loginFDP("D8FFOR21", "Snakamura@1");
     await pageF23.waitForLoadState("domcontentloaded");
-   await pageF23.waitForTimeout(2000)
-  
-  
-    //take approval
-    await pageF23.locator('[id="1_s_2_l_Action"]').click();
-    await pageF23.locator('[id="1_Action"]').click();
-    await pageF23.locator('[id="1_Action"]').fill("Approved");
-    await pageF23.locator('[id="1_Action"]').press('Control+s');
-    console.log("Change Order Approved Successfully");
-  
-  
+
+    for(let n=0;n<validApprovers.length;n++){
+      if(ExpApproveruser[n] == pageF23){
+    const ExpApprover = new verfyappvr.appnew(ExpApproveruser[n]);
+      await ExpApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await ExpApproveruser[n].bringToFront();
+    await ExpApprover.correctApprover(wporowid);
+
+      }
+    }
   
     //////RETURN ORDER/////
     await page023.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Sales)");
@@ -359,7 +375,6 @@ test("Sales Order with PO", async () => {const browser = await chromium.launch({
     await page023.locator('[aria-label="Sales Orders List Applet:Go"]').click();
       //order found
     await page023.locator('[aria-labelledby="s_1_l_Order_Number"]').press("Tab");
-    await page023.waitForTimeout(2000);
     //open order number
     await page023.locator('[class="drilldown"]').click();
     

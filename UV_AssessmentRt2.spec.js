@@ -5,7 +5,7 @@ const fs = require('fs');
 test('record demo 1', async () => {
    test.setTimeout(1200000);
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters ='0123456789';
 
@@ -190,25 +190,6 @@ await page.pause();
 
     await page.pause();
 
-
-
-    //approver process start
-    // for(let n=0;n<validApprovers.length;n++){
-    //   await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
-    // await pageappvr.bringToFront();
-    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    // await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-    // await pageappvr.locator('[id="1_Name"]').fill(rowid);
-    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    // await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-    // await pageappvr.locator('[id="1_Action"]').fill('Approved');
-    // await pageappvr.locator('[id="1_Action"]').press('Control+s');
-    // await pageappvr.waitForLoadState('networkidle');
-      
-    // }
-    // approving process completed ************
-
-    //Create purchase Contract process start ******
      await page.bringToFront();
      await page.reload('domcontententloaded');
      await page.waitForTimeout(3000);
@@ -278,9 +259,15 @@ await page.pause();
      // start 2nd approver process in Temporary Resale Price
 
 
+<<<<<<< HEAD
   // await pageAppvr.bringToFront();
     //  await pageAppvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
     //  //await page.waitForNavigation('domcontentloaded');
+=======
+  await pageAppvr.bringToFront();
+     await pageAppvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+     //await page.waitForNavigation('domcontentloaded');
+>>>>>>> a8fe65c5478ab1ace53cb897d55cf9c3a54c3bbf
 
     //  await pageAppvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
     //  await pageAppvr.locator('[id="1_s_1_l_Name"]').click();
@@ -291,6 +278,7 @@ await page.pause();
     //  await pageAppvr.locator('[id="1_Action"]').press('Control+s');
     //  await pageAppvr.waitForLoadState('networkidle');
 
+<<<<<<< HEAD
     //  await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
     //  await pageappvr.bringToFront();
     //  await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
@@ -301,6 +289,18 @@ await page.pause();
     //  await pageappvr.locator('[id="1_Action"]').fill('Approved');
     //  await pageappvr.locator('[id="1_Action"]').press('Control+s');
     //  await pageappvr.waitForLoadState('networkidle');
+=======
+     await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+     await pageappvr.bringToFront();
+     await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+     await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+     await pageappvr.locator('[id="1_Name"]').fill(rowid1);
+     await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+     await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+     await pageappvr.locator('[id="1_Action"]').fill('Approved');
+     await pageappvr.locator('[id="1_Action"]').press('Control+s');
+     await pageappvr.waitForLoadState('networkidle');
+>>>>>>> a8fe65c5478ab1ace53cb897d55cf9c3a54c3bbf
 
    
 
@@ -342,7 +342,10 @@ await page.pause();
     await page.getByRole('link', { name: 'Approval History' }).click();
 
     const validApprovers2 = ["SCHQ-Sales-UV-Mgr"];
+<<<<<<< HEAD
     const UVApproveruser2 = [pageappvr]
+=======
+>>>>>>> a8fe65c5478ab1ace53cb897d55cf9c3a54c3bbf
     const verfyappvr2 = require('./approverfunction');
     //initiating the constructor
     const SalesGPStaff2 = new verfyappvr2.appnew(page);
@@ -421,7 +424,10 @@ await page.pause();
     
     //Approver function start to validate Approver
   const validApprovers3 = ["SCHQ-Sales-UV-Mgr","HQ-TAJ-Fleet-SnrMgr"];
+<<<<<<< HEAD
   const UVApproveruser3 = [pageappvr,pageAppvr]
+=======
+>>>>>>> a8fe65c5478ab1ace53cb897d55cf9c3a54c3bbf
   const verfyappvr3 = require('./approverfunction');
   //initiating the constructor
   const SalesGPStaff3 = new verfyappvr3.appnew(page);

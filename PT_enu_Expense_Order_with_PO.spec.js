@@ -30,7 +30,7 @@ await page.waitForLoadState()
       );
     const LoginuserF23 = new FusoLogin(pageF23);
     await LoginuserF23.loginFDP("D8FDPF23", "Snakamura@1");
-    await pageF23.waitForTimeout(5000);
+    await pageF23.waitForTimeout(2000);
     await pageF23.waitForLoadState("domcontentloaded");
 
     const validation = pageF23.locator('[id="Close_dialog_btn_close"]');
@@ -42,6 +42,7 @@ await page.waitForLoadState()
     }
     await page.waitForLoadState("domcontentloaded");
     console.log("Expense Order created successfully");
+    await page.waitForTimeout(2000)
     //Adding expense order
     await page.locator('[id="1_s_1_l_MF_Internal_Expense_Type"]').click();
 
@@ -76,7 +77,7 @@ await page.waitForLoadState()
       .press("Enter"); //Parts added
 
     //increase po qty
-    await page.waitForTimeout(3000)
+    await page.waitForLoadState("domcontentloaded")
     await page.locator('[id="1_s_4_l_MF_Own_Branch_Requested_Qty"]').click();
     await page.locator('[id="1_MF_Own_Branch_Requested_Qty"]').press('Backspace');
     await page.locator('[id="1_MF_Own_Branch_Requested_Qty"]').fill('0');
@@ -106,7 +107,7 @@ await page.waitForLoadState()
       }
     );
 
-    await page.waitForTimeout(3000);
+    await page.waitForLoadState("domcontentloaded");
 
     //generate approval
     await page
@@ -115,33 +116,34 @@ await page.waitForLoadState()
         console.log('error in Generate Approval button in Part Expense Order');
       }
       console.log("Generate Approvals button clicked successfully");
-    await page.waitForLoadState("networkidle");
-    await page.waitForTimeout(3000);
-
+      await page.waitForTimeout(2000);
+    
     //copy row id
     await page.locator('[placeholder="Order #"]').press("Control+Alt+k");
     await page.locator('[aria-label="Row #"]').click();
-
-    //copy row id
     var rowid = await page.locator('[aria-label="Row #"]').textContent();
     await page.locator('[aria-label="Row #"]').press("Control+c");
 
-    //approval user link
-    await pageF23.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View");
-    await pageF23.waitForLoadState("domcontentloaded");
+    
+    await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Approval+Flow+History+View+(Expense)');
+    const validApprovers = ["Branch-Parts-Mgr"];
+    const ExpApproveruser = [pageF23]
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
 
-    //search for order number
-    await pageF23.locator('[id="s_2_1_10_0_Ctrl"]').click();
+    for(let n=0;n<validApprovers.length;n++){
+      if(ExpApproveruser[n] == pageF23){
+    const ExpApprover = new verfyappvr.appnew(ExpApproveruser[n]);
+      await ExpApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await ExpApproveruser[n].bringToFront();
+    await ExpApprover.correctApprover(rowid);
 
-    //paste order number
-    await pageF23.locator('[id="1_s_2_l_Name"]').click();
-    await pageF23.locator('[id="1_Name"]').fill(rowid);
-    await pageF23.locator('[id="1_Name"]').press("Enter");
-
-    //approve the approval
-    await pageF23.locator('[id="1_s_2_l_Action"]').click();
-    await pageF23.locator('[id="1_Action"]').fill("Approved"); //Action Column
-    await pageF23.locator('[id="1_Action"]').press("Control+s");
+      }
+    }
 
     //back to 56 and check status should be changed
     await page.bringToFront();
@@ -165,7 +167,7 @@ await page.waitForLoadState()
       }
       console.log("Generate PO button clicked successfully");
     await pageF23.waitForLoadState("domcontentloaded");
-    await page.waitForTimeout(2000);
+    await page.waitForLoadState("domcontentloaded");
 
     //Go on Purchase Order tab
     await page.goto(
@@ -210,7 +212,9 @@ await page.waitForLoadState()
 
     //Search for PO
     await page.reload();
+    await page.locator('[aria-label="Shipments List Applet:Query"]').click();
 
+    await page.reload();
     await page.locator('[aria-label="Shipments List Applet:Query"]').click();
 
     //Paste PO Number
@@ -220,7 +224,7 @@ await page.waitForLoadState()
 
     await page.locator('[id="1_MF_Order_Number"]').fill(PONumber.ORD_N);
     await page.locator('[id="s_3_1_6_0_Ctrl"]').click();
-
+    await page.waitForLoadState("domcontentloaded");
     //Click on receive button
     await page.locator('[id="s_3_1_1_0_Ctrl"]').click(); //Receive button
     if (await validation.isVisible() == true){
@@ -270,7 +274,7 @@ await page.waitForLoadState()
     await page.locator('[aria-labelledby="s_1_l_altCombo"]').click();
     await page.locator('[id="1_MF_Customer_Return_Reason"]').click(); //Customer Return Reason
     await page.locator('[id="1_MF_Customer_Return_Reason"]').fill('Incorrect product');
-    await page.waitForTimeout(3000);
+    await page.waitForLoadState("domcontentloaded");
 
    await page.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+Line+Items+Detail+View+(Expense)")
 

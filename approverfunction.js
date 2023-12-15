@@ -18,6 +18,7 @@ class appnew{
             return isValid;
           }
    
+   
           async isValidApproverJPN(validApprovers,n) {
             const approverElement = await this.positionjpn.nth(n).textContent();
             console.log(approverElement);
@@ -54,4 +55,5 @@ class appnew{
  
 }
   }
+          
 module.exports = {appnew};

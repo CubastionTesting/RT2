@@ -57,10 +57,8 @@ await page.locator('[aria-labelledby="SrcAvailability_Label_1"]').press('Enter')
 
 await page.locator('[aria-labelledby="SrcStatus_Label_1"]').click(); //Source Status column
 await page.locator('[aria-labelledby="SrcStatus_Label_1"]').fill('Good');
-//await page.pause();
 //await page.locator('[aria-labelledby="SrcStatus_Label_1"]').press('Enter');
 await page.getByPlaceholder('Source Status').press('Enter');
-//await page.pause();
 await page.locator('[aria-labelledby="DestAvailability_Label_1"]').click(); //Destination Availability column
 await page.locator('[aria-labelledby="DestAvailability_Label_1"]').fill('On Hand');
 await page.locator('[aria-labelledby="DestAvailability_Label_1"]').press('Enter');
