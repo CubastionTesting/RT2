@@ -3,13 +3,13 @@ const { test, Page, chromium } = require("@playwright/test");
 const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
 
-test.describe.serial("Siebel Page Test", () => {
-  test.setTimeout(1500000);
-
-    let page;
  
 //Inventory Transition
-test("Inventory Transition", async () => { const browser = await chromium.launch({
+test("Inventory Transition", async () =>
+ { 
+  test.setTimeout(1500000);
+  let page;
+  const browser = await chromium.launch({
 
   headless: true
 
@@ -82,6 +82,6 @@ console.log("Inventory Transaction Completed successfully");
 
 }
 
- })
+await page.close();
 
-});
+ });
