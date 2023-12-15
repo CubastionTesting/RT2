@@ -4,7 +4,7 @@ const { chromium } = require('@playwright/test');
 const fs = require('fs');
 
 test('record demo 1', async () => {
-  test.setTimeout(900000);
+  test.setTimeout(1000000);
     const browser = await chromium.launch({
         headless: true
     });

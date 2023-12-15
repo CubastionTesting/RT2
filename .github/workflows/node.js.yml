@@ -23,82 +23,97 @@ jobs:
       - name: Install Playwright
         run: npx playwright install
       - name: NV_withPTandSV.spec
-        run: npx playwright test NV_withPTandSV
+        run: npx playwright test NV_withPTandSV --retries=1
+        continue-on-error: true
+      - name: PT_enu_Expense_Order_with_PO.spec
+        run: npx playwright test PT_enu_Expense_Order_with_PO --retries=1
+        continue-on-error: true
+      - name: PT_enu_Expense_Order_Without_PO.spec
+        run: npx playwright test PT_enu_Expense_Order_Without_PO --retries=1
         continue-on-error: true
       - name: PT_enu_Inventory_Transaction.spec
-        run: npx playwright test PT_enu_Inventory_Transaction
+        run: npx playwright test PT_enu_Inventory_Transaction --retries=1
         continue-on-error: true
       - name: PT_enu_POtoSupplier.spec
-        run: npx playwright test PT_enu_POtoSupplier
+        run: npx playwright test PT_enu_POtoSupplier --retries=1
         continue-on-error: true
       - name: PT_enu_Sales_Order_With_PO.spec
-        run: npx playwright test PT_enu_Sales_Order_With_PO
+        run: npx playwright test PT_enu_Sales_Order_With_PO --retries=1
         continue-on-error: true
       - name: PT_enu_Sales_Order_Without_PO.spec
-        run: npx playwright test PT_enu_Sales_Order_Without_PO
+        run: npx playwright test PT_enu_Sales_Order_Without_PO --retries=1
         continue-on-error: true
       - name: PT_enu_StockTransfer.spec
-        run: npx playwright test PT_enu_StockTransfer
+        run: npx playwright test PT_enu_StockTransfer --retries=1
         continue-on-error: true
       - name: PT_LPP_RT2.spec
-        run: npx playwright test PT_LPP_RT2
+        run: npx playwright test PT_LPP_RT2 --retries=1
         continue-on-error: true
       - name: PT_Quote_copy_cancel_revise.spec
-        run: npx playwright test PT_Quote_copy_cancel_revise
+        run: npx playwright test PT_Quote_copy_cancel_revise --retries=1
         continue-on-error: true
       - name: PT_Verify_Cycle_Count.spec
-        run: npx playwright test PT_Verify_Cycle_Count
+        run: npx playwright test PT_Verify_Cycle_Count --retries=1
         continue-on-error: true
       - name: SV_3_M_inspec.spec
-        run: npx playwright test SV_3_M_inspec
+        run: npx playwright test SV_3_M_inspec --retries=1
         continue-on-error: true
       - name: SV_6_M_inspec.spec
-        run: npx playwright test SV_6_M_inspec
+        run: npx playwright test SV_6_M_inspec --retries=1
         continue-on-error: true
       - name: SV_12_M_inspec.spec
-        run: npx playwright test SV_12_M_inspec
+        run: npx playwright test SV_12_M_inspec --retries=1
         continue-on-error: true
       - name: SV_24_M_inspec.spec
-        run: npx playwright test SV_24_M_inspec
+        run: npx playwright test SV_24_M_inspec --retries=1
         continue-on-error: true
       - name: SV_AccidentBranch.spec
-        run: npx playwright test SV_AccidentBranch
+        run: npx playwright test SV_AccidentBranch --retries=1
         continue-on-error: true
       - name: SV_chargeble.spec
-        run: npx playwright test SV_chargeble
+        run: npx playwright test SV_chargeble --retries=1
         continue-on-error: true
       - name: SV_Fieldfix.spec
-        run: npx playwright test SV_Fieldfix
+        run: npx playwright test SV_Fieldfix --retries=1
         continue-on-error: true
       - name: SV_Inspection.spec
-        run: npx playwright test SV_Inspection
+        run: npx playwright test SV_Inspection --retries=1
+        continue-on-error: true
+      - name: SV_Acci_V_repair.spec
+        run: npx playwright test SV_Acci_V_repair --retries=1
+        continue-on-error: true
+      - name: SV_cha_withcopy.spec
+        run: npx playwright test SV_cha_withcopy --retries=1
+        continue-on-error: true
+      - name: SV_Other_SV_Cost.spec
+        run: npx playwright test SV_Other_SV_Cost --retries=1
         continue-on-error: true
       - name: SV_JCChangePrice.spec
-        run: npx playwright test SV_JCChangePrice
+        run: npx playwright test SV_JCChangePrice --retries=1
         continue-on-error: true
       - name: SV_PayerChangewith_print.spec
-        run: npx playwright test SV_PayerChangewith_print
+        run: npx playwright test SV_PayerChangewith_print --retries=1
         continue-on-error: true
       - name: SV_Reworking.spec
-        run: npx playwright test SV_Reworking
+        run: npx playwright test SV_Reworking --retries=1
         continue-on-error: true
       - name: SV_SPOexternalwith_print.spec
-        run: npx playwright test SV_SPOexternalwith_print
+        run: npx playwright test SV_SPOexternalwith_print --retries=1
         continue-on-error: true
       - name: UV_AssessmentRt2.spec
-        run: npx playwright test UV_AssessmentRt2
+        run: npx playwright test UV_AssessmentRt2 --retries=1
         continue-on-error: true
       - name: UV_LDT_practice.spec
-        run: npx playwright test UV_LDT_practice
+        run: npx playwright test UV_LDT_practice --retries=1
         continue-on-error: true
       - name: UV_LDTwithBPS.spec
-        run: npx playwright test UV_LDTwithBPS
+        run: npx playwright test UV_LDTwithBPS --retries=1
         continue-on-error: true
       - name: InsuranceLiability.spec
-        run: npx playwright test InsuranceLiability
+        run: npx playwright test InsuranceLiability --retries=1
         continue-on-error: true
       - name: FDPRT2Insurance.spec
-        run: npx playwright test FDPRT2Insuranc
+        run: npx playwright test FDPRT2Insurance --retries=1
         continue-on-error: true
       - name: Upload test results
         if: always()
