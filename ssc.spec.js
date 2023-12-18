@@ -32,25 +32,24 @@
 const { test, chromium } = require('@playwright/test');
 
 test("ssc tests",async () => {
+    const browser = await chromium.launch({
     headless: false
-    const browser = await chromium.launch();
+        
+    });
   const context = await browser.newContext({
-    use: {
-        httpCredentials: {
-          username: 'cubastion',
-          password: 'ssc#654',
-        }
+    httpCredentials:{
+        username: 'cubastion',
+         password: 'ssc#654'
     }
   });
   const page = await context.newPage();
+// await page.pause()
+  await page.waitForTimeout(5000);
   await page.waitForLoadState('domcontentloaded');
-  await page.waitForTimeout(3000);
   await page.goto('https://qassc.cubastion.net/');
-  await page.waitForTimeout(40000);
 
 //   const credentials = {
-//     username: 'cubastion',
-//     password: 'ssc#654',
+    
 //   };
 
 //   async function authenticate(page, credentials) {
@@ -62,7 +61,9 @@ test("ssc tests",async () => {
 //   }
 
 //   await authenticate(page, credentials);
-// // Continue with further actions if needed
-// console.log('Login done')
-//   await browser.close();
+
+await page.waitForTimeout(5000);
+// Continue with further actions if needed
+console.log('Login done');
+  await browser.close();
 });
