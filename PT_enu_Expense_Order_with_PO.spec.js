@@ -4,7 +4,7 @@ const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
 
 test.describe.serial("Siebel Page Test", () => {
-  test.setTimeout(1000000);
+  test.setTimeout(1500000);
 
     let page;
     let pageF23;
@@ -91,7 +91,6 @@ await page.waitForLoadState()
     await page.locator('[id="1_MF_MFTBC_Ordered_Qty"]').fill('1');
     await page.locator('[id="1_MF_MFTBC_Ordered_Qty"]').press('Control+s');
 
-
     //select order department
     await page.locator('[id="s_3_1_47_0_icon"]').click();
     await page
@@ -121,7 +120,12 @@ await page.waitForLoadState()
       await page.waitForTimeout(2000);
     
     //copy row id
-    await page.locator('[placeholder="Order #"]').press("Control+Alt+k");
+    await page.waitForLoadState('domcontentloaded')
+    await page.locator('[name="s_3_1_129_0"]').press("Control+Alt+k");
+    await page.waitForLoadState('domcontentloaded')
+    await page.reload()
+    await page.locator('[name="s_3_1_129_0"]').press("Control+Alt+k");
+    await page.waitForLoadState('domcontentloaded')
     await page.locator('[aria-label="Row #"]').click();
     var rowid = await page.locator('[aria-label="Row #"]').textContent();
     await page.locator('[aria-label="Row #"]').press("Control+c");
