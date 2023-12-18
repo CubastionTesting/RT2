@@ -83,3 +83,4 @@ console.log("Inventory Transaction Completed successfully");
 }
 
 await page.close();
+});
