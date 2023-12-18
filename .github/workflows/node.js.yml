@@ -22,8 +22,17 @@ jobs:
         run: npm install
       - name: Install Playwright
         run: npx playwright install
-      - name: NV_withPTandSV.spec
-        run: npx playwright test NV_withPTandSV --retries=1
+      - name: PT_enu_Inventory_Transaction.spec
+        run: npx playwright test PT_enu_Inventory_Transaction --retries=1
+        continue-on-error: true
+      - name: PT_LPP_RT2.spec
+        run: npx playwright test PT_LPP_RT2 --retries=1
+        continue-on-error: true
+      - name: PT_Quote_copy_cancel_revise.spec
+        run: npx playwright test PT_Quote_copy_cancel_revise --retries=1
+        continue-on-error: true
+      - name: PT_Verify_Cycle_Count.spec
+        run: npx playwright test PT_Verify_Cycle_Count --retries=1
         continue-on-error: true
       - name: PT_enu_Expense_Order_with_PO.spec
         run: npx playwright test PT_enu_Expense_Order_with_PO --retries=1
@@ -31,8 +40,11 @@ jobs:
       - name: PT_enu_Expense_Order_Without_PO.spec
         run: npx playwright test PT_enu_Expense_Order_Without_PO --retries=1
         continue-on-error: true
-      - name: PT_enu_Inventory_Transaction.spec
-        run: npx playwright test PT_enu_Inventory_Transaction --retries=1
+      - name: InsuranceLiability.spec
+        run: npx playwright test InsuranceLiability --retries=1
+        continue-on-error: true
+      - name: FDPRT2Insurance.spec
+        run: npx playwright test FDPRT2Insurance --retries=1
         continue-on-error: true
       - name: PT_enu_POtoSupplier.spec
         run: npx playwright test PT_enu_POtoSupplier --retries=1
@@ -45,15 +57,6 @@ jobs:
         continue-on-error: true
       - name: PT_enu_StockTransfer.spec
         run: npx playwright test PT_enu_StockTransfer --retries=1
-        continue-on-error: true
-      - name: PT_LPP_RT2.spec
-        run: npx playwright test PT_LPP_RT2 --retries=1
-        continue-on-error: true
-      - name: PT_Quote_copy_cancel_revise.spec
-        run: npx playwright test PT_Quote_copy_cancel_revise --retries=1
-        continue-on-error: true
-      - name: PT_Verify_Cycle_Count.spec
-        run: npx playwright test PT_Verify_Cycle_Count --retries=1
         continue-on-error: true
       - name: SV_3_M_inspec.spec
         run: npx playwright test SV_3_M_inspec --retries=1
@@ -106,11 +109,8 @@ jobs:
       - name: UV_LDTwithBPS.spec
         run: npx playwright test UV_LDT_withBPS --retries=1
         continue-on-error: true
-      - name: InsuranceLiability.spec
-        run: npx playwright test InsuranceLiability --retries=1
-        continue-on-error: true
-      - name: FDPRT2Insurance.spec
-        run: npx playwright test FDPRT2Insurance --retries=1
+      - name: NV_withPTandSV.spec
+        run: npx playwright test NV_withPTandSV --retries=1
         continue-on-error: true
       - name: Upload test results
         if: always()

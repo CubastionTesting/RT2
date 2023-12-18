@@ -4,15 +4,13 @@ const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
 
 test.describe.serial("Siebel Page Test", () => {
-  test.setTimeout(1000000);
-
     let page023;
     let page027;
 
 test.only("Purchase Order (PO to StockTransfer)", async() =>
   {const browser = await chromium.launch({
 
-    headless: true
+    headless: false
   
   });
 
@@ -58,6 +56,8 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     //Fill other WH
     await page023.locator('[aria-labelledby="MF_Main_WH_Label_1"]').click(); //Other WH column
     await page023.locator('[aria-labelledby="MF_Main_WH_Label_1"]').fill("50")
+    await page023.pause()
+
 
     //Add line item
     await page023.locator('[aria-label="Line Items List Applet:New"]').click(); //Plus button
@@ -67,15 +67,13 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     console.log("Line Item added");
 
     //Part added
-    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('#101235470');
+    await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').fill('#10PARTS764');
     console.log("Part added on Line Item"); //Part# column
-    await page023.waitForTimeout(3000);
     await page023.locator('[aria-labelledby="s_2_l_Product s_2_l_altpick"]').press('Enter');
 
     // await page023.locator('[name="s_4_1_14_0"]').click();
     // await page023.locator('[id="1_s_4_l_Name"]').click();
     // await page023.locator('[id="s_4_1_246_0_Ctrl"]').click();
-
 
 
     //Generate Approval
@@ -91,7 +89,7 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
       "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?"
     );
     const Loginuser027 = new FusoLogin(page027);
-    await Loginuser027.loginFDP("D8FDFO27", "Snakamura@1");
+    await Loginuser027.loginFDP("D8FORF27", "Snakamura@1");
     await page027.waitForLoadState("domcontentloaded");
     await page027.waitForTimeout(2000);
     await page027.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+FDP+Orders+View+(PO)")
@@ -103,6 +101,7 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     await page027.locator('[id="1_Order_Number"]').press('Tab');
     await page027.locator('[class="drilldown"]').click();
   //open order, fulfill all  
+    //await page027.pause()
     await page023.waitForTimeout(3000);
     console.log("Clicked on Fullfill All button");
     await page027.locator('[id="s_2_1_15_0_Ctrl"]').click(); //Fullfill All buton
@@ -120,6 +119,7 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
       console.log('error in Shipped button in Part Purchase Order');
     }
     console.log("Clicked on Shipped button");
+    //await page023.pause();
     await page023.waitForTimeout(3000);
 
     //back to 23 user
@@ -158,6 +158,7 @@ test.only("Purchase Order (PO to StockTransfer)", async() =>
     await page023.locator('[aria-label="Purchase Order List Applet:Go"]').click();
     await page023.locator('[id="1_Order_Number"]').press('Tab');
    // await page023.waitForTimeout(3000);
+    //await page023.pause()
     await page023.locator('[class="drilldown"]').click();
     //Return reason
     await page023.waitForTimeout(3000);
