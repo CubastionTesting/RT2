@@ -6,7 +6,7 @@ name: Node.js CI
     branches:
       - githubtrigger
 jobs:
-  build:
+  build1_PT&UV:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -58,6 +58,32 @@ jobs:
       - name: PT_enu_StockTransfer.spec
         run: npx playwright test PT_enu_StockTransfer --retries=1
         continue-on-error: true
+      - name: UV_AssessmentRt2.spec
+        run: npx playwright test UV_AssessmentRt2 --retries=1
+        continue-on-error: true
+      - name: UV_LDTwithBPS.spec
+        run: npx playwright test UV_LDT_withBPS --retries=1
+        continue-on-error: true
+      - name: NV_withPTandSV.spec
+        run: npx playwright test NV_withPTandSV --retries=1
+        continue-on-error: true
+        jobs:
+  build2_SV_only:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 14.x
+    steps:
+      - uses: actions/checkout@v3
+      - name: 'Use Node.js ${{ matrix.node-version }}'
+        uses: actions/setup-node@v3
+        with:
+          node-version: '${{ matrix.node-version }}'
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright
+        run: npx playwright install
       - name: SV_3_M_inspec.spec
         run: npx playwright test SV_3_M_inspec --retries=1
         continue-on-error: true
@@ -102,15 +128,6 @@ jobs:
         continue-on-error: true
       - name: SV_SPOexternalwith_print.spec
         run: npx playwright test SV_SPOexternalwith_print --retries=1
-        continue-on-error: true
-      - name: UV_AssessmentRt2.spec
-        run: npx playwright test UV_AssessmentRt2 --retries=1
-        continue-on-error: true
-      - name: UV_LDTwithBPS.spec
-        run: npx playwright test UV_LDT_withBPS --retries=1
-        continue-on-error: true
-      - name: NV_withPTandSV.spec
-        run: npx playwright test NV_withPTandSV --retries=1
         continue-on-error: true
       - name: Upload test results
         if: always()
