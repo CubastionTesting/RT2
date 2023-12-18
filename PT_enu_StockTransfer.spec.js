@@ -10,7 +10,7 @@ test.describe.serial("Siebel Page Test", () => {
 test.only("Purchase Order (PO to StockTransfer)", async() =>
   {const browser = await chromium.launch({
 
-    headless: false
+    headless: true
   
   });
 
