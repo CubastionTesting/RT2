@@ -81,6 +81,7 @@ await page.locator('[aria-labelledby="Commit_Label_1"]').press('Control+s');
 console.log("Inventory Transaction Completed successfully");
 
 }
+await page.close();
 
 await page.close();
 });
