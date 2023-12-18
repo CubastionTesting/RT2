@@ -3,7 +3,7 @@ import { test } from '@playwright/test';
 const { chromium } = require('@playwright/test');
 
 test('record demo', async () => {
-  test.setTimeout(1500000);
+  test.setTimeout(1000000);
   const browser = await chromium.launch({
 
     headless: true
@@ -39,6 +39,8 @@ test('record demo', async () => {
   await page.getByRole('textbox', { name: '#000000001 Supplier # Selection Field' }).fill('0000002810');
   await page.getByRole('textbox', { name: '#000000001 Supplier # Selection Field' }).press('Control+s');
   await page.locator('[class="drilldown"]').first().click(); //LPP Registration column
+  var registration = await page.locator('[aria-label="Registration #"]').inputValue();
+  console.log('registration is:',registration);
   
   await page.getByRole('button', { name: 'Local Procurement List Applet:New' }).click(); //Plus button
   if (await validation.isVisible() == true){

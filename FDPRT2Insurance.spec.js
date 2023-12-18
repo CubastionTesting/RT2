@@ -2,7 +2,7 @@ import { test, expect, firefox } from '@playwright/test';
 const { chromium } = require('@playwright/test');
 const fs = require('fs');
 test('record demo 1', async () => {
-    test.setTimeout(1500000);
+    test.setTimeout(1000000);
 
     const browser = await chromium.launch({
         headless: true
@@ -109,10 +109,17 @@ test('record demo 1', async () => {
  //   await page.locator('#ui-id-150').click();
     // await page.getByRole('button', { name: 'Insurance Company Code(10 Digit) List Applet:OK' }).click();
     await page.getByRole('button', { name: 'Insurance PPR Approval Form:Generate Approval' }).click();
+    await page.getByRole('link', { name: 'PPR Approval History' }).click();
+
+    const validApprovers = ["SCHQ-Sales-Ins-Mgr"];
+    const verfyappvr = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff = new verfyappvr.appnew(page);
+    for (let n = 0; n < validApprovers.length; n++) {
+      const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+    }
     
     //await page.pause();
-     
-    await page.getByRole('link', { name: 'PPR Approval History' }).click();
     await page.click('#s_S_A1_div > form > div > span > div.siebui-applet-content.siebui-collapsible.siebui-collapsible-applet-content > div > div > table > tbody > tr:nth-child(3) > td:nth-child(5) > div > input');
     await page.click('#_sweappmenu > div > div.applicationMenu > a');
     await page.getByRole('menuitem', { name: 'Help' }).click();

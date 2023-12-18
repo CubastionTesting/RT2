@@ -4,6 +4,8 @@ const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
 
 test.describe.serial("Siebel Page Test", () => {
+  test.setTimeout(1000000);
+
     let page;
     let pageF23;
    
@@ -348,32 +350,44 @@ test.describe.serial("Siebel Page Test", () => {
 
         await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Approval+Flow+History+View+(Expense)');
     const validApprovers = ["Branch-Parts-Mgr"];
+    const ExpApproveruser = [pageF23]
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
     const SalesGPStaff = new verfyappvr.appnew(page);
     for (let n = 0; n < validApprovers.length; n++) {
       const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
     }
+
+    for(let n=0;n<validApprovers.length;n++){
+      if(ExpApproveruser[n] == pageF23){
+    const ExpApprover = new verfyappvr.appnew(ExpApproveruser[n]);
+      await ExpApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await ExpApproveruser[n].bringToFront();
+    await ExpApprover.correctApprover(wporowid);
+
+      }
+    }
+
     
       
-        //approval user link
-        await pageF23.goto(
-          "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View"
-        );
-        await pageF23.waitForLoadState("domcontentloaded");
+        // //approval user link
+        // await pageF23.goto(
+        //   "https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View"
+        // );
+        // await pageF23.waitForLoadState("domcontentloaded");
       
-        //search for order number
-        await pageF23.locator('[id="s_2_1_10_0_Ctrl"]').click();
+        // //search for order number
+        // await pageF23.locator('[id="s_2_1_10_0_Ctrl"]').click();
       
-        //paste order number
-        await pageF23.locator('[id="1_s_2_l_Name"]').click();
-        await pageF23.locator('[id="1_Name"]').fill(wporowid);
-        await pageF23.locator('[id="1_Name"]').press("Enter");
+        // //paste order number
+        // await pageF23.locator('[id="1_s_2_l_Name"]').click();
+        // await pageF23.locator('[id="1_Name"]').fill(wporowid);
+        // await pageF23.locator('[id="1_Name"]').press("Enter");
       
-        //approve the approval
-        await pageF23.locator('[id="1_s_2_l_Action"]').click();
-        await pageF23.locator('[id="1_Action"]').fill("Approved");
-        await pageF23.locator('[id="1_Action"]').press("Control+s");
+        // //approve the approval
+        // await pageF23.locator('[id="1_s_2_l_Action"]').click();
+        // await pageF23.locator('[id="1_Action"]').fill("Approved");
+        // await pageF23.locator('[id="1_Action"]').press("Control+s");
       
         // await page.bringToFront();
         await page.goto(

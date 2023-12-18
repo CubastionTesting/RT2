@@ -3,9 +3,9 @@ const { chromium } = require('@playwright/test');
 const fs = require('fs');
 
 test('record demo 1', async () => {
-   test.setTimeout(1200000);
+   test.setTimeout(1000000);
     const browser = await chromium.launch({
-        headless: false
+        headless: true
     });
     const characters ='0123456789';
 
@@ -158,6 +158,7 @@ await page.pause();
 
   //Approver function start to validate Approver
     const validApprovers = ["SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr", "SCHQ-Sales-NV-Mgr"];
+    const UVApproveruser = [pageappvr,pageAppvr,pageappvr]
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
     const SalesGPStaff = new verfyappvr.appnew(page);
@@ -176,51 +177,20 @@ await page.pause();
     const myChasis = await page.locator('[aria-label="Chassis #"]').inputValue();
     console.log('Chassis :-> ' + myChasis);
 
-    //approver process start
+    for(let n=0;n<validApprovers.length;n++){
+      if(UVApproveruser[n] == pageappvr || UVApproveruser[n] == pageAppvr){
+    const UVApprover = new verfyappvr.appnew(UVApproveruser[n]);
+      await UVApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await UVApproveruser[n].bringToFront();
+    await UVApprover.correctApprover(rowid);
 
+      }
+    }
+    
 
-    await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
-    await pageappvr.bringToFront();
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-    await pageappvr.locator('[id="1_Name"]').fill(rowid);
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-    await pageappvr.locator('[id="1_Action"]').fill('Approved');
-    await pageappvr.locator('[id="1_Action"]').press('Control+s');
-    await pageappvr.waitForLoadState('networkidle');
+    await page.pause();
 
-    await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
-    await pageappvr.bringToFront();
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-    await pageappvr.locator('[id="1_Name"]').fill(rowid);
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-    await pageappvr.locator('[id="1_Action"]').fill('Approved');
-    await pageappvr.locator('[id="1_Action"]').press('Control+s');
-    await pageappvr.waitForLoadState('networkidle');
-
-    await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
-    await pageappvr.bringToFront();
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-    await pageappvr.locator('[id="1_Name"]').fill(rowid);
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-    await pageappvr.locator('[id="1_Action"]').fill('Approved');
-    await pageappvr.locator('[id="1_Action"]').press('Control+s');
-    await pageappvr.waitForLoadState('networkidle');
-
-    // approving process completed ************
-
-
-
-    //Create purchase Contract process start ******
-
-
-
-    await page.bringToFront();
+     await page.bringToFront();
      await page.reload('domcontententloaded');
      await page.waitForTimeout(3000);
 
@@ -238,80 +208,88 @@ await page.pause();
     await page.locator('body').press('Alt+Enter');
     await page.getByRole('button', { name: 'Purchase Quote Form Applet:Generate Approvals' }).click();
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+UV+Purchase+Quote+Approval+View',{ waitUntil: 'networkidle' });
-
-    
-
-  //Approver function start to validate Approver
-  const validApprovers1 = ["SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr", "SCHQ-Sales-NV-Mgr"];
-  const verfyappvr1 = require('./approverfunction');
-  //initiating the constructor
-  const SalesGPStaff1 = new verfyappvr1.appnew(page);
-  for (let n = 0; n < validApprovers1.length; n++) {
-    const isApproverValid = await SalesGPStaff1.isValidApprover(validApprovers1[n],n);
-  }
-  //Approver function end to validate Approver
-
-
    // await page.waitForNavigation('domcontentloaded');
+
+   const validApprovers1 = ["SCHQ-Sales-UV-Mgr", "HQ-TAJ-Fleet-SnrMgr", "SCHQ-Sales-NV-Mgr"];
+   const UVApproveruser1 = [pageappvr,pageAppvr,pageappvr]
+   const verfyappvr1 = require('./approverfunction');
+   //initiating the constructor
+   const SalesGPStaff1 = new verfyappvr1.appnew(page);
+   for (let n = 0; n < validApprovers1.length; n++) {
+     const isApproverValid = await SalesGPStaff1.isValidApprover(validApprovers1[n],n);
+   }
+
     await page.locator('[aria-label="Assessment #"]').click();
     await page.locator('[aria-label="Assessment #"]').press('Control+Alt+k');
     var rowid1 = await page.locator('[aria-label="Row #"]').textContent();
     console.log(rowid1);
 
+    for(let n=0;n<validApprovers1.length;n++){
+      if(UVApproveruser1[n] == pageappvr || UVApproveruser1[n] == pageAppvr){
+    const UVApprover = new verfyappvr.appnew(UVApproveruser1[n]);
+      await UVApproveruser1[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await UVApproveruser1[n].bringToFront();
+    await UVApprover.correctApprover(rowid1);
+
+      }
+    }
+
 
     // Second time approve start ******
 
 
-    await pageappvr.bringToFront();
-    await pageappvr.reload('domcontententloaded');
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-    await pageappvr.locator('[id="1_Name"]').fill(rowid1);
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-    await pageappvr.locator('[id="1_Action"]').fill('Approved');
-    await pageappvr.locator('[id="1_Action"]').press('Control+s');
-    await pageappvr.waitForLoadState('networkidle');
-    // await pageappvr.pause();
+    // await pageappvr.bringToFront();
+    // await pageappvr.reload('domcontententloaded');
+    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    // await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+    // await pageappvr.locator('[id="1_Name"]').fill(rowid1);
+    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    // await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+    // await pageappvr.locator('[id="1_Action"]').fill('Approved');
+    // await pageappvr.locator('[id="1_Action"]').press('Control+s');
+    // await pageappvr.waitForLoadState('networkidle');
+    // // await pageappvr.pause();
 
     //end  2nd approver process *********
 
-    await page.bringToFront();
-    await page.reload('domcontentloaded');
+    // await page.bringToFront();
+    // await page.reload('domcontentloaded');
 
 
      // start 2nd approver process in Temporary Resale Price
 
 
-     await pageAppvr.bringToFront();
-     await pageAppvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  // await pageAppvr.bringToFront();
+  //    await pageAppvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
      //await page.waitForNavigation('domcontentloaded');
 
-     await pageAppvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-     await pageAppvr.locator('[id="1_s_1_l_Name"]').click();
-     await pageAppvr.locator('[id="1_Name"]').fill(rowid1);
-     await pageAppvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-     await pageAppvr.locator('[id="1_s_1_l_Action"]').click();
-     await pageAppvr.locator('[id="1_Action"]').fill('Approved');
-     await pageAppvr.locator('[id="1_Action"]').press('Control+s');
-     await pageAppvr.waitForLoadState('networkidle');
+    //  await pageAppvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    //  await pageAppvr.locator('[id="1_s_1_l_Name"]').click();
+    //  await pageAppvr.locator('[id="1_Name"]').fill(rowid1);
+    //  await pageAppvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    //  await pageAppvr.locator('[id="1_s_1_l_Action"]').click();
+    //  await pageAppvr.locator('[id="1_Action"]').fill('Approved');
+    //  await pageAppvr.locator('[id="1_Action"]').press('Control+s');
+    //  await pageAppvr.waitForLoadState('networkidle');
 
-     await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
-     await pageappvr.bringToFront();
-     await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-     await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-     await pageappvr.locator('[id="1_Name"]').fill(rowid1);
-     await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-     await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-     await pageappvr.locator('[id="1_Action"]').fill('Approved');
-     await pageappvr.locator('[id="1_Action"]').press('Control+s');
-     await pageappvr.waitForLoadState('networkidle');
+    //  await pageappvr.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    //  await pageappvr.bringToFront();
+    //  await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    //  await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+    //  await pageappvr.locator('[id="1_Name"]').fill(rowid1);
+    //  await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    //  await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+    //  await pageappvr.locator('[id="1_Action"]').fill('Approved');
+    //  await pageappvr.locator('[id="1_Action"]').press('Control+s');
+    //  await pageappvr.waitForLoadState('networkidle');
+
+   
+
+     
  
  // End
      
 // Stock In Verification Start *****
-
-
     await page.bringToFront();
     await page.reload('domcontentloaded');
     await page.getByRole('button', { name: 'Purchase Quote Form Applet:Create Purchase Contract' }).click();
@@ -339,21 +317,33 @@ await page.pause();
     const requestId = await page.locator('[aria-label="Request #"]').inputValue();
     console.log('RequestId :-> ' + requestId);
     await page.getByRole('button', { name: 'Stock In Verification Form Applet:Generate Approvals' }).click();
-    //Approver function start to validate Approver
-  const validApprovers2 = ["SCHQ-Sales-UV-Mgr"];
-  const verfyappvr2 = require('./approverfunction');
-  //initiating the constructor
-  const SalesGPStaff2 = new verfyappvr2.appnew(page);
-  for (let n = 0; n < validApprovers2.length; n++) {
-    const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
-  }
+
   //Approver function end to validate Approver
     
     await page.getByRole('link', { name: 'Approval History' }).click();
+
+    const validApprovers2 = ["SCHQ-Sales-UV-Mgr"];
+    const UVApproveruser2 = [pageappvr]
+    const verfyappvr2 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff2 = new verfyappvr2.appnew(page);
+    for (let n = 0; n < validApprovers2.length; n++) {
+      const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
+    }
     await page.locator('[aria-label="Assessment #"]').click();
     await page.locator('[aria-label="Assessment #"]').press('Control+Alt+k');
     var rowid3 = await page.locator('[aria-label="Row #"]').textContent();
     console.log(rowid3);
+
+    for(let n=0;n<validApprovers.length;n++){
+      if(UVApproveruser2[n] == pageappvr || UVApproveruser2[n] == pageAppvr){
+    const UVApprover = new verfyappvr.appnew(UVApproveruser2[n]);
+      await UVApproveruser2[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await UVApproveruser2[n].bringToFront();
+    await UVApprover.correctApprover(rowid3);
+
+      }
+    }
 
 
 
@@ -364,16 +354,16 @@ await page.pause();
  
  // Approver Process Start ******
     
-   await pageappvr.bringToFront();
-   await pageappvr.reload('domcontentloaded');
-   await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-   await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-   await pageappvr.locator('[id="1_Name"]').fill(rowid3);
-   await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-   await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-   await pageappvr.locator('[id="1_Action"]').fill('Approved');
-   await pageappvr.locator('[id="1_Action"]').press('Control+s');
-   await pageappvr.waitForLoadState('networkidle');
+  //  await pageappvr.bringToFront();
+  //  await pageappvr.reload('domcontentloaded');
+  //  await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+  //  await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+  //  await pageappvr.locator('[id="1_Name"]').fill(rowid3);
+  //  await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+  //  await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+  //  await pageappvr.locator('[id="1_Action"]').fill('Approved');
+  //  await pageappvr.locator('[id="1_Action"]').press('Control+s');
+  //  await pageappvr.waitForLoadState('networkidle');
 
    //Approver Process end *****
 
@@ -412,6 +402,7 @@ await page.pause();
     
     //Approver function start to validate Approver
   const validApprovers3 = ["SCHQ-Sales-UV-Mgr","HQ-TAJ-Fleet-SnrMgr"];
+  const UVApproveruser3 = [pageappvr,pageAppvr]
   const verfyappvr3 = require('./approverfunction');
   //initiating the constructor
   const SalesGPStaff3 = new verfyappvr3.appnew(page);
@@ -420,12 +411,21 @@ await page.pause();
   }
   //Approver function end to validate Approver
     
-    await page.getByText('Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1').click();
-    await page.getByRole('region').filter({ hasText: 'Temporary Resale PriceDeleteQueryGoCancelMenu 1 - 1 of 1Create Temporary Resale ' }).press('Alt+Control+k');
+    
     // await page.locator('#\31 _s_3_l_MF_Status').click()
-    // await page.locator('[id="1_MF_Dealer_Resale_Price"]').press('Control+Alt+k');
+    await page.locator('[id="1_s_3_l_MF_Activity__"]').press('Control+Alt+k');
     var rowid4 = await page.locator('[aria-label="Row #"]').textContent();
     console.log(rowid4);
+
+    for(let n=0;n<validApprovers.length;n++){
+      if(UVApproveruser3[n] == pageappvr || UVApproveruser3[n] == pageAppvr){
+    const UVApprover = new verfyappvr.appnew(UVApproveruser[n]);
+      await UVApproveruser3[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await UVApproveruser3[n].bringToFront();
+    await UVApprover.correctApprover(rowid4);
+
+      }
+    }
 
 
     //Temporary Resale request process End *********
@@ -434,35 +434,35 @@ await page.pause();
 
     //Temporary Resale request Approver Start ******
 
-    await pageappvr.bringToFront();
-    await pageappvr.reload('domcontentloaded');
+    // await pageappvr.bringToFront();
+    // await pageappvr.reload('domcontentloaded');
 
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Name"]').click();
-    await pageappvr.locator('[id="1_Name"]').fill(rowid4);
-    await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    await pageappvr.locator('[id="1_s_1_l_Action"]').click();
-    await pageappvr.locator('[id="1_Action"]').fill('Approved');
-    await pageappvr.locator('[id="1_Action"]').press('Control+s');
-    await pageappvr.waitForLoadState('networkidle');
+    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    // await pageappvr.locator('[id="1_s_1_l_Name"]').click();
+    // await pageappvr.locator('[id="1_Name"]').fill(rowid4);
+    // await pageappvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    // await pageappvr.locator('[id="1_s_1_l_Action"]').click();
+    // await pageappvr.locator('[id="1_Action"]').fill('Approved');
+    // await pageappvr.locator('[id="1_Action"]').press('Control+s');
+    // await pageappvr.waitForLoadState('networkidle');
 
     //end 3rd Approver ******
 
-    await page.bringToFront();
-    await page.reload('domcontentloaded');
+    // await page.bringToFront();
+    // await page.reload('domcontentloaded');
 
     // start approver process ******
 
-    await pageAppvr.bringToFront();
-    await pageAppvr.reload('domcontentloaded');
-    await pageAppvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
-    await pageAppvr.locator('[id="1_s_1_l_Name"]').click();
-    await pageAppvr.locator('[id="1_Name"]').fill(rowid4);
-    await pageAppvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
-    await pageAppvr.locator('[id="1_s_1_l_Action"]').click();
-    await pageAppvr.locator('[id="1_Action"]').fill('Approved');
-    await pageAppvr.locator('[id="1_Action"]').press('Control+s');
-    await pageAppvr.waitForLoadState('networkidle');
+    // await pageAppvr.bringToFront();
+    // await pageAppvr.reload('domcontentloaded');
+    // await pageAppvr.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    // await pageAppvr.locator('[id="1_s_1_l_Name"]').click();
+    // await pageAppvr.locator('[id="1_Name"]').fill(rowid4);
+    // await pageAppvr.locator('[aria-label="Inbox Items List Applet:Go"]').click();
+    // await pageAppvr.locator('[id="1_s_1_l_Action"]').click();
+    // await pageAppvr.locator('[id="1_Action"]').fill('Approved');
+    // await pageAppvr.locator('[id="1_Action"]').press('Control+s');
+    // await pageAppvr.waitForLoadState('networkidle');
 
 
     //approver process End *********

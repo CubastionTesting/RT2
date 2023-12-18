@@ -4,6 +4,8 @@ const {FusoLogin} =  require("./FusoLogin");
 var fs = require("fs");
 
 test.describe.serial("Siebel Page Test", () => {
+  test.setTimeout(1000000);
+
     let page;
     let pageF23;
    
@@ -99,13 +101,13 @@ await page.waitForLoadState()
     //Copy Expense Order
     var Exp_Order = await page.locator('[id="s_3_1_149_0_Label"]').textContent();
     var Expense_order = Exp_Order.substr(16);
-    console.log("expense order with po" , Expense_order);
-    fs.writeFileSync("Expense.json",'{"Exp_Num"' + ' : "' + Expense_order + '"}',
-      function (err) {
-        if (err) throw err;
-        console.log("Exp_Order");
-      }
-    );
+    console.log("expense order " , Expense_order);
+    // fs.writeFileSync("Expense.json",'{"Exp_Num"' + ' : "' + Expense_order + '"}',
+    //   function (err) {
+    //     if (err) throw err;
+    //     console.log("Exp_Order");
+    //   }
+    // );
 
     await page.waitForLoadState("domcontentloaded");
 
@@ -116,6 +118,7 @@ await page.waitForLoadState()
         console.log('error in Generate Approval button in Part Expense Order');
       }
       console.log("Generate Approvals button clicked successfully");
+      await page.waitForTimeout(2000);
     
     //copy row id
     await page.locator('[placeholder="Order #"]').press("Control+Alt+k");
@@ -126,30 +129,23 @@ await page.waitForLoadState()
     
     await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+PA+Approval+Flow+History+View+(Expense)');
     const validApprovers = ["Branch-Parts-Mgr"];
+    const ExpApproveruser = [pageF23]
     const verfyappvr = require('./approverfunction');
     //initiating the constructor
     const SalesGPStaff = new verfyappvr.appnew(page);
     for (let n = 0; n < validApprovers.length; n++) {
       const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
     }
-    
 
-    //approval user link
-    await pageF23.goto("https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+Approval+Inbox+Item+Entity+Details+View");
-    await pageF23.waitForLoadState("domcontentloaded");
+    for(let n=0;n<validApprovers.length;n++){
+      if(ExpApproveruser[n] == pageF23){
+    const ExpApprover = new verfyappvr.appnew(ExpApproveruser[n]);
+      await ExpApproveruser[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+    await ExpApproveruser[n].bringToFront();
+    await ExpApprover.correctApprover(rowid);
 
-    //search for order number
-    await pageF23.locator('[id="s_2_1_10_0_Ctrl"]').click();
-
-    //paste order number
-    await pageF23.locator('[id="1_s_2_l_Name"]').click();
-    await pageF23.locator('[id="1_Name"]').fill(rowid);
-    await pageF23.locator('[id="1_Name"]').press("Enter");
-
-    //approve the approval
-    await pageF23.locator('[id="1_s_2_l_Action"]').click();
-    await pageF23.locator('[id="1_Action"]').fill("Approved"); //Action Column
-    await pageF23.locator('[id="1_Action"]').press("Control+s");
+      }
+    }
 
     //back to 56 and check status should be changed
     await page.bringToFront();
@@ -203,11 +199,11 @@ await page.waitForLoadState()
     var PNM = await page.locator('[id="s_1_1_183_0_Label"]').textContent();
     var PO_NUM = PNM.substr(18);
     console.log("expense po", PO_NUM);
-    fs.writeFileSync("PONUMBER.json",'{"ORD_N"' + ' : "' + PO_NUM + '"}',
-      function (err) {
-        if (err) throw err;
-      }
-    );
+    // fs.writeFileSync("PONUMBER.json",'{"ORD_N"' + ' : "' + PO_NUM + '"}',
+    //   function (err) {
+    //     if (err) throw err;
+    //   }
+    // );
 
     //receive generated PO
     await page.goto(
@@ -218,15 +214,17 @@ await page.waitForLoadState()
 
     //Search for PO
     await page.reload();
+    await page.locator('[aria-label="Shipments List Applet:Query"]').click();
 
+    await page.reload();
     await page.locator('[aria-label="Shipments List Applet:Query"]').click();
 
     //Paste PO Number
     await page.locator('[id="1_s_3_l_MF_Order_Number"]').click();
 
-    const PONumber = JSON.parse(JSON.stringify(require("./PONUMBER.json")));
+    // const PONumber = JSON.parse(JSON.stringify(require("../PONUMBER.json")));
 
-    await page.locator('[id="1_MF_Order_Number"]').fill(PONumber.ORD_N);
+    await page.locator('[id="1_MF_Order_Number"]').fill(PO_NUM);
     await page.locator('[id="s_3_1_6_0_Ctrl"]').click();
     await page.waitForLoadState("domcontentloaded");
     //Click on receive button
@@ -244,10 +242,10 @@ await page.waitForLoadState()
     //Search for Expense Order
     await page.locator('[id="s_1_1_21_0_Ctrl"]').click();
 
-    const ExpNum = JSON.parse(JSON.stringify(require("./Expense.json")));
+    // const ExpNum = JSON.parse(JSON.stringify(require("../Expense.json")));
 
     //Paste Order number
-    await page.locator('[id="1_Order_Number"]').fill(ExpNum.Exp_Num);
+    await page.locator('[id="1_Order_Number"]').fill(Expense_order);
     await page.locator('[id="s_1_1_3_0_Ctrl"]').click();
     await page.waitForLoadState("domcontentloaded");
     await page.locator('[id="1_s_1_l_Status"]').click();

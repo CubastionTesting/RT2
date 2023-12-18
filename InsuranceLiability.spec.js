@@ -2,7 +2,7 @@ import { test, expect, firefox } from '@playwright/test';
 const { chromium } = require('@playwright/test');
 const fs = require('fs');
 test('record demo 1', async () => {
-    test.setTimeout(1500000);
+    test.setTimeout(1000000);
 
     const browser = await chromium.launch({
         headless: true
@@ -123,8 +123,21 @@ test('record demo 1', async () => {
 
   await page.getByLabel('Liability Spreadsheet Form Applet:Generate Approvals').click();
   await page.locator('[class="drilldown"]').click();
-  
-  await page.locator('[name="s_1_1_10_0"]').press("Control+Alt+k");
+  await page.waitForTimeout(5000);
+
+  await page.getByRole('link', { name: 'Approval History' }).click();
+
+  const validApprovers = ["SCHQ-Sales-Ins-Mgr"];
+  const verfyappvr = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff = new verfyappvr.appnew(page);
+  for (let n = 0; n < validApprovers.length; n++) {
+    const isApproverValid = await SalesGPStaff.isValidApprover(validApprovers[n],n);
+  }
+
+  await page.getByPlaceholder('Sum Total Number of Insurance Contract').click();
+  await page.getByPlaceholder('Sum Total Number of Insurance Contract').press('Alt+Control+k');
+
   var SRrowid = await page.locator('[aria-label="Row #"]').textContent();
   console.log(SRrowid);
   await page.locator('[aria-label="Row #"]').press("Control+c");

@@ -6,7 +6,7 @@ const { chromium } = require('@playwright/test');
 
 
 test('record demo', async () => {
-  test.setTimeout(1500000);
+  test.setTimeout(1000000);
   const browser = await chromium.launch({
 
     headless: true
@@ -84,7 +84,9 @@ test('record demo', async () => {
       console.log('error in Generate Approval button in Part Quote');
     }
     console.log("Generate Approvals button clicked successfully");
-
+    
+    var reviseQuote=await page.locator('[aria-label="Quote Name"]').inputValue();
+    console.log('revise quote is',reviseQuote);
 
 
     //Copy Quote
@@ -102,6 +104,8 @@ test('record demo', async () => {
       console.log('error in Cancel button in Part Quote');
     }
     console.log("Cancel button clicked successfully");
+    var copy_cancelQuote=await page.locator('[aria-label="Quote Name"]').inputValue();
+    console.log('copy & cancel quote is',copy_cancelQuote);
 
 
     
