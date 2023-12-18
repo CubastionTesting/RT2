@@ -103,11 +103,8 @@ jobs:
       - name: UV_AssessmentRt2.spec
         run: npx playwright test UV_AssessmentRt2 --retries=1
         continue-on-error: true
-      - name: UV_LDT_practice.spec
-        run: npx playwright test UV_LDT_practice --retries=1
-        continue-on-error: true
       - name: UV_LDTwithBPS.spec
-        run: npx playwright test UV_LDTwithBPS --retries=1
+        run: npx playwright test UV_LDT_withBPS --retries=1
         continue-on-error: true
       - name: InsuranceLiability.spec
         run: npx playwright test InsuranceLiability --retries=1
