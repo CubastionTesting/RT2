@@ -67,7 +67,6 @@ jobs:
       - name: NV_withPTandSV.spec
         run: npx playwright test NV_withPTandSV --retries=1
         continue-on-error: true
-        jobs:
   build2_SV_only:
     runs-on: ubuntu-latest
     strategy:
