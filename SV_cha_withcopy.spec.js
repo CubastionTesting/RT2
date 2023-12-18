@@ -213,7 +213,9 @@ test('record demo', async () => {
   await page.getByPlaceholder('拠点名', { exact: true }).click();
   await page.getByPlaceholder('拠点名', { exact: true }).press('Alt+Enter');
   await page.reload()
-  await page.waitForTimeout(2000)
+  await page.waitForTimeout(2000);
+  await page.locator('[placeholder="見積/納品フッター 1"]').click();
+  await page.locator('[placeholder="見積/納品フッター 1"]').press("Alt+Enter");
   //await page.pause()
  
   //Copy job card
