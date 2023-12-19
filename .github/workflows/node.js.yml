@@ -6,7 +6,7 @@ name: Node.js CI
     branches:
       - githubtrigger
 jobs:
-  build1_PT&UV:
+  BuildPTUV:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -67,8 +67,7 @@ jobs:
       - name: NV_withPTandSV.spec
         run: npx playwright test NV_withPTandSV --retries=1
         continue-on-error: true
-        jobs:
-  build2_SV_only:
+  buildSVOnly:
     runs-on: ubuntu-latest
     strategy:
       matrix:
