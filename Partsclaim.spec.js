@@ -37,13 +37,13 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
   await page.waitForTimeout(3000);
- // await page.pause();
+  await page.pause();
 
 
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
-  await page.getByRole('link', { name: 'FY54JY-540054' }).click();
-
+ // await page.getByRole('link', { name: 'FY54JY-540054' }).click();
+ await page.locator('[class="drilldown"]').click();
   // ---------------------
 
   //await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
