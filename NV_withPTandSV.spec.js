@@ -10,7 +10,7 @@ test('record demo 1', async () => {
 
 
   const browser = await chromium.launch({
-    headless: true
+    headless: false
   });
   const characters = '0123456789';
 
@@ -87,7 +87,6 @@ test('record demo 1', async () => {
   await approver1.getByLabel('Password').fill('Snakamura@1');
   await approver1.getByRole('button', { name: 'Log on' }).click();
 
-
   await approver2.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
 
   await approver2.getByLabel('User ID').click();
@@ -131,6 +130,8 @@ test('record demo 1', async () => {
   await approver3.getByLabel('Password').fill('Snakamura@1');
   await approver3.getByRole('button', { name: 'Log on' }).click();
   await page.waitForTimeout(5000);
+
+  await page.pause();
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=Opportunity+List+View');
   await page.getByRole('button', { name: '商談 リストアプレット:新規' }).click();
   await page.waitForTimeout(5000);
@@ -206,6 +207,7 @@ test('record demo 1', async () => {
   await page.locator('[id="1_s_1_l_Activity_UID"]').click();
   const activityID = await page.locator('[id="1_Activity_UID"]').inputValue();
   console.log('Activity: ' + activityID);
+
   await part.bringToFront();
   // await page.waitForTimeout(5000);
   await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+All+FDP+Quotes+View');
@@ -286,6 +288,7 @@ test('record demo 1', async () => {
   const validApprovers = ["Branch-Sales-Mgr", "Branch-Head","SCHQ-BizMgmt-SnrMgr"];
   const NVApproveruser = [approver1,approverX,approver2]
     const verfyappvr = require('./approverfunction');
+    await page.pause();
     //initiating the constructor
     const SalesGPStaff = new verfyappvr.appnew(page);
     for (let n = 0; n < validApprovers.length; n++) {
@@ -337,6 +340,7 @@ test('record demo 1', async () => {
   await UVApprover.correctApprover(rowid1);
     }
   }
+  await page.pause();
   await page.waitForTimeout(3000);
   await page.reload()
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: '購入オーダー' }).click();
@@ -395,7 +399,7 @@ test('record demo 1', async () => {
   await part.locator('[name="s_4_1_10_0"]').click();
   await part.waitForTimeout(3000)
   await part.locator('[id="s_4_1_17_0_Ctrl"]').click();
-
+  await page.pause();
   await part.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=MF+PA+Order+Entry+-+All+Orders+View+(Internal)')
   await part.locator('[id="s_2_1_21_0_Ctrl"]').click();
   await part.locator('[id="1_Order_Number"]').fill(partInternalOrder);
@@ -453,6 +457,7 @@ test('record demo 1', async () => {
   await myVecPage.getByRole('textbox', { name: '顧客コード' }).press('Enter');
   await myVecPage.getByRole('button', { name: '取引先を選択 リストアプレット:OK' }).click();
   await myVecPage.locator('#s_1_1_108_0_icon').click();
+  await page.pause();
   await myVecPage.getByRole('button', { name: '口座番号を選択 リストアプレット:OK' }).click();
   await myVecPage.locator('[aria-roledescription="架装名称（発注書）"]').click();
   await myVecPage.locator('[id="1_Body_Building_Name_PO_"]').fill('AKM01');
@@ -490,6 +495,7 @@ const NVApproveruser2 = [approver3]
   await myVecPage.waitForTimeout(2000)
   await myVecPage.locator('[aria-label="発注番号"]').press('Alt+Enter')
   await myVecPage.waitForTimeout(2000)
+  await page.pause();
   await myVecPage.getByRole('link', { name: '架装発注-検収依頼' }).click();
   await myVecPage.getByRole('button', { name: '架装発注-検収依頼 リストアプレット:新規' }).click();
   await myVecPage.locator('[id="\\31 _s_1_l_Verification_Name"]').click();
