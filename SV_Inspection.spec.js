@@ -2,12 +2,6 @@ import { test } from '@playwright/test';
 
 const { chromium } = require('@playwright/test');
 
-
-
-
-
-
-
 test('record demo', async () => {
   test.setTimeout(1000000);
   const browser = await chromium.launch({
@@ -42,7 +36,7 @@ test('record demo', async () => {
 
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
-  await page.getByRole('link', { name: 'FY54JY-540054' }).click();
+  await page.locator('[class="drilldown"]').click();
 
   // ---------------------
 
@@ -114,7 +108,6 @@ test('record demo', async () => {
   await page.locator('[id="\\31 _s_1_l_MF_Labor_Code"]').click();
 
   await page.locator('[id="s_1_2_64_0_icon"]').click();
-
   await page.getByRole('button', { name: 'ピック労働コード リストアプレット:OK' }).click();
 
   await page.getByRole('gridcell', { name: '計算機フィールド' }).first().click();
@@ -126,6 +119,7 @@ test('record demo', async () => {
   await page.locator('[aria-roledescription="純作業時間"]').click();
   await page.locator('[name="MF_Net_Operation_Time"]').fill('8');
   await page.locator('[name="MF_Net_Operation_Time"]').press('Control+s');
+
 
   //await page.pause();
   await page.getByRole('link', { name: 'パーツ' }).click();
