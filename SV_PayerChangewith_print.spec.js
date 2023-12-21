@@ -2,12 +2,6 @@ import { test } from '@playwright/test';
 
 const { chromium } = require('@playwright/test');
 
-
-
-
-
-
-
 test('record demo', async () => {
   test.setTimeout(1000000);
   const browser = await chromium.launch({
@@ -42,7 +36,7 @@ test('record demo', async () => {
   await page.waitForTimeout(3000);
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
-  await page.getByRole('link', { name: 'FY54JY-540054' }).click();
+  await page.locator('[class="drilldown"]').click();
 
   await page.getByRole('navigation', { name: '第 3 レベルのビューバー' }).getByRole('link', { name: 'ジョブカード' }).click();
 //job card created

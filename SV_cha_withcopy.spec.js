@@ -3,12 +3,6 @@ import { Console } from 'console';
  
 const { chromium } = require('@playwright/test');
  
- 
- 
- 
- 
- 
- 
 test('record demo', async () => {
   test.setTimeout(1000000);
   const browser = await chromium.launch({
@@ -33,7 +27,6 @@ test('record demo', async () => {
   await page.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/jpn?SWECmd=GotoView&SWEView=eAuto+All+Vehicle+View');
   await page.waitForLoadState();
   await page.waitForTimeout(3000);
- 
   await page.getByRole('button', { name: '車両 リストアプレット:クエリー' }).click();
   await page.locator('[aria-roledescription="車台番号"]').click();
   await page.getByRole('textbox', { name: '車台番号 リンク' }).fill('FY54JY-540054');
@@ -41,7 +34,7 @@ test('record demo', async () => {
  
   await page.getByRole('button', { name: '車両 リストアプレット:ジャンプ' }).click();
   await page.getByText('FUSO-Gen').click();
-  await page.getByRole('link', { name: 'FY54JY-540054' }).click();
+  await page.locator('[class="drilldown"]').click();
  
   // ---------------------
  
@@ -73,7 +66,6 @@ test('record demo', async () => {
   await page.getByRole('cell', { name: '整備担当者コード' }).filter({ hasText: '整備担当者コード' }).locator('div').click();
  
   await page.getByPlaceholder('請求先コード').click();
- 
   await page.getByPlaceholder('請求先コード').fill('0000002810');
  
   await page.locator('tr:nth-child(17) > td:nth-child(10)').click();
