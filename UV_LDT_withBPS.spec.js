@@ -117,6 +117,7 @@ test('record demo 1', async () => {
     await page.locator('#s_1_l_scroll [id="\\31 "]').getByRole('gridcell', { name: 'Selection Field', exact: true }).click();
     await page.getByRole('textbox', { name: 'Customer Name Selection Field' }).click();
     await page.getByRole('textbox', { name: 'Customer Name Selection Field' }).fill('akm');
+    await page.pause()
     await page.getByRole('textbox', { name: 'Customer Name Selection Field' }).press('Enter');
     await page.getByLabel('Pick Account List Applet:Query').click();
     await page.locator('[id="1_s_3_l_Location"]').click();
