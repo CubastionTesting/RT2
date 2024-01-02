@@ -1,0 +1,120 @@
+{
+    "HDT": [
+      {
+        "Branch-limit": {
+          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
+        }
+      },
+      {
+        "HQ Limit" : {
+          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"]
+         }
+      },
+      {
+        "managemant Limit" : {
+          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"Biz. Division Manager",	"Officer",	"President"]
+        }
+      }
+    ],
+    "MDT": [
+      {
+        "Branch-limit": {
+          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
+        }
+      },
+      {
+        "HQ Limit" : {
+          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"]
+         }
+      },
+      {
+        "managemant Limit" : {
+          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"Biz. Division Manager",	"Officer",	"President"]
+        }
+      }
+    ],
+    "LDT": [
+      {
+        "Branch-limit": {
+          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
+        }
+      },
+      {
+        "HQ Limit" : {
+          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"]
+         }
+      },
+      {
+        "managemant Limit" : {
+          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"Biz. Division Manager",	"Officer",	"President"]
+        }
+      }
+    ],
+    "SLDT": [
+      {
+        "Branch-limit": {
+          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
+        }
+      },
+      {
+        "HQ Limit" : {
+          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"]
+         }
+      },
+      {
+        "managemant Limit" : {
+          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"Biz. Division Manager",	"Officer",	"President"]
+        }
+      }
+    ],
+    "Others": [
+      {
+        "Branch-limit": {
+          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
+        }
+      },
+      {
+        "HQ Limit" : {
+          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","Biz. Division Manager"]
+         }
+      },
+      {
+        "managemant Limit" : {
+          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"Biz. Division Manager",	"Officer",	"President"]
+        }
+      }
+    ],
+    "HB": [
+      {
+        "Bus-Staf": ["Bus Dept. Manager","Fleet Sales Divison Manager","Officer","President"],
+        "Bus Dept. Manager" : ["Bus Dept. Manager","Fleet Sales Divison Manager","Officer","President"]
+      }
+    ],
+    "MB": [
+      {
+        "Bus-Staf": ["Bus Dept. Manager","Fleet Sales Divison Manager","Officer","President"],
+        "Bus Dept. Manager" : ["Bus Dept. Manager","Fleet Sales Divison Manager","Officer","President"]
+      }
+    ],
+    "LB": [
+      {
+        "Branch-Sales-Staff " : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"Officer",	"President"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"Officer",	"President"],
+        "Bus-Staf": ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"Officer",	"President"],
+        "Bus Dept. Manager" : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"Officer",	"President"]
+      }
+    ]
+  }
+ 
+  
+  
