@@ -42,17 +42,17 @@
         "Branch-limit": {
           "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
           "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
+        } 
+      },
+      {
+        "HQ-limit": {
+          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
+          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head","SCHQ-BizMgmt-SnrMgr"]
         }
       },
       {
-        "HQ Limit" : {
-          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
-         }
-      },
-      {
-        "managemant Limit" : {
-          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
+        "Managemant-limit": {
+            "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr","SCHQ-Sales-NV-Mgr","SCHQ-SC-Head"]
         }
       }
     ],
