@@ -1,120 +1,121 @@
 {
-    "HDT": [
-      {
-        "Branch-limit": {
-          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
-        }
-      },
-      {
-        "HQ Limit" : {
-          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
-         }
-      },
-      {
-        "managemant Limit" : {
-          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
-        }
+  "HDT": [
+    {
+      "Branch-limit": {
+        "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
       }
-    ],
-    "MDT": [
-      {
-        "Branch-limit": {
-          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
-        }
-      },
-      {
-        "HQ Limit" : {
-          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
-         }
-      },
-      {
-        "managemant Limit" : {
-          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President", "SCHQ-SC-Head"]
-        }
+    },
+    {
+      "HQ Limit" : {
+        "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
+       }
+    },
+    {
+      "managemant Limit" : {
+        "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
       }
-    ],
-    "LDT": [
-      {
-        "Branch-limit": {
-          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
-        } 
-      },
-      {
-        "HQ-limit": {
-          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head","SCHQ-BizMgmt-SnrMgr"]
-        }
-      },
-      {
-        "Managemant-limit": {
-            "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr","SCHQ-Sales-NV-Mgr","SCHQ-SC-Head"]
-        }
+    }
+  ],
+  "MDT": [
+    {
+      "Branch-limit": {
+        "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
       }
-    ],
-    "SLDT": [
-      {
-        "Branch-limit": {
-          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
-        }
-      },
-      {
-        "HQ Limit" : {
-          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
-         }
-      },
-      {
-        "managemant Limit" : {
-          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
-        }
+    },
+    {
+      "HQ Limit" : {
+        "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
+       }
+    },
+    {
+      "managemant Limit" : {
+        "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr", "SCHQ-SC-Head"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr", "SCHQ-SC-Head"]
       }
-    ],
-    "Others": [
-      {
-        "Branch-limit": {
-          "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
-        }
-      },
-      {
-        "HQ Limit" : {
-          "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
-          "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
-         }
-      },
-      {
-        "managemant Limit" : {
-          "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
-        }
+    }
+  ],
+  "LDT": [
+    {
+      "Branch-limit": {
+        "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
       }
-    ],
-    "HB": [
-      {
-        "Bus-Staf": ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"],
-        "Bus Dept. Manager" : ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"]
+    },
+    {
+      "HQ Limit" : {
+        "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
+       }
+    },
+    {
+      "managemant Limit" : {
+        "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
       }
-    ],
-    "MB": [
-      {
-        "Bus-Staf": ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"],
-        "Bus Dept. Manager" : ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"]
+    }
+  ],
+  "SLDT": [
+    {
+      "Branch-limit": {
+        "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
       }
-    ],
-    "LB": [
-      {
-        "Branch-Sales-Staff " : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"],
-        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"],
-        "Bus-Staf": ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"],
-        "Bus Dept. Manager" : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
+    },
+    {
+      "HQ Limit" : {
+        "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
+       }
+    },
+    {
+      "managemant Limit" : {
+        "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
       }
-    ]
-  }
- 
-  
-  
+    }
+  ],
+  "Others": [
+    {
+      "Branch-limit": {
+        "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head"]
+      }
+    },
+    {
+      "HQ Limit" : {
+        "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
+        "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
+       }
+    },
+    {
+      "managemant Limit" : {
+        "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
+      }
+    }
+  ],
+  "HB": [
+    {
+      "Bus-Staf": ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"],
+      "Bus Dept. Manager" : ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"]
+    }
+  ],
+  "MB": [
+    {
+      "Bus-Staf": ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"],
+      "Bus Dept. Manager" : ["Bus Dept. Manager","Fleet Sales Divison Manager","SCHQ-Sales-NV-Mgr","HQ-President"]
+    }
+  ],
+  "LB": [
+    {
+      "Branch-Sales-Staff " : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"],
+      "Branch-Sales-Mgr" : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"],
+      "Bus-Staf": ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"],
+      "Bus Dept. Manager" : ["Branch-Sales-Mgr",	"Branch-Head","Bus Dept. Manager",	"Fleet Sales Divison Manager",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
+    }
+  ]
+}
+
+
+
