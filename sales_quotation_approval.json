@@ -14,7 +14,7 @@
     },
     {
       "managemant Limit" : {
-        "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"HQ-President"]
+        "Branch-Sales-Staf" : ["Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr",	"SCHQ-SC-Head"]
       }
     }
   ],
@@ -85,7 +85,7 @@
     },
     {
       "HQ Limit" : {
-        "Branch-Sales-Staff " :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
+        "Branch-Sales-Staf" :["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"],
         "Branch-Sales-Mgr" : ["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr"]
        }
     },
