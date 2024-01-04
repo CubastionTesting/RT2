@@ -214,6 +214,70 @@ test('record demo 1', async () => {
   await pageApp1.waitForLoadState('networkidle');
 
   await page38.bringToFront();
+  await page38.reload();
+  await page38.locator('[name="s_2_1_127_0"]').click();
+  await page38.getByRole('button', { name: 'Quote Form Applet:Generate Approvals' }).click();
+  await page38.waitForTimeout(4000);
+ 
+  console.log('From Sales-Staff-Others(Branch Limit>0)');
+  console.log('Expected -["Branch-Sales-Mgr","Branch-Head"]');
+
+  //const jsonData = require('./sales_quotation_approval.json')
+  const validApprovers2 = jsonData.HDT[0]['Branch-limit']['Branch-Sales-Staf'];
+    //const NVApproveruser1 = [pageApp1,pageApp2]
+    const verfyappvr2 = require('./approverfunction');
+    //initiating the constructor
+    const SalesGPStaff2 = new verfyappvr2.appnew(page38);
+    for (let n = 0; n < validApprovers2.length; n++) {
+      const isApproverValid = await SalesGPStaff2.isValidApprover(validApprovers2[n],n);
+    }
+
+    console.log('Actual Coming -["Branch-Sales-Mgr","Branch-Head"]');
+
+    await pageApp1.bringToFront();
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp1.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    await pageApp1.getByRole('gridcell', { name: 'Link' }).click();
+    await pageApp1.getByPlaceholder('<Case Sensitive>').fill(JSRQuoteID);
+    await pageApp1.getByPlaceholder('<Case Sensitive>').press('Enter');
+    await pageApp1.getByRole('gridcell', { name: 'Combobox Field' }).click();
+    await pageApp1.locator('[id="1_Action"]').fill('Rejected');
+    await pageApp1.locator('[id="1_Action"]').press('Enter');
+    await pageApp1.locator('[id="1_Action"]').press('Control+s');
+    await pageApp1.waitForLoadState('networkidle');
+
+    await page38.bringToFront();
+    await page38.reload();
+    //await page38.getByLabel('About Record Form Applet:OK').click();
+    await page38.locator('[name="s_2_1_127_0"]').click();
+    await page38.getByPlaceholder('Sales Price', { exact: true }).dblclick();
+    await page38.getByPlaceholder('Sales Price', { exact: true }).fill('6074000');
+    await page38.getByPlaceholder('Sales Price', { exact: true }).press('Control+s');
+    await page38.getByRole('button', { name: 'Quote Form Applet:Generate Approvals' }).click();
+    await page38.waitForTimeout(4000);
+
+        //const jsonData = require('../RT2/sales_quotation_approval.json');
+        const validApprovers3 = jsonData.HDT[2]['managemant Limit']['Branch-Sales-Staf'];
+        const NVApproveruser3= [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2]
+        const verfyappvr3 = require('./approverfunction');
+        //initiating the constructor
+        const SalesGPStaff3 = new verfyappvr3.appnew(page38);
+        for (let n = 0; n < validApprovers3.length; n++) {
+          const isApproverValid1 = await SalesGPStaff3.isValidApprover(validApprovers3[n],n);
+        }
+     
+        for(let n=0;n<validApprovers3.length;n++){
+          if(NVApproveruser3[n] == pageApp1 || NVApproveruser3[n] == pageApp2 ){
+        const NVApprover2 = new verfyappvr3.appnew(NVApproveruser3[n]);
+        await NVApproveruser3[n].goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+        await NVApproveruser3[n].bringToFront();
+        await NVApprover2.correctApprover(JSRQuoteID);
+     
+          }
+     
+          //inbox function end
+        }
+
   await page38.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=MF+All+Quotes+across+HQ+List+View');
   const kcurl = page38.url();
   await page38.locator('[name="s_2_1_16_0"]').click();
@@ -237,6 +301,10 @@ test('record demo 1', async () => {
   await page38.getByRole('link', { name: 'Approval History' }).click();
 
   //const jsonData = require('../RT2/sales_quotation_approval.json');
+
+  console.log('From Sales-Staff-Others(managemant Limit<-700,000)');
+  console.log('Expected -["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr","SCHQ-Sales-NV-Mgr","SCHQ-SC-Head"]');
+
   const validApprovers1 = jsonData.HDT[2]['managemant Limit']['Branch-Sales-Staf'];
     const NVApproveruser2= [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2]
     const verfyappvr1 = require('./approverfunction');
@@ -258,7 +326,7 @@ test('record demo 1', async () => {
       //inbox function end
     }
 
-
+    console.log('Actual Coming -["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr","SCHQ-Sales-NV-Mgr","SCHQ-SC-Head"]');
   /*await pageApp1.bringToFront();
   await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
   await pageApp1.locator('[aria-label="Inbox Items List Applet:Query"]').click();
