@@ -171,6 +171,7 @@ test('record demo 1', async () => {
 
   await page38.getByRole('button', { name: 'Quote Form Applet:Generate Approvals' }).click();
   await page38.waitForTimeout(4000);
+  await page38.pause();
   await page38.getByPlaceholder('Quote Name').click();
   await page38.getByPlaceholder('Quote Name').press('Alt+Control+k');
 
