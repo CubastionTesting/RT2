@@ -511,7 +511,7 @@ test('MGR for MDT', async () => {
   console.log('Quote id for taking approval is : ' + QuoteID);
   await page38.getByLabel('About Record Form Applet:OK').click();
   await page38.getByRole('link', { name: 'Approval History' }).click();
-  console.log('\n********* From Sales-Staff - MDT (Branch Limit >= -600,000  ) *****  Expected - Branch-Sales-Mgr, Branch-Head***********\n')
+  console.log('\n********* From Sales-mgr - MDT (Branch Limit >= -600,000  ) *****  Expected - Branch-Sales-Mgr, Branch-Head***********\n')
     
     const jsonData = require('../RT2/sales_quotation_approval.json');
     const validApprovers = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Mgr'];
@@ -554,7 +554,7 @@ const copyQuoteID0 = await page38.locator('[aria-label="Row #"]').textContent();
 console.log('Quote id for taking approval is : ' + copyQuoteID0);
 await page38.getByLabel('About Record Form Applet:OK').click();
 await page38.getByRole('link', { name: 'Approval History' }).click();
-console.log('\n********* From Sales-Staff - MDT (when profit amount zero ) *****  Expected - "Branch-Sales-Mgr",	"Branch-Head" **********\n')
+console.log('\n********* From Sales-mgr - MDT (when profit amount zero ) *****  Expected - "Branch-Sales-Mgr",	"Branch-Head" **********\n')
   const validApprovers4 = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Mgr'];
   const NVApproveruser4 = [pageApp1,pageApp2]
   //const verfyappvr1 = require('./approverfunction');
@@ -600,7 +600,7 @@ await page38.reload()
   console.log('Quote id for taking approval is : ' + copyQuoteID);
   await page38.getByLabel('About Record Form Applet:OK').click();
   await page38.getByRole('link', { name: 'Approval History' }).click();
-  console.log('\n********* From Sales-Staff - MDT (Management Limit < -600,000 & < -400,000 ) *****  Expected - "Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr", "SCHQ-SC-Head"**********\n')
+  console.log('\n********* From Sales-mgr - MDT (Management Limit < -600,000 & < -400,000 ) *****  Expected - "Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr", "SCHQ-SC-Head"**********\n')
     
     const validApprovers1 = jsonData.MDT[2]['managemant Limit']['Branch-Sales-Mgr'];
     const NVApproveruser02 = [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2]
@@ -645,7 +645,7 @@ await page38.reload()
   await page38.getByLabel('Quote Form Applet:Generate').click();
   await page38.getByRole('link', { name: 'Approval History' }).click();
   await pageApp1.bringToFront();
-  console.log('\n********* From Sales-Staff - MDT (If  Operating Profit Goes Up or same) for change in progress quote case*****  Expected - "Branch-Sales-Mgr","Branch-Head"************\n')
+  console.log('\n********* From Sales-mgr - MDT (If  Operating Profit Goes Up or same) for change in progress quote case*****  Expected - "Branch-Sales-Mgr","Branch-Head"************\n')
   const validApprovers2 = jsonData.MDT[2]['managemant Limit']['Branch-Sales-Mgr'];
     const NVApproveruser2 = [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2]
   const SalesGPStaff2 = new verfyappvr.appnew(page38);
@@ -673,7 +673,7 @@ await page38.reload()
   await page38.getByLabel('Quote Form Applet:Generate').click();
   await page38.getByRole('link', { name: 'Approval History' }).click();
   await pageApp1.bringToFront();
-  console.log('\n********* From Sales-Staff - MDT (< -600,000 & < -400,000) for change in progress quote case*****  Expected - "Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr", "SCHQ-SC-Head"**********\n')
+  console.log('\n********* From Sales-mgr - MDT (< -600,000 & < -400,000) for change in progress quote case*****  Expected - "Branch-Sales-Mgr",	"Branch-Head",	"SCHQ-BizMgmt-SnrMgr",	"SCHQ-Sales-NV-Mgr", "SCHQ-SC-Head"**********\n')
   const validApprovers3 = jsonData.MDT[2]['managemant Limit']['Branch-Sales-Mgr'];
   const NVApproveruser3 = [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2]
 //const verfyappvr1 = require('./approverfunction');
