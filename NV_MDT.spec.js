@@ -186,7 +186,52 @@ test.only('Sales-Staff for MDT', async () => {
       //inbox function end
     }*/
 
+    //When profit is zero
 
+    await page38.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=Quote+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Quote+List+Applet')
+    await page38.waitForLoadState('domcontentloaded');
+    await page38.getByLabel('Quotes List Applet:Query').click();
+    await page38.getByLabel('Name', { exact: true }).fill(Quote);
+    await page38.getByLabel('Name', { exact: true }).press('Enter');
+    await page38.getByLabel('Quotes List Applet:Copy Quote').click();
+    
+    await page38.getByPlaceholder('Sales Price', { exact: true }).click();
+    await page38.getByPlaceholder('Sales Price', { exact: true }).fill('¥6,630,000');
+    await page38.getByPlaceholder('Sales Price', { exact: true }).press('Control+s');
+    await page38.getByLabel('Quote Form Applet:Generate').click();
+    const copyQuote0 = await page38.locator('[aria-label="Quote#"]').inputValue();
+    console.log('Quote Copy 1 : ' + copyQuote0);
+    await page38.getByPlaceholder('Sales Commission Ratio').click()
+    await page38.getByPlaceholder('Sales Commission Ratio').press('Alt+Control+k');
+    const copyQuoteID0 = await page38.locator('[aria-label="Row #"]').textContent();
+    console.log('Quote id for taking approval is : ' + copyQuoteID0);
+    await page38.getByLabel('About Record Form Applet:OK').click();
+    await page38.getByRole('link', { name: 'Approval History' }).click();
+    console.log('\n********* From Sales-Staff - MDT (when profit amount zero ) *****  Expected - "Branch-Sales-Mgr",	"Branch-Head" **********\n')
+      const validApprovers4 = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Staf'];
+      const NVApproveruser4 = [pageApp1,pageApp2]
+      //const verfyappvr1 = require('./approverfunction');
+      //initiating the constructor
+      const SalesGPStaff4 = new verfyappvr.appnew(page38);
+      for (let n = 0; n < validApprovers4.length; n++) {
+        const isApproverValid4 = await SalesGPStaff4.isValidApprover(validApprovers4[n],n);
+      }
+
+    await pageApp1.bringToFront();
+    await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+    await pageApp1.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+    await pageApp1.getByRole('gridcell', { name: 'Link' }).click();
+    await pageApp1.getByPlaceholder('<Case Sensitive>').fill(copyQuoteID0);
+    await pageApp1.getByPlaceholder('<Case Sensitive>').press('Enter');
+    await pageApp1.getByRole('gridcell', { name: 'Combobox Field' }).click();
+    await pageApp1.locator('[id="1_Action"]').fill('Rejected');
+    await pageApp1.locator('[id="1_Action"]').press('Enter');
+    await pageApp1.locator('[id="1_Action"]').press('Control+s');
+    await pageApp1.waitForLoadState('networkidle');
+    await page38.bringToFront();
+    await page38.reload()
+
+  ////////
   await page38.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=Quote+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Quote+List+Applet')
   await page38.waitForLoadState('domcontentloaded');
   await page38.getByLabel('Quotes List Applet:Query').click();
@@ -196,7 +241,6 @@ test.only('Sales-Staff for MDT', async () => {
   
   await page38.getByPlaceholder('Sales Price', { exact: true }).click();
   await page38.getByPlaceholder('Sales Price', { exact: true }).fill('¥3,354,000');
-  await page38.pause()
   await page38.getByPlaceholder('Sales Price', { exact: true }).press('Control+s');
   await page38.getByLabel('Quote Form Applet:Generate').click();
   const copyQuote = await page38.locator('[aria-label="Quote#"]').inputValue();
@@ -242,7 +286,7 @@ test.only('Sales-Staff for MDT', async () => {
   await pageApp1.waitForLoadState('networkidle');
   await page38.bringToFront();
   await page38.reload()
-  await page38.pause()
+
 
   // change in  Quote for If  Operating Profit Goes Up or same
 
@@ -272,7 +316,7 @@ test.only('Sales-Staff for MDT', async () => {
   await pageApp1.waitForLoadState('networkidle');
   await page38.bringToFront();
   await page38.reload()
-  await page38.pause()
+ 
 //change in  Quote for If  Operating Profit Goes Up down
 
   await page38.getByLabel('Quote Form Applet: Change In').click();
@@ -421,7 +465,6 @@ test('MGR for MDT', async () => {
   await page38.waitForLoadState('domcontentloaded');
   await page38.getByPlaceholder('Sales Price', { exact: true }).click();
   await page38.getByPlaceholder('Sales Price', { exact: true }).fill('8354000');
-  await page38.pause()
   await page38.getByPlaceholder('Sales Price', { exact: true }).press('Control+s');
 
   await page38.getByPlaceholder('Sales Type').click();
@@ -490,7 +533,52 @@ test('MGR for MDT', async () => {
   
       //inbox function end
     }*/
+//When profit is zero
 
+await page38.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=Quote+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Quote+List+Applet')
+await page38.waitForLoadState('domcontentloaded');
+await page38.getByLabel('Quotes List Applet:Query').click();
+await page38.getByLabel('Name', { exact: true }).fill(Quote);
+await page38.getByLabel('Name', { exact: true }).press('Enter');
+await page38.getByLabel('Quotes List Applet:Copy Quote').click();
+
+await page38.getByPlaceholder('Sales Price', { exact: true }).click();
+await page38.getByPlaceholder('Sales Price', { exact: true }).fill('¥6,630,000');
+await page38.getByPlaceholder('Sales Price', { exact: true }).press('Control+s');
+await page38.getByLabel('Quote Form Applet:Generate').click();
+const copyQuote0 = await page38.locator('[aria-label="Quote#"]').inputValue();
+console.log('Quote Copy 1 : ' + copyQuote0);
+await page38.getByPlaceholder('Sales Commission Ratio').click()
+await page38.getByPlaceholder('Sales Commission Ratio').press('Alt+Control+k');
+const copyQuoteID0 = await page38.locator('[aria-label="Row #"]').textContent();
+console.log('Quote id for taking approval is : ' + copyQuoteID0);
+await page38.getByLabel('About Record Form Applet:OK').click();
+await page38.getByRole('link', { name: 'Approval History' }).click();
+console.log('\n********* From Sales-Staff - MDT (when profit amount zero ) *****  Expected - "Branch-Sales-Mgr",	"Branch-Head" **********\n')
+  const validApprovers4 = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Mgr'];
+  const NVApproveruser4 = [pageApp1,pageApp2]
+  //const verfyappvr1 = require('./approverfunction');
+  //initiating the constructor
+  const SalesGPStaff4 = new verfyappvr.appnew(page38);
+  for (let n = 0; n < validApprovers4.length; n++) {
+    const isApproverValid4 = await SalesGPStaff4.isValidApprover(validApprovers4[n],n);
+  }
+
+await pageApp1.bringToFront();
+await pageApp1.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View', { waitUntil: 'networkidle' });
+await pageApp1.locator('[aria-label="Inbox Items List Applet:Query"]').click();
+await pageApp1.getByRole('gridcell', { name: 'Link' }).click();
+await pageApp1.getByPlaceholder('<Case Sensitive>').fill(copyQuoteID0);
+await pageApp1.getByPlaceholder('<Case Sensitive>').press('Enter');
+await pageApp1.getByRole('gridcell', { name: 'Combobox Field' }).click();
+await pageApp1.locator('[id="1_Action"]').fill('Rejected');
+await pageApp1.locator('[id="1_Action"]').press('Enter');
+await pageApp1.locator('[id="1_Action"]').press('Control+s');
+await pageApp1.waitForLoadState('networkidle');
+await page38.bringToFront();
+await page38.reload()
+
+////////
 
   await page38.goto('https://forcefdp-rt2.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=Quote+List+View&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Quote+List+Applet')
   await page38.waitForLoadState('domcontentloaded');
@@ -547,7 +635,6 @@ test('MGR for MDT', async () => {
   await pageApp1.waitForLoadState('networkidle');
   await page38.bringToFront();
   await page38.reload()
-  await page38.pause()
 
   // change in  Quote for If  Operating Profit Goes Up or same
 
@@ -577,7 +664,6 @@ test('MGR for MDT', async () => {
   await pageApp1.waitForLoadState('networkidle');
   await page38.bringToFront();
   await page38.reload()
-  await page38.pause()
 //change in  Quote for If  Operating Profit Goes Up down
 
   await page38.getByLabel('Quote Form Applet: Change In').click();
