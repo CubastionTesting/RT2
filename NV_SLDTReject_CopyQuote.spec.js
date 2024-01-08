@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { chromium } from '@playwright/test';
 test.setTimeout(12000000);
  
-test('Sales-Staff for MDT', async () => {
+test('Sales-Staff for SLDT', async () => {
  
   const browser = await chromium.launch({
     headless: false
