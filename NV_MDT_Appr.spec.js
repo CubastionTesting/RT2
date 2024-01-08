@@ -13,11 +13,13 @@ test.only('Sales-Staff for MDT', async () => {
   const context1 = await browser.newContext();
   const context2 = await browser.newContext();
   const context3 = await browser.newContext();
+ // const context4 = await browser.newContext();
 
   const page38 = await context.newPage();
   const pageApp1 = await context1.newPage();
   const pageApp2 = await context2.newPage();
   const pageVehicleStaff = await context3.newPage();
+  //const pageApp3 = await context4.newPage();
   
   await page38.waitForLoadState('networkidle');
   await page38.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
@@ -43,6 +45,13 @@ test.only('Sales-Staff for MDT', async () => {
   await pageVehicleStaff.locator('#s_swepi_2').fill('cubfuso123');
   await pageVehicleStaff.locator('#s_swepi_22').click();
   await pageVehicleStaff.waitForLoadState('domcontentloaded'); 
+
+  /*await pageApp3.waitForLoadState('networkidle');
+  await pageApp3.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+  await pageApp3.locator('#s_swepi_1').fill('D8FORF22');
+  await pageApp3.locator('#s_swepi_2').fill('cubfuso123');
+  await pageApp3.locator('#s_swepi_22').click();
+  await pageApp3.waitForLoadState('domcontentloaded');*/
 
   await page38.bringToFront();
   await page38.pause()
@@ -299,7 +308,7 @@ await page38.pause()
   await page38.getByRole('link', { name: 'Approval History' }).click();
   await pageApp1.bringToFront();
   console.log('\n********* From Sales-Staff - MDT (If  Operating Profit Goes Up or same) for change in progress quote case*****  Expected - "Branch-Sales-Mgr","Branch-Head"************\n')
-  const validApprovers2 = jsonData.MDT[2]['managemant Limit']['Branch-Sales-Staf'];
+  const validApprovers2 = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Staf'];
     const NVApproveruser2 = [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2]
   const SalesGPStaff2 = new verfyappvr.appnew(page38);
   for (let n = 0; n < validApprovers2.length; n++) {
@@ -318,7 +327,7 @@ await page38.pause()
   await page38.bringToFront();
   await page38.reload()
  
-//change in  Quote for If  Operating Profit Goes Up down
+//change in  Quote for If  Operating Profit Goes down
 
   await page38.getByLabel('Quote Form Applet: Change In').click();
   await page38.getByPlaceholder('Sales Price', { exact: true }).click();
@@ -348,7 +357,86 @@ await NVApprover3.correctApprover(copyQuoteID);
 
   //inbox function end
 }
+const quoteURL = await page38.url()
+await page38.pause()
+await page38.bringToFront()
 
+//SO Approval
+await page38.reload()
+await page38.getByLabel('Quote Form Applet:Auto Order').click();
+await page38.waitForTimeout(4000)
+  const SO = await page38.locator('[id="s_1_1_106_0_Label"]').textContent();
+  console.log('SO is : ' + SO)
+  await page38.getByRole('link', { name: 'Order Sheet' }).click();
+  await page38.getByPlaceholder('Last Contract Date').click();
+  await page38.getByPlaceholder('Last Contract Date').fill(' ');
+  await page38.getByPlaceholder('Last Contract Date').press('Enter');
+  await page38.getByPlaceholder('Last Contract Date').press('Control+S');
+  await page38.getByRole('link', { name: 'Line Items' }).click();
+  await page38.getByLabel('Sales Order Form Applet:Generate Approvals').click();
+  await page38.getByPlaceholder('Required Qty').click()
+  await page38.getByPlaceholder('Required Qty').press('Alt+Control+k');
+  const SOID = await page38.locator('[aria-label="Row #"]').textContent();
+  console.log('SO id for taking approval is : ' + SOID);
+  await page38.getByLabel('About Record Form Applet:OK').click();
+  await page38.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=Approval+History+-+Order+List+View+(Sales)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Order+Entry+-+Order+Form+Applet+Dashboard+(Sales)&SWERowId0=1-46SV0O&SWEApplet1=MF+Approval+Flow+History+Applet',{ waitUntil: 'networkidle' });
+  await page38.waitForTimeout(2000)
+  console.log('\n********* From Sales-Staff - MDT (Sales Order  Approval) *****  Expected - "Branch-Sales-Mgr","Branch-Head"************\n')
+  const validApprovers5 = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Staf'];
+  const NVApproveruser5 = [pageApp1,pageApp2]
+  const SalesGPStaff5 = new verfyappvr.appnew(page38);
+  for (let n = 0; n < validApprovers5.length; n++) {
+    const isApproverValid5 = await SalesGPStaff5.isValidApprover(validApprovers5[n],n);
+  }
+  for(let n=0;n<validApprovers.length;n++){
+  if(NVApproveruser5[n] == pageApp1 || NVApproveruser5[n] == pageApp2){
+  const NVApprover5 = new verfyappvr.appnew(NVApproveruser5[n]);
+  await NVApproveruser5[n].goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser5[n].bringToFront();
+  await NVApprover5.correctApprover(SOID);
+  
+  } 
+  
+    //inbox function end
+  }
+  //Revise Quote
+  
+  await page38.pause()
+  await page38.bringToFront()
+  await page38.goto(quoteURL)
+  await page38.getByLabel('Quote Form Applet:Revise').click();
+  const reviseQuote1 = await page38.locator('[aria-label="Quote#"]').inputValue();
+  console.log('Revise Quote  1 : ' + reviseQuote1);
+  await page38.getByPlaceholder('Sales Price', { exact: true }).click();
+  await page38.getByPlaceholder('Sales Price', { exact: true }).fill('¥8,079,000');
+  await page38.getByPlaceholder('Sales Price', { exact: true }).press('Control+s');
+  await page38.getByLabel('Quote Form Applet:Generate').click();
+  await page38.getByPlaceholder('Sales Commission Ratio').click();
+  await page38.getByPlaceholder('Sales Commission Ratio').press('Alt+Control+k');
+  const reviseQuoteID1 = await page38.locator('[aria-label="Row #"]').textContent();
+  console.log('Revise Quote id for taking approval is : ' + reviseQuoteID1);
+  await page38.getByLabel('About Record Form Applet:OK').click();
+  await page38.getByRole('link', { name: 'Approval History' }).click();
+  await page38.pause()
+
+  console.log('\n********* From Sales-Staff - MDT (Revise Quote) *****  Expected - "Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr","SCHQ-Sales-NV-Mgr","HQ-Executive-Mgr","SCHQ-SC-Head"************\n')
+  const validApprovers6 = jsonData.QuoteRevise_AfterSO[0]['Other'];
+  const NVApproveruser6 = [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2,pageApp2]
+  const SalesGPStaff6 = new verfyappvr.appnew(page38);
+  for (let n = 0; n < validApprovers6.length; n++) {
+    const isApproverValid6 = await SalesGPStaff6.isValidApprover(validApprovers6[n],n);
+  }
+  for(let n=0;n<validApprovers.length;n++){
+  if(NVApproveruser6[n] == pageApp1 || NVApproveruser6[n] == pageApp2){
+  const NVApprover6 = new verfyappvr.appnew(NVApproveruser6[n]);
+  await NVApproveruser6[n].goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser6[n].bringToFront();
+  await NVApprover6.correctApprover(reviseQuoteID1);
+  
+  } 
+  
+    //inbox function end
+  }
 await page38.pause()
 
 
@@ -363,11 +451,13 @@ test('MGR for MDT', async () => {
     const context1 = await browser.newContext();
     const context2 = await browser.newContext();
     const context3 = await browser.newContext();
-  
+    //const context4 = await browser.newContext();
+
     const page38 = await context.newPage();
     const pageApp1 = await context1.newPage();
     const pageApp2 = await context2.newPage();
     const pageVehicleStaff = await context3.newPage();
+    //const pageApp3 = await context4.newPage();
     
     await page38.waitForLoadState('networkidle');
     await page38.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
@@ -394,6 +484,13 @@ test('MGR for MDT', async () => {
     await pageVehicleStaff.locator('#s_swepi_22').click();
     await pageVehicleStaff.waitForLoadState('domcontentloaded'); 
   
+    /*await pageApp3.waitForLoadState('networkidle');
+    await pageApp3.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=Login&SWEPL=1&SRN=&SWETS', { waitUntil: 'networkidle' });
+    await pageApp3.locator('#s_swepi_1').fill('D8FORF22');
+    await pageApp3.locator('#s_swepi_2').fill('cubfuso123');
+    await pageApp3.locator('#s_swepi_22').click();
+    await pageApp3.waitForLoadState('domcontentloaded');*/
+
     await page38.bringToFront();
     await page38.pause()
     await page38.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=Opportunity+List+View');
@@ -649,7 +746,7 @@ test('MGR for MDT', async () => {
     await page38.getByRole('link', { name: 'Approval History' }).click();
     await pageApp1.bringToFront();
     console.log('\n********* From Sales-mgr - MDT (If  Operating Profit Goes Up or same) for change in progress quote case*****  Expected - "Branch-Sales-Mgr","Branch-Head"************\n')
-    const validApprovers2 = jsonData.MDT[2]['managemant Limit']['Branch-Sales-Mgr'];
+    const validApprovers2 = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Mgr'];
       const NVApproveruser2 = [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2]
     const SalesGPStaff2 = new verfyappvr.appnew(page38);
     for (let n = 0; n < validApprovers2.length; n++) {
@@ -668,7 +765,7 @@ test('MGR for MDT', async () => {
     await page38.bringToFront();
     await page38.reload()
    
-  //change in  Quote for If  Operating Profit Goes Up down
+  //change in  Quote for If  Operating Profit Goes down
   
     await page38.getByLabel('Quote Form Applet: Change In').click();
     await page38.getByPlaceholder('Sales Price', { exact: true }).click();
@@ -695,6 +792,87 @@ test('MGR for MDT', async () => {
   await NVApprover3.correctApprover(copyQuoteID);
   
     } 
+  
+    //inbox function end
+  }
+
+  const quoteURL = await page38.url()
+await page38.pause()
+await page38.bringToFront()
+
+//SO Approval
+await page38.reload()
+await page38.getByLabel('Quote Form Applet:Auto Order').click();
+await page38.waitForTimeout(4000)
+  const SO = await page38.locator('[id="s_1_1_106_0_Label"]').textContent();
+  console.log('SO is : ' + SO)
+  await page38.getByRole('link', { name: 'Order Sheet' }).click();
+  await page38.getByPlaceholder('Last Contract Date').click();
+  await page38.getByPlaceholder('Last Contract Date').fill(' ');
+  await page38.getByPlaceholder('Last Contract Date').press('Enter');
+  await page38.getByPlaceholder('Last Contract Date').press('Control+S');
+  await page38.getByRole('link', { name: 'Line Items' }).click();
+  await page38.getByLabel('Sales Order Form Applet:Generate Approvals').click();
+  await page38.getByPlaceholder('Required Qty').click()
+  await page38.getByPlaceholder('Required Qty').press('Alt+Control+k');
+  const SOID = await page38.locator('[aria-label="Row #"]').textContent();
+  console.log('SO id for taking approval is : ' + SOID);
+  await page38.getByLabel('About Record Form Applet:OK').click();
+  await page38.goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=Approval+History+-+Order+List+View+(Sales)&SWERF=1&SWEHo=&SWEBU=1&SWEApplet0=Order+Entry+-+Order+Form+Applet+Dashboard+(Sales)&SWERowId0=1-46SV0O&SWEApplet1=MF+Approval+Flow+History+Applet',{ waitUntil: 'networkidle' });
+  await page38.waitForTimeout(2000)
+  console.log('\n********* From Sales-MGR - MDT (Sales Order  Approval) *****  Expected - "Branch-Sales-Mgr","Branch-Head"************\n')
+  const validApprovers5 = jsonData.MDT[0]['Branch-limit']['Branch-Sales-Mgr'];
+  const NVApproveruser5 = [pageApp1,pageApp2]
+  const SalesGPStaff5 = new verfyappvr.appnew(page38);
+  for (let n = 0; n < validApprovers5.length; n++) {
+    const isApproverValid5 = await SalesGPStaff5.isValidApprover(validApprovers5[n],n);
+  }
+  for(let n=0;n<validApprovers.length;n++){
+  if(NVApproveruser5[n] == pageApp1 || NVApproveruser5[n] == pageApp2){
+  const NVApprover5 = new verfyappvr.appnew(NVApproveruser5[n]);
+  await NVApproveruser5[n].goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser5[n].bringToFront();
+  await NVApprover5.correctApprover(SOID);
+  
+  } 
+  
+    //inbox function end
+  }
+  //Revise Quote
+  
+  await page38.pause()
+  await page38.bringToFront()
+  await page38.goto(quoteURL)
+  await page38.getByLabel('Quote Form Applet:Revise').click();
+  const reviseQuote1 = await page38.locator('[aria-label="Quote#"]').inputValue();
+  console.log('Revise Quote  1 : ' + reviseQuote1);
+  await page38.getByPlaceholder('Sales Price', { exact: true }).click();
+  await page38.getByPlaceholder('Sales Price', { exact: true }).fill('¥8,079,000');
+  await page38.getByPlaceholder('Sales Price', { exact: true }).press('Control+s');
+  await page38.getByLabel('Quote Form Applet:Generate').click();
+  await page38.getByPlaceholder('Sales Commission Ratio').click();
+  await page38.getByPlaceholder('Sales Commission Ratio').press('Alt+Control+k');
+  const reviseQuoteID1 = await page38.locator('[aria-label="Row #"]').textContent();
+  console.log('Revise Quote id for taking approval is : ' + reviseQuoteID1);
+  await page38.getByLabel('About Record Form Applet:OK').click();
+  await page38.getByRole('link', { name: 'Approval History' }).click();
+  await page38.pause()
+
+  console.log('\n********* From Sales-MGR - MDT (Revise Quote) *****  Expected - "Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr","SCHQ-Sales-NV-Mgr","HQ-Executive-Mgr","SCHQ-SC-Head"************\n')
+  const validApprovers6 = jsonData.QuoteRevise_AfterSO[0]['Other'];
+  const NVApproveruser6 = [pageApp1,pageApp2,pageApp2,pageApp2,pageApp2,pageApp2]
+  const SalesGPStaff6 = new verfyappvr.appnew(page38);
+  for (let n = 0; n < validApprovers6.length; n++) {
+    const isApproverValid6 = await SalesGPStaff6.isValidApprover(validApprovers6[n],n);
+  }
+  for(let n=0;n<validApprovers.length;n++){
+  if(NVApproveruser6[n] == pageApp1 || NVApproveruser6[n] == pageApp2){
+  const NVApprover6 = new verfyappvr.appnew(NVApproveruser6[n]);
+  await NVApproveruser6[n].goto('https://forcefdp-uat1.mitsubishi-fuso.com/siebel/app/edealer/enu?SWECmd=GotoView&SWEView=UInbox+My+Team+Inbox+Item+List+View',{ waitUntil: 'networkidle' });
+  await NVApproveruser6[n].bringToFront();
+  await NVApprover6.correctApprover(reviseQuoteID1);
+  
+  } 
   
     //inbox function end
   }

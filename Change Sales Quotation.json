@@ -117,5 +117,10 @@
           "Bus-Staf": ["Branch-Sales-Mgr",  "Branch-Head","Bus-Area-Mgr",  "HQ-TAJ-Fleet-SnrMgr",  "SCHQ-Sales-NV-Mgr","SCHQ-SC-Head"],
           "Bus Dept. Manager" : ["Branch-Sales-Mgr",  "Branch-Head","Bus-Area-Mgr",  "HQ-TAJ-Fleet-SnrMgr",  "SCHQ-Sales-NV-Mgr","SCHQ-SC-Head"]
         }
-      ]
+      ],
+      "QuoteRevise_AfterSO": [
+        {
+        "Other":["Branch-Sales-Mgr","Branch-Head","SCHQ-BizMgmt-SnrMgr","SCHQ-Sales-NV-Mgr","HQ-Executive-Mgr","SCHQ-SC-Head"]
+      }
+    ]
   }
