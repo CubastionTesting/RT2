@@ -79,7 +79,7 @@
           }
         }
       ],
-      "Other": [
+      "Others": [
         {
           "Branch-limit": {
             "Branch-Sales-Staf": ["Branch-Sales-Mgr","Branch-Head"],
