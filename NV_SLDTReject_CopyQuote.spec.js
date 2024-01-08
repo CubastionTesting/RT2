@@ -358,7 +358,7 @@ await page38.pause()
  
  
 })
-test('MGR for MDT', async () => {
+test('MGR for SLDT', async () => {
  
     const browser = await chromium.launch({
       headless: false
